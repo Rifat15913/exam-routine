@@ -1,7 +1,7 @@
 <resources>
     <!--App Essentials-->
-    <string name="app_name">BaseMvp</string>
-    <string name="file_provider_authority" translatable="false">io.diaryofrifat.code.basemvp.fileprovider</string>
+    <string name="app_name">Board Routine BD</string>
+    <string name="file_provider_authority" translatable="false">io.diaryofrifat.code.boardroutinebd.fileprovider</string>
     <string name="intent_type_image">image/*</string>
     <string name="intent_extra_return_data">return-data</string>
 
