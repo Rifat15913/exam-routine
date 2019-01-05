@@ -17,7 +17,17 @@
         <item name="android:fontFamily">@font/opensans_regular</item>
     </style>
 
-    <style name="AppTheme.GradientStatusBar" parent="AppTheme">
+    <style name="AppTheme.FullScreen">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
+    <style name="AppTheme.Launcher">
+        <item name="android:windowBackground">@drawable/splash_screen</item>
+    </style>
+
+    <style name="AppTheme.GradientStatusBar">
         <item name="android:windowContentOverlay">@null</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>

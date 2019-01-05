@@ -1,6 +1,6 @@
 package io.diaryofrifat.code.utils.helper
 
-import io.diaryofrifat.code.examroutinebd.R
+import io.diaryofrifat.code.examroutine.R
 
 class Constants {
     class Default {

@@ -10,7 +10,7 @@ android {
     buildToolsVersion rootProject.ext.build_tools_version
     
     defaultConfig {
-        applicationId "io.diaryofrifat.code.examroutinebd"
+        applicationId "io.diaryofrifat.code.examroutine"
         minSdkVersion rootProject.ext.minimum_sdk_version
         targetSdkVersion rootProject.ext.target_sdk_version
 

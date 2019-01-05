@@ -1,7 +1,7 @@
 <resources>
     <!--App Essentials-->
-    <string name="app_name">Exam Routine BD: PSC, JSC, SSC, HSC</string>
-    <string name="file_provider_authority" translatable="false">io.diaryofrifat.code.examroutinebd.fileprovider</string>
+    <string name="app_name">Exam Routine: PSC, JSC, SSC, HSC</string>
+    <string name="file_provider_authority" translatable="false">io.diaryofrifat.code.examroutine.fileprovider</string>
     <string name="intent_type_image">image/*</string>
     <string name="intent_extra_return_data">return-data</string>
 
@@ -22,4 +22,7 @@
     <!--Demo page-->
     <string name="do_something">Do something</string>
     <string name="pick_photo">Pick photo</string>
+
+    <!--Decision maker page-->
+    <string name="choose_one">Choose one please…</string>
 </resources>
