@@ -32,6 +32,12 @@ class Constants {
         }
     }
 
+    class PreferenceKey {
+        companion object {
+            const val EXAM_TYPE = "EXAM_TYPE"
+        }
+    }
+
     class File {
         companion object {
             val DIRECTORY_ROOT = DataUtils.getString(R.string.app_name)

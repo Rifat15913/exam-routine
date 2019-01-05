@@ -25,4 +25,8 @@
 
     <!--Decision maker page-->
     <string name="choose_one">Choose one please…</string>
+    <string name="psc">PSC</string>
+    <string name="jsc">JSC</string>
+    <string name="ssc">SSC</string>
+    <string name="hsc">HSC</string>
 </resources>

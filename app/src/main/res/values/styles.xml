@@ -35,4 +35,15 @@
         <item name="android:statusBarColor" tools:targetApi="lollipop">@android:color/transparent
         </item>
     </style>
+
+    <style name="AppTheme.LightStatusBar">
+        <item name="android:windowLightStatusBar" tools:targetApi="M">true</item>
+    </style>
+
+    <style name="Widget.MaterialComponents.Button.OutlinedButton.Custom">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textSize">@dimen/text_body</item>
+    </style>
 </resources>
