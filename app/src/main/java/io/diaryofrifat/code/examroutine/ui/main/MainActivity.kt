@@ -10,7 +10,6 @@ import io.diaryofrifat.code.examroutine.databinding.ActivityMainBinding
 import io.diaryofrifat.code.examroutine.ui.base.component.BaseActivity
 import io.diaryofrifat.code.examroutine.ui.base.helper.LinearMarginItemDecoration
 import io.diaryofrifat.code.utils.helper.ViewUtils
-import io.diaryofrifat.code.utils.helper.notification.NotificationUtils
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
@@ -60,12 +59,12 @@ class MainActivity : BaseActivity<MainMvpView, MainPresenter>(), MainMvpView {
                     Timber.e(it)
                 }))
 
-        NotificationUtils.buildNotification(1234,
+/*        NotificationUtils.buildNotification(1234,
                 NotificationUtils.NotificationType.DEFAULT,
                 R.drawable.ic_check_white_48dp,
                 "Hello Notification",
                 "Hello Notification Caption",
-                R.raw.notification)
+                R.raw.notification)*/
 
         presenter.test()
     }

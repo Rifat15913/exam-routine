@@ -3,8 +3,11 @@ package io.diaryofrifat.code
 import android.content.Context
 import androidx.multidex.MultiDex
 import androidx.multidex.MultiDexApplication
+import com.google.android.gms.ads.MobileAds
 import io.diaryofrifat.code.examroutine.BuildConfig
+import io.diaryofrifat.code.examroutine.R
 import io.diaryofrifat.code.examroutine.data.BaseRepository
+import io.diaryofrifat.code.utils.helper.DataUtils
 import timber.log.Timber
 
 class BaseApplication : MultiDexApplication() {
@@ -47,6 +50,7 @@ class BaseApplication : MultiDexApplication() {
 
     private fun initiate(context: Context) {
         BaseRepository.init(context)
+        MobileAds.initialize(context, DataUtils.getString(R.string.admob_app_id))
     }
 
     override fun attachBaseContext(base: Context?) {

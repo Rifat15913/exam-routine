@@ -62,6 +62,7 @@
     <dimen name="width_400">400dp</dimen>
 
     <dimen name="height_tab_layout_title_without_icon">48dp</dimen>
+    <dimen name="height_1">1dp</dimen>
     <dimen name="height_5">5dp</dimen>
     <dimen name="height_10">10dp</dimen>
     <dimen name="height_15">15dp</dimen>
@@ -104,6 +105,7 @@
     <dimen name="height_200">200dp</dimen>
     <dimen name="height_205">205dp</dimen>
 
+    <dimen name="margin_0">0dp</dimen>
     <dimen name="margin_5">5dp</dimen>
     <dimen name="margin_8">8dp</dimen>
     <dimen name="margin_10">10dp</dimen>
@@ -180,4 +182,18 @@
     <dimen name="elevation_16">16dp</dimen>
     <dimen name="elevation_18">18dp</dimen>
     <dimen name="elevation_20">20dp</dimen>
+
+    <dimen name="radius_2">2dp</dimen>
+    <dimen name="radius_4">4dp</dimen>
+    <dimen name="radius_6">6dp</dimen>
+    <dimen name="radius_8">8dp</dimen>
+    <dimen name="radius_10">10dp</dimen>
+    <dimen name="radius_12">12dp</dimen>
+    <dimen name="radius_14">14dp</dimen>
+    <dimen name="radius_16">16dp</dimen>
+    <dimen name="radius_18">18dp</dimen>
+    <dimen name="radius_20">20dp</dimen>
+    <dimen name="radius_22">22dp</dimen>
+    <dimen name="radius_24">24dp</dimen>
+    <dimen name="radius_25">25dp</dimen>
 </resources>

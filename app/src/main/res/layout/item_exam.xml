@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="@dimen/radius_4"
+        app:cardElevation="@dimen/elevation_2"
+        app:cardPreventCornerOverlap="false">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/text_view_subject_name"
+                style="@style/ExamRoutineItem"
+                android:layout_marginTop="@dimen/margin_16"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/text_view_subject_code"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Physics 1st paper" />
+
+            <TextView
+                android:id="@+id/text_view_subject_code"
+                style="@style/ExamRoutineItem"
+                android:layout_marginTop="@dimen/margin_8"
+                app:layout_constraintBottom_toTopOf="@+id/text_view_date_time"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/text_view_subject_name"
+                tools:text="Code - 101" />
+
+            <TextView
+                android:id="@+id/text_view_date_time"
+                style="@style/ExamRoutineItem"
+                android:layout_marginTop="@dimen/margin_8"
+                android:layout_marginBottom="@dimen/margin_16"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/text_view_subject_code"
+                tools:text="Monday, 07 January, 2019" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</layout>

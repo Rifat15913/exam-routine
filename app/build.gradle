@@ -150,6 +150,10 @@ dependencies {
     implementation "com.squareup.retrofit2:converter-gson:$rootProject.ext.retrofit_version"
     implementation "com.squareup.retrofit2:adapter-rxjava2:$rootProject.ext.retrofit_version"
 
+    // Firebase
+    implementation 'com.google.firebase:firebase-core:16.0.6'
+    implementation 'com.google.firebase:firebase-ads:17.1.2'
+
     // App data storage
     //debugImplementation 'com.awesomedroidapps:inappstoragereader:1.0.2'
 

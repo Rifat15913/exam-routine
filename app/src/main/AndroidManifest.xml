@@ -18,6 +18,10 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
 
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="@string/admob_test_app_id" />
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="@string/file_provider_authority"

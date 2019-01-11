@@ -4,6 +4,10 @@
     <string name="file_provider_authority" translatable="false">io.diaryofrifat.code.examroutine.fileprovider</string>
     <string name="intent_type_image">image/*</string>
     <string name="intent_extra_return_data">return-data</string>
+    <string name="admob_app_id">ca-app-pub-4319241283573773~3420581513</string>
+    <string name="admob_before_routine_interstitial_ad_unit_id">ca-app-pub-4319241283573773/7987222926</string>
+    <string name="admob_test_app_id">ca-app-pub-3940256099942544~3347511713</string>
+    <string name="admob_test_banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
 
     <!--Error-->
     <string name="error_could_not_create_bitmap">Could not create bitmap from the view</string>
