@@ -1,5 +1,6 @@
 package io.diaryofrifat.code.examroutine.ui.base.component
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.*
@@ -36,6 +37,9 @@ abstract class BaseFragment<V : MvpView, P : BasePresenter<V>> : Fragment(),
         private set
     protected lateinit var presenter: P
 
+    // This fragment context
+    protected var mContext: Context? = null
+
     /**
      * The methods to be implemented by the child class (Abstract methods)
      * */
@@ -57,11 +61,19 @@ abstract class BaseFragment<V : MvpView, P : BasePresenter<V>> : Fragment(),
     }
 
     @Suppress("UNCHECKED_CAST")
-    private val baseActivity: BaseActivity<V, P>?
-        get() = activity as BaseActivity<V, P>?
+    private val baseActivity: BaseActivity<*, *>?
+        get() = activity as BaseActivity<*, *>?
 
     private val isBaseActivityInstance: Boolean
         get() = BaseActivity::class.java.isInstance(activity)
+
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
+
+        if (context != null) {
+            mContext = context
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

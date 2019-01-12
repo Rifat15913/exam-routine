@@ -153,13 +153,15 @@ dependencies {
     // Firebase
     implementation 'com.google.firebase:firebase-core:16.0.6'
     implementation 'com.google.firebase:firebase-ads:17.1.2'
+    implementation 'com.google.firebase:firebase-database:16.0.5'
 
     // App data storage
-    //debugImplementation 'com.awesomedroidapps:inappstoragereader:1.0.2'
+    debugImplementation 'com.awesomedroidapps:inappstoragereader:1.0.2'
 
     // Memory leak detector
-    //debugImplementation "com.squareup.leakcanary:leakcanary-android:$rootProject.ext.leak_canary_version"
-    //debugImplementation "com.squareup.leakcanary:leakcanary-support-fragment:$rootProject.ext.leak_canary_version"
+    debugImplementation "com.squareup.leakcanary:leakcanary-android:$rootProject.ext.leak_canary_version"
+    releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$rootProject.ext.leak_canary_version"
+    debugImplementation "com.squareup.leakcanary:leakcanary-support-fragment:$rootProject.ext.leak_canary_version"
 
     // Testing
     testImplementation 'junit:junit:4.12'
@@ -167,3 +169,5 @@ dependencies {
     // JVM testing
     androidTestImplementation 'androidx.test:runner:1.1.1'
 }
+
+apply plugin: 'com.google.gms.google-services'

@@ -1,14 +1,18 @@
 package io.diaryofrifat.code.examroutine.ui.decisionmaker
 
+import android.content.Intent
 import android.view.View
 import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.InterstitialAd
+import com.google.android.gms.ads.MobileAds
 import com.google.android.material.button.MaterialButton
 import io.diaryofrifat.code.examroutine.R
 import io.diaryofrifat.code.examroutine.databinding.ActivityDecisionMakerBinding
 import io.diaryofrifat.code.examroutine.ui.base.component.BaseActivity
+import io.diaryofrifat.code.examroutine.ui.home.HomeActivity
 import io.diaryofrifat.code.utils.helper.Constants
+import io.diaryofrifat.code.utils.helper.DataUtils
 import io.diaryofrifat.code.utils.helper.SharedPrefUtils
 
 class DecisionMakerActivity : BaseActivity<DecisionMakerMvpView, DecisionMakerPresenter>() {
@@ -24,6 +28,7 @@ class DecisionMakerActivity : BaseActivity<DecisionMakerMvpView, DecisionMakerPr
     }
 
     override fun startUI() {
+        MobileAds.initialize(this, DataUtils.getString(R.string.admob_app_id))
         initialization()
         setListeners()
     }
@@ -32,7 +37,7 @@ class DecisionMakerActivity : BaseActivity<DecisionMakerMvpView, DecisionMakerPr
         mBinding = viewDataBinding as ActivityDecisionMakerBinding
         window.setBackgroundDrawable(null)
         mInterstitialAd = InterstitialAd(this)
-        mInterstitialAd?.adUnitId = getString(R.string.admob_before_routine_interstitial_ad_unit_id)
+        mInterstitialAd?.adUnitId = getString(R.string.before_routine_ad_unit_id)
         mInterstitialAd?.loadAd(AdRequest.Builder().build())
     }
 
@@ -43,7 +48,7 @@ class DecisionMakerActivity : BaseActivity<DecisionMakerMvpView, DecisionMakerPr
         mInterstitialAd?.adListener = object : AdListener() {
             override fun onAdClosed() {
                 super.onAdClosed()
-                goToRoutinePage()
+                goToHomePage()
             }
         }
     }
@@ -61,11 +66,12 @@ class DecisionMakerActivity : BaseActivity<DecisionMakerMvpView, DecisionMakerPr
         if (mInterstitialAd?.isLoaded!!) {
             mInterstitialAd?.show()
         } else {
-            goToRoutinePage()
+            goToHomePage()
         }
     }
 
-    private fun goToRoutinePage() {
-
+    private fun goToHomePage() {
+        startActivity(Intent(this, HomeActivity::class.java))
+        overridePendingTransition(R.anim.right_to_left, R.anim.left_to_right)
     }
 }

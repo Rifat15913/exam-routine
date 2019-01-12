@@ -14,7 +14,8 @@ class Constants {
 
     class Common {
         companion object {
-            const val APP_COMMON_DATE_FORMAT: String = "MMM dd, yyyy"
+            const val APP_COMMON_DATE_FORMAT: String = "EEEE, dd MMMM, yyyy"
+            const val APP_COMMON_TIME_FORMAT: String = "hh:mm a"
         }
     }
 

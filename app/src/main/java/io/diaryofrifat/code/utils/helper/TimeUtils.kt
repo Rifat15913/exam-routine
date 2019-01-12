@@ -80,6 +80,45 @@ class TimeUtils private constructor() {
         }
 
         /**
+         * This method returns a formatted date which uses the common date format all over the app
+         *
+         * @param timeStamp time in milliseconds
+         */
+        fun getFormattedDateString(timeStamp: Long): String {
+            val calendar = Calendar.getInstance()
+            calendar.timeInMillis = timeStamp
+
+            return SimpleDateFormat(Constants.Common.APP_COMMON_DATE_FORMAT,
+                    Locale.ENGLISH).format(calendar.time)
+        }
+
+        /**
+         * This method provides time in milliseconds format after some amount of hours
+         *
+         * @param timeStamp first time in milliseconds
+         * @param hours hours to be added
+         * */
+        fun getMillisecondsHoursLater(timeStamp: Long, hours: Int): Long {
+            val calendar = Calendar.getInstance()
+            calendar.timeInMillis = timeStamp
+            calendar.add(Calendar.HOUR, hours)
+            return calendar.timeInMillis
+        }
+
+        /**
+         * This method returns a formatted date which uses the common date format all over the app
+         *
+         * @param timeStamp time in milliseconds
+         * @param dateTimeFormat desired date time format
+         */
+        fun getFormattedDateTimeString(timeStamp: Long, dateTimeFormat: String): String {
+            val calendar = Calendar.getInstance()
+            calendar.timeInMillis = timeStamp
+
+            return SimpleDateFormat(dateTimeFormat, Locale.ENGLISH).format(calendar.time)
+        }
+
+        /**
          * This method returns a calendar object which is parsed from a date string using
          * common date format of the application
          *

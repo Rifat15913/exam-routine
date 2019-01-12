@@ -20,7 +20,7 @@
 
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="@string/admob_test_app_id" />
+            android:value="@string/admob_app_id" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -66,6 +66,11 @@
             android:name=".ui.decisionmaker.DecisionMakerActivity"
             android:launchMode="singleTop"
             android:theme="@style/AppTheme.FullScreen" />
+
+        <activity
+            android:name=".ui.home.HomeActivity"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme" />
     </application>
 
 </manifest>
