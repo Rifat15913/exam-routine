@@ -13,6 +13,7 @@ import io.diaryofrifat.code.utils.helper.Constants
 import io.diaryofrifat.code.utils.helper.DataUtils.Companion.getString
 import io.diaryofrifat.code.utils.helper.ProgressDialogUtils
 import io.diaryofrifat.code.utils.helper.SharedPrefUtils
+import io.diaryofrifat.code.utils.helper.TimeUtils
 import io.diaryofrifat.code.utils.libs.ToastUtils
 import io.diaryofrifat.code.utils.libs.firebase.FirebaseUtils
 import io.reactivex.Single
@@ -94,10 +95,12 @@ class RoutinePresenter : BasePresenter<RoutineMvpView>() {
                         for (item in data.children) {
                             mvpView?.onChildChanged(item.getValue(Exam::class.java)!!)
                             count++
-                        }
 
-                        if (count == data.childrenCount) {
-                            ProgressDialogUtils.hideProgressDialog()
+                            if (count == data.childrenCount) {
+                                ProgressDialogUtils.hideProgressDialog()
+                                mvpView?.setToolbarTitle(TimeUtils.getYear(
+                                        (item.getValue(Exam::class.java)!!.time)).toString())
+                            }
                         }
                     }
                 }
@@ -109,10 +112,12 @@ class RoutinePresenter : BasePresenter<RoutineMvpView>() {
                         for (item in data.children) {
                             mvpView?.onChildAdded(item.getValue(Exam::class.java)!!)
                             count++
-                        }
 
-                        if (count == data.childrenCount) {
-                            ProgressDialogUtils.hideProgressDialog()
+                            if (count == data.childrenCount) {
+                                ProgressDialogUtils.hideProgressDialog()
+                                mvpView?.setToolbarTitle(TimeUtils.getYear(
+                                        (item.getValue(Exam::class.java)!!.time)).toString())
+                            }
                         }
                     }
                 }

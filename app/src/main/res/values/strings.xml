@@ -46,6 +46,8 @@
     <!--Routine page-->
     <string name="placeholder_subject_code">Subject Code: %s</string>
     <string name="placeholder_exam_time">%s to %s</string>
+    <string name="placeholder_routine">%s Routine</string>
+    <string name="placeholder_routine_year">%s Routine %s</string>
 
     <!--Exam details page-->
     <string name="exam_details">Exam details</string>

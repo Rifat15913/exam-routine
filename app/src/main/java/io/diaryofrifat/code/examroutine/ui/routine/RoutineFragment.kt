@@ -15,12 +15,10 @@ import io.diaryofrifat.code.examroutine.ui.base.callback.ItemClickListener
 import io.diaryofrifat.code.examroutine.ui.base.component.BaseFragment
 import io.diaryofrifat.code.examroutine.ui.base.helper.LinearMarginItemDecoration
 import io.diaryofrifat.code.examroutine.ui.examdetails.ExamDetailsActivity
-import io.diaryofrifat.code.utils.helper.Constants
-import io.diaryofrifat.code.utils.helper.DataUtils
-import io.diaryofrifat.code.utils.helper.ProgressDialogUtils
-import io.diaryofrifat.code.utils.helper.ViewUtils
+import io.diaryofrifat.code.utils.helper.*
 import io.diaryofrifat.code.utils.libs.ToastUtils
 import timber.log.Timber
+import java.util.*
 
 class RoutineFragment : BaseFragment<RoutineMvpView, RoutinePresenter>(), RoutineMvpView {
 
@@ -150,5 +148,12 @@ class RoutineFragment : BaseFragment<RoutineMvpView, RoutinePresenter>(), Routin
 
     override fun clearTheList() {
         getAdapter().clear()
+    }
+
+    override fun setToolbarTitle(year: String) {
+        val examName: String = SharedPrefUtils.get(Constants.PreferenceKey.EXAM_TYPE)!!
+        setTitle(String.format(Locale.ENGLISH,
+                getString(R.string.placeholder_routine_year),
+                examName, year))
     }
 }

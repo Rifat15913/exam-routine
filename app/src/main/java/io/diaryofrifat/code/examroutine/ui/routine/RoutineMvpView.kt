@@ -10,4 +10,5 @@ interface RoutineMvpView : MvpView {
     fun onChildError(error: Throwable)
     fun onInternetConnectivity(state: Boolean)
     fun clearTheList()
+    fun setToolbarTitle(year: String)
 }
