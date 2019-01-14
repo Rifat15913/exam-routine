@@ -1,28 +1,33 @@
 package io.diaryofrifat.code.examroutine.ui.routine
 
+import android.content.Intent
+import android.view.View
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.firebase.database.ChildEventListener
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.DatabaseReference
+import com.google.android.gms.ads.AdListener
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.InterstitialAd
+import com.google.android.gms.ads.MobileAds
 import io.diaryofrifat.code.examroutine.R
 import io.diaryofrifat.code.examroutine.data.local.Exam
 import io.diaryofrifat.code.examroutine.databinding.FragmentExamRoutineBinding
+import io.diaryofrifat.code.examroutine.ui.base.callback.ItemClickListener
 import io.diaryofrifat.code.examroutine.ui.base.component.BaseFragment
 import io.diaryofrifat.code.examroutine.ui.base.helper.LinearMarginItemDecoration
+import io.diaryofrifat.code.examroutine.ui.examdetails.ExamDetailsActivity
 import io.diaryofrifat.code.utils.helper.Constants
-import io.diaryofrifat.code.utils.helper.SharedPrefUtils
+import io.diaryofrifat.code.utils.helper.DataUtils
+import io.diaryofrifat.code.utils.helper.ProgressDialogUtils
 import io.diaryofrifat.code.utils.helper.ViewUtils
 import io.diaryofrifat.code.utils.libs.ToastUtils
-import io.diaryofrifat.code.utils.libs.firebase.FirebaseUtils
+import timber.log.Timber
 
-class RoutineFragment : BaseFragment<RoutineMvpView, RoutinePresenter>() {
+class RoutineFragment : BaseFragment<RoutineMvpView, RoutinePresenter>(), RoutineMvpView {
 
     private lateinit var mBinding: FragmentExamRoutineBinding
     private lateinit var mMarginItemDecoration: LinearMarginItemDecoration
-    private var mFirebaseDatabaseReference: DatabaseReference? = null
-    private var mChildEventListener: ChildEventListener? = null
+    private var mInterstitialAd: InterstitialAd? = null
+    private var mItem: Exam? = null
 
     override val layoutId: Int
         get() = R.layout.fragment_exam_routine
@@ -34,38 +39,37 @@ class RoutineFragment : BaseFragment<RoutineMvpView, RoutinePresenter>() {
     override fun startUI() {
         mBinding = viewDataBinding as FragmentExamRoutineBinding
 
-        val examType: String = SharedPrefUtils.get(Constants.PreferenceKey.EXAM_TYPE,
-                Constants.Default.DEFAULT_STRING)!!
+        workWithAds()
+        workWithViews()
+        if (workWithRoutineData()) {
+            activity?.finish()
+            return
+        }
+        setListeners()
+        workWithValidation()
+    }
 
-        val databaseExamPath: String?
+    private fun workWithValidation() {
+        presenter.checkInternetConnectivity()
+    }
 
-        when (examType) {
-            getString(R.string.psc) -> {
-                databaseExamPath = getString(R.string.path_psc)
-            }
-
-            getString(R.string.jsc) -> {
-                databaseExamPath = getString(R.string.path_jsc)
-            }
-
-            getString(R.string.ssc) -> {
-                databaseExamPath = getString(R.string.path_ssc)
-            }
-
-            getString(R.string.hsc) -> {
-                databaseExamPath = getString(R.string.path_hsc)
-            }
-
-            else -> {
-                ToastUtils.error(getString(R.string.something_went_wrong))
-                return
+    private fun setListeners() {
+        mInterstitialAd?.adListener = object : AdListener() {
+            override fun onAdClosed() {
+                super.onAdClosed()
+                // Go to next page
+                if (mItem != null) {
+                    goToExamDetailsPage(mItem!!)
+                }
             }
         }
+    }
 
-        if (mFirebaseDatabaseReference == null) {
-            mFirebaseDatabaseReference = FirebaseUtils.getDatabaseReference(databaseExamPath)
-        }
+    private fun workWithRoutineData(): Boolean {
+        return if (mContext == null) true else presenter.attachFirebaseDatabase(mContext!!)
+    }
 
+    private fun workWithViews() {
         if (mContext != null) {
             mMarginItemDecoration = LinearMarginItemDecoration(
                     ViewUtils.getPixel(R.dimen.margin_16),
@@ -73,42 +77,42 @@ class RoutineFragment : BaseFragment<RoutineMvpView, RoutinePresenter>() {
                     ViewUtils.getPixel(R.dimen.margin_8))
 
             ViewUtils.initializeRecyclerView(mBinding.recyclerViewExams, RoutineAdapter(),
-                    null, null, LinearLayoutManager(mContext),
+                    object : ItemClickListener<Exam> {
+                        override fun onItemClick(view: View, item: Exam) {
+                            if (mInterstitialAd != null && mInterstitialAd?.isLoaded!!) {
+                                mItem = item
+                                mInterstitialAd?.show()
+                            } else {
+                                goToExamDetailsPage(item)
+                            }
+                        }
+                    }
+                    , null, LinearLayoutManager(mContext),
                     mMarginItemDecoration, null, DefaultItemAnimator())
         }
+    }
 
-        if (mChildEventListener == null) {
-            mChildEventListener = object : ChildEventListener {
-                override fun onCancelled(error: DatabaseError) {
+    private fun goToExamDetailsPage(item: Exam) {
+        val intent = Intent(mContext, ExamDetailsActivity::class.java)
+        intent.putExtra(Constants.IntentKey.MODEL, item)
+        startActivity(intent)
+    }
 
-                }
+    private fun workWithAds() {
+        if (mContext != null) {
+            MobileAds.initialize(mContext, DataUtils.getString(R.string.admob_app_id))
+            mBinding.bannerAdView.loadAd(AdRequest.Builder().build())
 
-                override fun onChildMoved(data: DataSnapshot, p1: String?) {
-
-                }
-
-                override fun onChildChanged(data: DataSnapshot, p1: String?) {
-                    getAdapter().addItem(data.getValue(Exam::class.java)!!)
-                }
-
-                override fun onChildAdded(data: DataSnapshot, p1: String?) {
-                    getAdapter().addItem(data.getValue(Exam::class.java)!!)
-                }
-
-                override fun onChildRemoved(data: DataSnapshot) {
-
-                }
-
-            }
+            mInterstitialAd = InterstitialAd(mContext?.applicationContext)
+            mInterstitialAd?.adUnitId = getString(R.string.click_on_exam_ad_unit_id)
+            mInterstitialAd?.loadAd(AdRequest.Builder().build())
         }
-
-        mFirebaseDatabaseReference?.addChildEventListener(mChildEventListener!!)
     }
 
     override fun stopUI() {
-        if (mChildEventListener != null) {
-            mFirebaseDatabaseReference?.removeEventListener(mChildEventListener!!)
-        }
+        presenter.detachFirebaseDatabase()
+        mInterstitialAd?.adListener = null
+        mInterstitialAd = null
     }
 
     override fun onStop() {
@@ -118,5 +122,33 @@ class RoutineFragment : BaseFragment<RoutineMvpView, RoutinePresenter>() {
 
     private fun getAdapter(): RoutineAdapter {
         return mBinding.recyclerViewExams.adapter as RoutineAdapter
+    }
+
+    override fun onChildChanged(item: Exam) {
+        getAdapter().addItem(item)
+    }
+
+    override fun onChildAdded(item: Exam) {
+        getAdapter().addItem(item)
+    }
+
+    override fun onChildRemoved(item: Exam) {
+        getAdapter().removeItem(item)
+    }
+
+    override fun onChildError(error: Throwable) {
+        Timber.e(error)
+        ToastUtils.error(getString(R.string.something_went_wrong))
+    }
+
+    override fun onInternetConnectivity(state: Boolean) {
+        if (!state) {
+            ToastUtils.error(getString(R.string.error_you_are_not_connected_to_the_internet))
+            ProgressDialogUtils.hideProgressDialog()
+        }
+    }
+
+    override fun clearTheList() {
+        getAdapter().clear()
     }
 }

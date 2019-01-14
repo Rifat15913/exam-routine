@@ -11,7 +11,7 @@ object FirebaseUtils {
     private val mFirebaseDatabase = FirebaseDatabase.getInstance()
 
     init {
-        //mFirebaseDatabase.setPersistenceEnabled(true)
+        mFirebaseDatabase.setPersistenceEnabled(true)
     }
 
     /**

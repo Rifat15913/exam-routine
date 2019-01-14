@@ -3,7 +3,6 @@ package io.diaryofrifat.code
 import android.content.Context
 import androidx.multidex.MultiDex
 import androidx.multidex.MultiDexApplication
-import com.squareup.leakcanary.LeakCanary
 import io.diaryofrifat.code.examroutine.BuildConfig
 import io.diaryofrifat.code.examroutine.data.BaseRepository
 import timber.log.Timber
@@ -41,9 +40,9 @@ class BaseApplication : MultiDexApplication() {
             }
         })
 
-        if (!LeakCanary.isInAnalyzerProcess(this)) {
+        /*if (!LeakCanary.isInAnalyzerProcess(this)) {
             LeakCanary.install(this)
-        }
+        }*/
     }
 
     private fun initiate(context: Context) {

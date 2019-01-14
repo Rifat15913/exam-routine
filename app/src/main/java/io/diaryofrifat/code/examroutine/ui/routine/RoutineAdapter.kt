@@ -1,5 +1,6 @@
 package io.diaryofrifat.code.examroutine.ui.routine
 
+import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
 import io.diaryofrifat.code.examroutine.R
@@ -21,10 +22,13 @@ class RoutineAdapter : BaseAdapter<Exam>() {
         return left.id == right.id
     }
 
-    class RoutineViewHolder(binding: ViewDataBinding) : BaseViewHolder<Exam>(binding) {
+    inner class RoutineViewHolder(binding: ViewDataBinding) : BaseViewHolder<Exam>(binding) {
         private val mBinding = binding as ItemExamBinding
 
         override fun bind(item: Exam) {
+
+            setClickListener(mBinding.cardViewExamDetails)
+
             mBinding.textViewSubjectName.text = item.subjectName
 
             mBinding.textViewSubjectCode.text = String.format(Locale.ENGLISH,
@@ -39,6 +43,15 @@ class RoutineAdapter : BaseAdapter<Exam>() {
                             Constants.Common.APP_COMMON_TIME_FORMAT))
 
             mBinding.textViewDate.text = TimeUtils.getFormattedDateString(item.time)
+        }
+
+        override fun onClick(view: View) {
+            super.onClick(view)
+
+            val item = getItem(adapterPosition)
+            if (item != null) {
+                mItemClickListener?.onItemClick(view, item)
+            }
         }
     }
 }

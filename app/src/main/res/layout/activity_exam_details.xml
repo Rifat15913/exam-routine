@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/toolbar_height"
+            android:background="@color/colorPrimary"
+            android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar"
+            app:contentInsetStartWithNavigation="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/card_view_exam_details"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="spread_inside"
+            app:title="@string/exam_details" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_view_exam_details"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="@dimen/margin_16"
+            android:background="@color/white"
+            ads:cardBackgroundColor="@color/colorPrimary"
+            ads:layout_constraintWidth_default="spread"
+            ads:layout_constraintWidth_percent="1.0"
+            app:cardCornerRadius="@dimen/radius_4"
+            app:cardElevation="@dimen/elevation_8"
+            app:cardPreventCornerOverlap="false"
+            app:layout_constraintBottom_toTopOf="@+id/banner_ad_view"
+            app:layout_constraintDimensionRatio="w, 1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/text_view_subject_name"
+                    style="@style/ExamRoutineItem.Inner"
+                    android:layout_marginTop="@dimen/margin_16"
+                    android:textStyle="bold"
+                    ads:layout_constraintVertical_chainStyle="packed"
+                    app:layout_constraintBottom_toTopOf="@+id/text_view_subject_code"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Physics 1st paper" />
+
+                <TextView
+                    android:id="@+id/text_view_subject_code"
+                    style="@style/ExamRoutineItem.Inner"
+                    android:layout_marginTop="@dimen/margin_8"
+                    app:layout_constraintBottom_toTopOf="@+id/text_view_time"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/text_view_subject_name"
+                    tools:text="Code - 101" />
+
+                <TextView
+                    android:id="@+id/text_view_time"
+                    style="@style/ExamRoutineItem.Inner"
+                    android:layout_marginTop="@dimen/margin_8"
+                    app:layout_constraintBottom_toTopOf="@+id/text_view_date"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/text_view_subject_code"
+                    tools:text="02:00 PM to 05:00 PM" />
+
+                <TextView
+                    android:id="@+id/text_view_date"
+                    style="@style/ExamRoutineItem.Inner"
+                    android:layout_marginTop="@dimen/margin_8"
+                    android:layout_marginBottom="@dimen/margin_16"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/text_view_time"
+                    tools:text="Monday, 07 January, 2019" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.gms.ads.AdView
+            android:id="@+id/banner_ad_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            ads:adSize="BANNER"
+            ads:adUnitId="@string/exam_details_ad_unit_id"
+            ads:layout_constraintBottom_toBottomOf="parent"
+            ads:layout_constraintEnd_toEndOf="parent"
+            ads:layout_constraintStart_toStartOf="parent"
+            ads:layout_constraintTop_toBottomOf="@+id/card_view_exam_details" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

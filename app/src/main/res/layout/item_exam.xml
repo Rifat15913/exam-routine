@@ -4,9 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card_view_exam_details"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
+        android:stateListAnimator="@animator/card_animator_with_translationz"
         app:cardCornerRadius="@dimen/radius_4"
         app:cardElevation="@dimen/elevation_2"
         app:cardPreventCornerOverlap="false">

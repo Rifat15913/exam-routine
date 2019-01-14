@@ -36,7 +36,7 @@ class DecisionMakerActivity : BaseActivity<DecisionMakerMvpView, DecisionMakerPr
     private fun initialization() {
         mBinding = viewDataBinding as ActivityDecisionMakerBinding
         window.setBackgroundDrawable(null)
-        mInterstitialAd = InterstitialAd(this)
+        mInterstitialAd = InterstitialAd(applicationContext)
         mInterstitialAd?.adUnitId = getString(R.string.before_routine_ad_unit_id)
         mInterstitialAd?.loadAd(AdRequest.Builder().build())
     }
@@ -54,7 +54,8 @@ class DecisionMakerActivity : BaseActivity<DecisionMakerMvpView, DecisionMakerPr
     }
 
     override fun stopUI() {
-
+        mInterstitialAd?.adListener = null
+        mInterstitialAd = null
     }
 
     override fun onClick(view: View) {
@@ -71,7 +72,8 @@ class DecisionMakerActivity : BaseActivity<DecisionMakerMvpView, DecisionMakerPr
     }
 
     private fun goToHomePage() {
-        startActivity(Intent(this, HomeActivity::class.java))
-        overridePendingTransition(R.anim.right_to_left, R.anim.left_to_right)
+        val intent = Intent(this, HomeActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        startActivity(intent)
     }
 }

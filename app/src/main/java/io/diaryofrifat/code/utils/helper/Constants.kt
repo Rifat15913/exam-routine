@@ -39,6 +39,12 @@ class Constants {
         }
     }
 
+    class IntentKey {
+        companion object {
+            const val MODEL = "MODEL"
+        }
+    }
+
     class File {
         companion object {
             val DIRECTORY_ROOT = DataUtils.getString(R.string.app_name)

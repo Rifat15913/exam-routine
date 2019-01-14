@@ -13,7 +13,6 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         startActivity(Intent(this, DecisionMakerActivity::class.java))
-        overridePendingTransition(R.anim.right_to_left, R.anim.left_to_right)
         finish()
     }
 }

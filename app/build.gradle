@@ -115,6 +115,9 @@ dependencies {
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'
     implementation 'io.reactivex.rxjava2:rxjava:2.2.4'
 
+    // Reactive Network
+    implementation 'com.github.pwittchen:reactivenetwork-rx2:3.0.2'
+
     // Gson to convert from and to json
     implementation 'com.google.code.gson:gson:2.8.5'
 
@@ -159,9 +162,9 @@ dependencies {
     debugImplementation 'com.awesomedroidapps:inappstoragereader:1.0.2'
 
     // Memory leak detector
-    debugImplementation "com.squareup.leakcanary:leakcanary-android:$rootProject.ext.leak_canary_version"
+    /*debugImplementation "com.squareup.leakcanary:leakcanary-android:$rootProject.ext.leak_canary_version"
     releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$rootProject.ext.leak_canary_version"
-    debugImplementation "com.squareup.leakcanary:leakcanary-support-fragment:$rootProject.ext.leak_canary_version"
+    debugImplementation "com.squareup.leakcanary:leakcanary-support-fragment:$rootProject.ext.leak_canary_version"*/
 
     // Testing
     testImplementation 'junit:junit:4.12'
