@@ -16,6 +16,8 @@
     <string name="exam_details_ad_unit_id">ca-app-pub-4319241283573773/2961416510</string>
     <string name="routine_page_bottom_ad_unit_id">ca-app-pub-4319241283573773/5779151540</string>
     <string name="please_wait">Please Wait…</string>
+    <string name="interstitial_ad_decision_maker_page">Interstitial ad on decision maker page</string>
+    <string name="interstitial_ad_routine_page">Interstitial ad on routine page</string>
 
     <!--Error-->
     <string name="error_could_not_create_bitmap">Could not create bitmap from the view</string>
@@ -58,6 +60,7 @@
     <string name="market_link">market://details?id=</string>
     <string name="play_store_link">http://play.google.com/store/apps/details?id=</string>
     <string name="content_share_the_app">Share the app link</string>
+    <string name="exam_item">Exam item</string>
 
     <!--Exam details page-->
     <string name="exam_details">Exam Details</string>

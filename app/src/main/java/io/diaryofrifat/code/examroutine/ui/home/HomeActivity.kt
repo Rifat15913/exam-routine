@@ -2,9 +2,11 @@ package io.diaryofrifat.code.examroutine.ui.home
 
 import android.content.Intent
 import android.net.Uri
+import android.os.Bundle
 import android.view.MenuItem
 import androidx.core.app.ShareCompat
 import androidx.core.view.GravityCompat
+import com.google.firebase.analytics.FirebaseAnalytics
 import io.diaryofrifat.code.examroutine.R
 import io.diaryofrifat.code.examroutine.databinding.ActivityHomeBinding
 import io.diaryofrifat.code.examroutine.ui.about.AboutFragment
@@ -14,6 +16,7 @@ import io.diaryofrifat.code.utils.helper.AndroidUtils
 import io.diaryofrifat.code.utils.helper.Constants
 import io.diaryofrifat.code.utils.helper.SharedPrefUtils
 import io.diaryofrifat.code.utils.libs.ToastUtils
+import io.diaryofrifat.code.utils.libs.firebase.FirebaseUtils
 import timber.log.Timber
 import java.util.*
 
@@ -64,15 +67,27 @@ class HomeActivity : BaseActivity<HomeMvpView, HomePresenter>() {
             when (it.itemId) {
                 R.id.nav_home -> {
                     if (currentFragment !is RoutineFragment) {
+                        val bundle = Bundle()
+                        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, getString(R.string.nav_routine))
+                        FirebaseUtils.getFirebaseAnalytics()?.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle)
+
                         launchHomePage()
                     }
                 }
 
                 R.id.nav_change_exam_type -> {
+                    val bundle = Bundle()
+                    bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, getString(R.string.nav_change_exam_type))
+                    FirebaseUtils.getFirebaseAnalytics()?.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle)
+
                     finish()
                 }
 
                 R.id.nav_rate_it -> {
+                    val bundle = Bundle()
+                    bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, getString(R.string.nav_rate_it))
+                    FirebaseUtils.getFirebaseAnalytics()?.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle)
+
                     try {
                         startActivity(Intent(Intent.ACTION_VIEW,
                                 Uri.parse(getString(R.string.market_link)
@@ -91,6 +106,10 @@ class HomeActivity : BaseActivity<HomeMvpView, HomePresenter>() {
                 }
 
                 R.id.nav_share_the_app -> {
+                    val bundle = Bundle()
+                    bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, getString(R.string.nav_share_the_app))
+                    FirebaseUtils.getFirebaseAnalytics()?.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle)
+
                     ShareCompat.IntentBuilder.from(this)
                             .setType("text/plain")
                             .setChooserTitle(getString(R.string.content_share_the_app))
@@ -100,6 +119,10 @@ class HomeActivity : BaseActivity<HomeMvpView, HomePresenter>() {
                 }
 
                 R.id.nav_about -> {
+                    val bundle = Bundle()
+                    bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, getString(R.string.nav_about))
+                    FirebaseUtils.getFirebaseAnalytics()?.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle)
+
                     launchAboutPage()
                 }
             }

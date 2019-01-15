@@ -1,6 +1,7 @@
 package io.diaryofrifat.code.examroutine.ui.routine
 
 import android.content.Intent
+import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -8,6 +9,7 @@ import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.InterstitialAd
 import com.google.android.gms.ads.MobileAds
+import com.google.firebase.analytics.FirebaseAnalytics
 import io.diaryofrifat.code.examroutine.R
 import io.diaryofrifat.code.examroutine.data.local.Exam
 import io.diaryofrifat.code.examroutine.databinding.FragmentExamRoutineBinding
@@ -17,6 +19,7 @@ import io.diaryofrifat.code.examroutine.ui.base.helper.LinearMarginItemDecoratio
 import io.diaryofrifat.code.examroutine.ui.examdetails.ExamDetailsActivity
 import io.diaryofrifat.code.utils.helper.*
 import io.diaryofrifat.code.utils.libs.ToastUtils
+import io.diaryofrifat.code.utils.libs.firebase.FirebaseUtils
 import timber.log.Timber
 import java.util.*
 
@@ -57,6 +60,11 @@ class RoutineFragment : BaseFragment<RoutineMvpView, RoutinePresenter>(), Routin
                 super.onAdClosed()
                 // Go to next page
                 if (mItem != null) {
+                    val bundleAd = Bundle()
+                    bundleAd.putString(FirebaseAnalytics.Param.ITEM_NAME, getString(R.string.interstitial_ad_routine_page))
+                    bundleAd.putBoolean(FirebaseAnalytics.Param.ITEM_CATEGORY, true)
+                    FirebaseUtils.getFirebaseAnalytics()?.logEvent(FirebaseAnalytics.Event.VIEW_ITEM, bundleAd)
+
                     goToExamDetailsPage(mItem!!)
                 }
             }
@@ -77,10 +85,18 @@ class RoutineFragment : BaseFragment<RoutineMvpView, RoutinePresenter>(), Routin
             ViewUtils.initializeRecyclerView(mBinding.recyclerViewExams, RoutineAdapter(),
                     object : ItemClickListener<Exam> {
                         override fun onItemClick(view: View, item: Exam) {
+                            val bundle = Bundle()
+                            bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, getString(R.string.exam_item))
+                            FirebaseUtils.getFirebaseAnalytics()?.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle)
+
                             if (mInterstitialAd != null && mInterstitialAd?.isLoaded!!) {
                                 mItem = item
                                 mInterstitialAd?.show()
                             } else {
+                                val bundleAd = Bundle()
+                                bundleAd.putString(FirebaseAnalytics.Param.ITEM_NAME, getString(R.string.interstitial_ad_routine_page))
+                                bundleAd.putBoolean(FirebaseAnalytics.Param.ITEM_CATEGORY, false)
+                                FirebaseUtils.getFirebaseAnalytics()?.logEvent(FirebaseAnalytics.Event.VIEW_ITEM, bundleAd)
                                 goToExamDetailsPage(item)
                             }
                         }

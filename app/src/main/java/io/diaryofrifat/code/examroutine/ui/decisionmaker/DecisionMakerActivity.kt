@@ -1,12 +1,14 @@
 package io.diaryofrifat.code.examroutine.ui.decisionmaker
 
 import android.content.Intent
+import android.os.Bundle
 import android.view.View
 import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.InterstitialAd
 import com.google.android.gms.ads.MobileAds
 import com.google.android.material.button.MaterialButton
+import com.google.firebase.analytics.FirebaseAnalytics
 import io.diaryofrifat.code.examroutine.R
 import io.diaryofrifat.code.examroutine.databinding.ActivityDecisionMakerBinding
 import io.diaryofrifat.code.examroutine.ui.base.component.BaseActivity
@@ -14,6 +16,8 @@ import io.diaryofrifat.code.examroutine.ui.home.HomeActivity
 import io.diaryofrifat.code.utils.helper.Constants
 import io.diaryofrifat.code.utils.helper.DataUtils
 import io.diaryofrifat.code.utils.helper.SharedPrefUtils
+import io.diaryofrifat.code.utils.libs.firebase.FirebaseUtils
+
 
 class DecisionMakerActivity : BaseActivity<DecisionMakerMvpView, DecisionMakerPresenter>() {
 
@@ -48,6 +52,10 @@ class DecisionMakerActivity : BaseActivity<DecisionMakerMvpView, DecisionMakerPr
         mInterstitialAd?.adListener = object : AdListener() {
             override fun onAdClosed() {
                 super.onAdClosed()
+                val bundleAd = Bundle()
+                bundleAd.putString(FirebaseAnalytics.Param.ITEM_NAME, getString(R.string.interstitial_ad_decision_maker_page))
+                bundleAd.putBoolean(FirebaseAnalytics.Param.ITEM_CATEGORY, true)
+                FirebaseUtils.getFirebaseAnalytics()?.logEvent(FirebaseAnalytics.Event.VIEW_ITEM, bundleAd)
                 goToHomePage()
             }
         }
@@ -61,12 +69,20 @@ class DecisionMakerActivity : BaseActivity<DecisionMakerMvpView, DecisionMakerPr
     override fun onClick(view: View) {
         super.onClick(view)
 
-        SharedPrefUtils.set(Constants.PreferenceKey.EXAM_TYPE,
-                (view as MaterialButton).text.toString())
+        val examType = (view as MaterialButton).text.toString()
+        SharedPrefUtils.set(Constants.PreferenceKey.EXAM_TYPE, examType)
+
+        val bundle = Bundle()
+        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, examType)
+        FirebaseUtils.getFirebaseAnalytics()?.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle)
 
         if (mInterstitialAd?.isLoaded!!) {
             mInterstitialAd?.show()
         } else {
+            val bundleAd = Bundle()
+            bundleAd.putString(FirebaseAnalytics.Param.ITEM_NAME, getString(R.string.interstitial_ad_decision_maker_page))
+            bundleAd.putBoolean(FirebaseAnalytics.Param.ITEM_CATEGORY, false)
+            FirebaseUtils.getFirebaseAnalytics()?.logEvent(FirebaseAnalytics.Event.VIEW_ITEM, bundleAd)
             goToHomePage()
         }
     }

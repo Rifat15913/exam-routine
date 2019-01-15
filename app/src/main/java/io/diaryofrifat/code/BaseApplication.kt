@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.multidex.MultiDex
 import androidx.multidex.MultiDexApplication
 import io.diaryofrifat.code.examroutine.BuildConfig
+import io.diaryofrifat.code.utils.libs.firebase.FirebaseUtils
 import timber.log.Timber
 
 class BaseApplication : MultiDexApplication() {
@@ -41,7 +42,7 @@ class BaseApplication : MultiDexApplication() {
     }
 
     private fun initiate(context: Context) {
-
+        FirebaseUtils.initAnalytics(context)
     }
 
     override fun attachBaseContext(base: Context?) {
