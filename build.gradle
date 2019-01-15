@@ -8,12 +8,18 @@ buildscript {
         google()
         jcenter()
         mavenCentral()
+
+        maven {
+            url 'https://maven.fabric.io/public'
+        }
+
     }
 
     dependencies {
         classpath "com.android.tools.build:gradle:$gradle_version"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath 'com.google.gms:google-services:4.2.0'
+        classpath 'io.fabric.tools:gradle:1.27.0'
     }
 }
 
@@ -24,10 +30,14 @@ allprojects {
         mavenCentral()
         maven { url "https://jitpack.io" }
         maven { url 'http://dl.bintray.com/amulyakhare/maven' }
+        maven {
+            url 'https://maven.google.com/'
+        }
+
     }
 }
 
-ext{
+ext {
     build_tools_version = '28.0.3'
     target_sdk_version = 28
     // Does not support RTL (Right to left; i.e. Arabic), if (min SDK < 17)

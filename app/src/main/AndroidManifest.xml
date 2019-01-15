@@ -54,7 +54,6 @@
 
         <activity
             android:name=".ui.splash.SplashActivity"
-            android:launchMode="singleTop"
             android:theme="@style/AppTheme.Launcher">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -65,17 +64,14 @@
 
         <activity
             android:name=".ui.decisionmaker.DecisionMakerActivity"
-            android:launchMode="singleTop"
             android:theme="@style/AppTheme.FullScreen" />
 
         <activity
             android:name=".ui.home.HomeActivity"
-            android:launchMode="singleTop"
             android:theme="@style/AppTheme" />
 
         <activity
             android:name=".ui.examdetails.ExamDetailsActivity"
-            android:launchMode="singleTop"
             android:theme="@style/AppTheme" />
     </application>
 

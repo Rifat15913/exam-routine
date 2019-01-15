@@ -4,6 +4,7 @@ apply plugin: 'kotlin-android-extensions'
 
 // Add kapt plugin for compiling data binding in kotlin
 apply plugin: 'kotlin-kapt'
+apply plugin: 'io.fabric'
 
 android {
     compileSdkVersion rootProject.ext.target_sdk_version
@@ -157,6 +158,10 @@ dependencies {
     implementation 'com.google.firebase:firebase-core:16.0.6'
     implementation 'com.google.firebase:firebase-ads:17.1.2'
     implementation 'com.google.firebase:firebase-database:16.0.5'
+
+    // Firebase crashlytics
+    implementation 'com.crashlytics.sdk.android:crashlytics:2.9.8'
+
 
     // App data storage
     debugImplementation 'com.awesomedroidapps:inappstoragereader:1.0.2'
