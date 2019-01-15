@@ -45,20 +45,11 @@ dependencies {
     // Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
-    // Core library
-    implementation "androidx.core:core:1.0.1"
-
     // Add .jar libraries from external folder
     implementation fileTree(include: ['*.jar'], dir: 'libs')
 
     // MultiDex
     implementation 'androidx.multidex:multidex:2.0.1'
-
-    // Lifecycle (Java 8 Support / instead of lifecycle compiler)
-    implementation "androidx.lifecycle:lifecycle-common-java8:$rootProject.ext.lifecycle_version"
-
-    // Lifecycle with reactive streams
-    implementation "androidx.lifecycle:lifecycle-reactivestreams-ktx:$rootProject.ext.lifecycle_version"
 
     // ViewModel and LiveData
     implementation "androidx.lifecycle:lifecycle-extensions:$rootProject.ext.lifecycle_version"
