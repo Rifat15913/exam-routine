@@ -43,10 +43,10 @@
             android:layout_gravity="start"
             android:background="@color/white"
             android:fitsSystemWindows="true"
+            app:headerLayout="@layout/navigation_drawer_header"
+            app:itemIconPadding="@dimen/padding_16"
             app:itemHorizontalPadding="@dimen/padding_16"
-            app:itemIconPadding="@dimen/padding_16">
-
-        </com.google.android.material.navigation.NavigationView>
+            app:menu="@menu/navigation_drawer_menu" />
 
     </androidx.drawerlayout.widget.DrawerLayout>
 

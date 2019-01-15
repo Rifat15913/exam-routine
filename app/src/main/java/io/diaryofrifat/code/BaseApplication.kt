@@ -39,10 +39,6 @@ class BaseApplication : MultiDexApplication() {
                         " - Method:${element.methodName} - Line:${element.lineNumber}"
             }
         })
-
-        /*if (!LeakCanary.isInAnalyzerProcess(this)) {
-            LeakCanary.install(this)
-        }*/
     }
 
     private fun initiate(context: Context) {

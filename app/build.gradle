@@ -162,14 +162,8 @@ dependencies {
     // Firebase crashlytics
     implementation 'com.crashlytics.sdk.android:crashlytics:2.9.8'
 
-
-    // App data storage
-    debugImplementation 'com.awesomedroidapps:inappstoragereader:1.0.2'
-
-    // Memory leak detector
-    /*debugImplementation "com.squareup.leakcanary:leakcanary-android:$rootProject.ext.leak_canary_version"
-    releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$rootProject.ext.leak_canary_version"
-    debugImplementation "com.squareup.leakcanary:leakcanary-support-fragment:$rootProject.ext.leak_canary_version"*/
+    // About page
+    implementation 'com.github.medyo:android-about-page:1.2.5'
 
     // Testing
     testImplementation 'junit:junit:4.12'

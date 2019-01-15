@@ -1,6 +1,8 @@
 <resources>
     <!--App Essentials-->
     <string name="app_name">Exam Routine: PSC, JSC, SSC, HSC</string>
+    <string name="app_name_short">Exam Routine</string>
+    <string name="app_description">Exam Routine is a native application which provides the Board examination; i.e PSC, JSC, SSC and HSC routines. The application is very simple and user-friendly. You can provide your feedback further to improve the application experience. Thanks for being with us.</string>
     <string name="file_provider_authority" translatable="false">io.diaryofrifat.code.examroutine.fileprovider</string>
     <string name="intent_type_image">image/*</string>
     <string name="intent_extra_return_data">return-data</string>
@@ -12,7 +14,6 @@
     <string name="before_routine_ad_unit_id">ca-app-pub-4319241283573773/7987222926</string>
     <string name="click_on_exam_ad_unit_id">ca-app-pub-4319241283573773/8342446149</string>
     <string name="exam_details_ad_unit_id">ca-app-pub-4319241283573773/2961416510</string>
-    <string name="exit_dialog_ad_unit_id">ca-app-pub-4319241283573773/9882048084</string>
     <string name="routine_page_bottom_ad_unit_id">ca-app-pub-4319241283573773/5779151540</string>
     <string name="please_wait">Please Wait…</string>
 
@@ -28,6 +29,7 @@
     <string name="error_image_uri_is_null">Image Uri is null</string>
     <string name="something_went_wrong">Something went wrong</string>
     <string name="error_you_are_not_connected_to_the_internet">You are not connected to the internet. Please connect</string>
+    <string name="error_could_not_find_the_application">Sorry. Could not find the application.</string>
 
     <!--Warning-->
     <string name="warning_permissions_are_required">Permissions are required</string>
@@ -48,8 +50,22 @@
     <string name="placeholder_exam_time">%s to %s</string>
     <string name="placeholder_routine">%s Routine</string>
     <string name="placeholder_routine_year">%s Routine %s</string>
+    <string name="nav_change_exam_type">Change exam type</string>
+    <string name="nav_about">About</string>
+    <string name="nav_share_the_app">Share the app</string>
+    <string name="nav_rate_it">Rate it</string>
+    <string name="nav_routine">Home</string>
+    <string name="market_link">market://details?id=</string>
+    <string name="play_store_link">http://play.google.com/store/apps/details?id=</string>
+    <string name="content_share_the_app">Share the app link</string>
 
     <!--Exam details page-->
-    <string name="exam_details">Exam details</string>
+    <string name="exam_details">Exam Details</string>
+
+    <!--About page-->
+    <string name="placeholder_version">Version %s</string>
+    <string name="my_email">mohd.asfaqeazam@gmail.com</string>
+    <string name="my_facebook">rif.rockzzz</string>
+    <string name="my_github">rifat15913</string>
 
 </resources>
