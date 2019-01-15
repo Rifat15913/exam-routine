@@ -4,7 +4,6 @@ import android.content.Context
 import androidx.multidex.MultiDex
 import androidx.multidex.MultiDexApplication
 import io.diaryofrifat.code.examroutine.BuildConfig
-import io.diaryofrifat.code.examroutine.data.BaseRepository
 import timber.log.Timber
 
 class BaseApplication : MultiDexApplication() {
@@ -42,7 +41,7 @@ class BaseApplication : MultiDexApplication() {
     }
 
     private fun initiate(context: Context) {
-        BaseRepository.init(context)
+
     }
 
     override fun attachBaseContext(base: Context?) {

@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.amulyakhare.textdrawable.TextDrawable
 import io.diaryofrifat.code.examroutine.R
-import io.diaryofrifat.code.examroutine.ui.base.helper.SwipeItemHandler.BackgroundMaterial.ICON
 import io.diaryofrifat.code.utils.helper.DataUtils
 import io.diaryofrifat.code.utils.helper.ViewUtils
 
@@ -55,7 +54,7 @@ class SwipeItemHandler(private val mSwipeDirection: SwipeDirection,
         val itemHeight = itemView.bottom - itemView.top
 
         val foreground: Drawable? =
-                if (mBackgroundMaterial == ICON) {
+                if (mBackgroundMaterial == BackgroundMaterial.ICON) {
                     ViewUtils.getDrawable(mBackgroundMaterialResourceId)
                 } else {
                     TextDrawable.builder()

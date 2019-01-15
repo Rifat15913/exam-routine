@@ -16,8 +16,6 @@ import androidx.lifecycle.ViewModelProviders
 import butterknife.ButterKnife
 import io.diaryofrifat.code.examroutine.ui.base.callback.MvpView
 import io.diaryofrifat.code.utils.helper.ViewUtils
-import io.diaryofrifat.code.utils.helper.imagepicker.ImagePickerUtils
-import io.diaryofrifat.code.utils.libs.ImageCropperUtils
 import timber.log.Timber
 
 abstract class BaseActivity<V : MvpView, P : BasePresenter<V>>
@@ -190,8 +188,6 @@ abstract class BaseActivity<V : MvpView, P : BasePresenter<V>>
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        ImagePickerUtils.onActivityResult(this, requestCode, resultCode, data)
-        ImageCropperUtils.onActivityResult(requestCode, resultCode, data)
     }
 
     override fun onDestroy() {
