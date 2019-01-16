@@ -8,6 +8,7 @@ import io.diaryofrifat.code.examroutine.databinding.ActivityExamDetailsBinding
 import io.diaryofrifat.code.examroutine.ui.base.component.BaseActivity
 import io.diaryofrifat.code.utils.helper.Constants
 import io.diaryofrifat.code.utils.helper.DataUtils
+import io.diaryofrifat.code.utils.helper.SharedPrefUtils
 import io.diaryofrifat.code.utils.helper.TimeUtils
 import java.util.*
 
@@ -50,12 +51,15 @@ class ExamDetailsActivity : BaseActivity<ExamDetailsMvpView, ExamDetailsPresente
             mBinding.textViewSubjectCode.text = String.format(Locale.ENGLISH,
                     DataUtils.getString(R.string.placeholder_subject_code), item.subjectCode)
 
+            val examType: String = SharedPrefUtils.get(Constants.PreferenceKey.EXAM_TYPE)!!
+
             mBinding.textViewTime.text = String.format(Locale.ENGLISH,
                     DataUtils.getString(R.string.placeholder_exam_time),
                     TimeUtils.getFormattedDateTimeString(item.time,
                             Constants.Common.APP_COMMON_TIME_FORMAT),
                     TimeUtils.getFormattedDateTimeString(
-                            TimeUtils.getMillisecondsHoursLater(item.time, 3),
+                            TimeUtils.getMillisecondsMinutesLater(item.time,
+                                    if (examType == getString(R.string.psc)) 150 else 180),
                             Constants.Common.APP_COMMON_TIME_FORMAT))
 
             mBinding.textViewDate.text = TimeUtils.getFormattedDateString(item.time)

@@ -93,15 +93,15 @@ class TimeUtils private constructor() {
         }
 
         /**
-         * This method provides time in milliseconds format after some amount of hours
+         * This method provides time in milliseconds format after some amount of minutes
          *
          * @param timeStamp first time in milliseconds
-         * @param hours hours to be added
+         * @param minutes minutes to be added
          * */
-        fun getMillisecondsHoursLater(timeStamp: Long, hours: Int): Long {
+        fun getMillisecondsMinutesLater(timeStamp: Long, minutes: Int): Long {
             val calendar = Calendar.getInstance()
             calendar.timeInMillis = timeStamp
-            calendar.add(Calendar.HOUR, hours)
+            calendar.add(Calendar.MINUTE, minutes)
             return calendar.timeInMillis
         }
 
