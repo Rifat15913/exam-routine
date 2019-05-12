@@ -12,8 +12,11 @@
     <string name="path_hsc">routines/3</string>
     <string name="admob_app_id">ca-app-pub-4319241283573773~3420581513</string>
     <string name="before_routine_ad_unit_id">ca-app-pub-4319241283573773/7987222926</string>
+    <string name="click_on_date_ad_unit_id">ca-app-pub-4319241283573773/8506450296</string>
+    <string name="click_on_next_item_ad_unit_id">ca-app-pub-4319241283573773/2184584525</string>
     <string name="click_on_exam_ad_unit_id">ca-app-pub-4319241283573773/8342446149</string>
     <string name="exam_details_ad_unit_id">ca-app-pub-4319241283573773/2961416510</string>
+    <string name="date_details_ad_unit_id">ca-app-pub-4319241283573773/2455993367</string>
     <string name="routine_page_bottom_ad_unit_id">ca-app-pub-4319241283573773/5779151540</string>
     <string name="please_wait">Please Wait…</string>
     <string name="interstitial_ad_decision_maker_page">Interstitial ad on decision maker page</string>
@@ -57,13 +60,20 @@
     <string name="nav_share_the_app">Share the app</string>
     <string name="nav_rate_it">Rate it</string>
     <string name="nav_routine">Home</string>
+    <string name="nav_privacy_policy">Privacy Policy</string>
     <string name="market_link">market://details?id=</string>
     <string name="play_store_link">http://play.google.com/store/apps/details?id=</string>
+    <string name="privacy_policy_link">https://exam-routine.flycricket.io/privacy.html</string>
     <string name="content_share_the_app">Share the app link</string>
     <string name="exam_item">Exam item</string>
+    <string name="no_application_found">No application can handle this request. Please install a web browser.</string>
 
     <!--Exam details page-->
     <string name="exam_details">Exam Details</string>
+
+    <!--Date details page-->
+    <string name="on_this_day">On This Day</string>
+    <string name="next_exam_date">Next Date</string>
 
     <!--About page-->
     <string name="placeholder_version">Version %s</string>

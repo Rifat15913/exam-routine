@@ -1,4 +1,4 @@
-package io.diaryofrifat.code.examroutine.ui.routine
+package io.diaryofrifat.code.examroutine.ui.examdates
 
 import android.content.Context
 import com.github.pwittchen.reactivenetwork.library.rx2.ReactiveNetwork
@@ -21,7 +21,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
 
-class RoutinePresenter : BasePresenter<RoutineMvpView>() {
+class ExamDatesPresenter : BasePresenter<ExamDatesMvpView>() {
     private var mFirebaseDatabaseReference: DatabaseReference? = null
     private var mChildEventListener: ChildEventListener? = null
 

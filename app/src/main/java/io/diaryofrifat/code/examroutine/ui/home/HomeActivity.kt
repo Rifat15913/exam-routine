@@ -1,9 +1,11 @@
 package io.diaryofrifat.code.examroutine.ui.home
 
+import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.core.app.ShareCompat
 import androidx.core.view.GravityCompat
 import com.google.firebase.analytics.FirebaseAnalytics
@@ -11,7 +13,7 @@ import io.diaryofrifat.code.examroutine.R
 import io.diaryofrifat.code.examroutine.databinding.ActivityHomeBinding
 import io.diaryofrifat.code.examroutine.ui.about.AboutFragment
 import io.diaryofrifat.code.examroutine.ui.base.component.BaseActivity
-import io.diaryofrifat.code.examroutine.ui.routine.RoutineFragment
+import io.diaryofrifat.code.examroutine.ui.examdates.ExamDatesFragment
 import io.diaryofrifat.code.utils.helper.AndroidUtils
 import io.diaryofrifat.code.utils.helper.Constants
 import io.diaryofrifat.code.utils.helper.SharedPrefUtils
@@ -52,7 +54,7 @@ class HomeActivity : BaseActivity<HomeMvpView, HomePresenter>() {
         setTitle(String.format(Locale.ENGLISH,
                 getString(R.string.placeholder_routine),
                 examName))
-        commitFragment(R.id.constraint_layout_fragment_container, RoutineFragment())
+        commitFragment(R.id.constraint_layout_fragment_container, ExamDatesFragment())
     }
 
     private fun launchAboutPage() {
@@ -66,7 +68,7 @@ class HomeActivity : BaseActivity<HomeMvpView, HomePresenter>() {
 
             when (it.itemId) {
                 R.id.nav_home -> {
-                    if (currentFragment !is RoutineFragment) {
+                    if (currentFragment !is ExamDatesFragment) {
                         val bundle = Bundle()
                         bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, getString(R.string.nav_routine))
                         FirebaseUtils.getFirebaseAnalytics()?.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle)
@@ -125,10 +127,25 @@ class HomeActivity : BaseActivity<HomeMvpView, HomePresenter>() {
 
                     launchAboutPage()
                 }
+
+                R.id.nav_privacy_policy -> {
+
+                }
             }
 
             false
         }
+    }
+
+    fun openWebPage(url: String) {
+        try {
+            val privacyPolicyPageUri = Uri.parse(url)
+            startActivity(Intent(Intent.ACTION_VIEW, privacyPolicyPageUri))
+        } catch (e: ActivityNotFoundException) {
+            Toast.makeText(this, "", Toast.LENGTH_LONG).show()
+            e.printStackTrace()
+        }
+
     }
 
     override fun stopUI() {

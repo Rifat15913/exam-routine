@@ -2,91 +2,47 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <ScrollView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
-        android:fillViewport="true">
+        android:background="@color/white">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        <io.diaryofrifat.code.examroutine.ui.base.widget.CustomStatusBarView
+            android:id="@+id/custom_status_bar_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@+id/text_view_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/text_view_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_16"
-                android:text="@string/choose_one"
-                android:textColor="@color/text_regular"
-                android:textSize="@dimen/text_title"
-                app:layout_constraintBottom_toTopOf="@+id/constraint_layout_buttons_container"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_chainStyle="packed" />
+        <TextView
+            android:id="@+id/text_view_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_16"
+            android:layout_marginTop="@dimen/margin_32"
+            android:layout_marginEnd="@dimen/margin_16"
+            android:text="@string/choose_one"
+            android:textColor="@color/text_regular"
+            android:textSize="@dimen/text_title"
+            app:layout_constraintBottom_toTopOf="@+id/recycler_view_exam_types"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/custom_status_bar_view"
+            app:layout_constraintVertical_chainStyle="packed" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constraint_layout_buttons_container"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_32"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/text_view_title">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_exam_types"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/margin_32"
+            android:layout_marginBottom="@dimen/margin_32"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_view_title" />
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/button_psc"
-                    style="@style/Widget.MaterialComponents.Button.OutlinedButton.Custom"
-                    android:layout_marginStart="@dimen/margin_16"
-                    android:layout_marginTop="@dimen/margin_32"
-                    android:layout_marginEnd="@dimen/margin_8"
-                    android:text="@string/psc"
-                    app:layout_constraintBottom_toTopOf="@+id/button_ssc"
-                    app:layout_constraintEnd_toStartOf="@+id/button_jsc"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/button_jsc"
-                    style="@style/Widget.MaterialComponents.Button.OutlinedButton.Custom"
-                    android:layout_marginStart="@dimen/margin_8"
-                    android:layout_marginEnd="@dimen/margin_16"
-                    android:text="@string/jsc"
-                    app:layout_constraintBottom_toBottomOf="@+id/button_psc"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/button_psc"
-                    app:layout_constraintTop_toTopOf="@+id/button_psc" />
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/button_ssc"
-                    style="@style/Widget.MaterialComponents.Button.OutlinedButton.Custom"
-                    android:layout_marginStart="@dimen/margin_16"
-                    android:layout_marginTop="@dimen/margin_32"
-                    android:layout_marginEnd="@dimen/margin_8"
-                    android:layout_marginBottom="@dimen/margin_32"
-                    android:text="@string/ssc"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/button_hsc"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/button_psc" />
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/button_hsc"
-                    style="@style/Widget.MaterialComponents.Button.OutlinedButton.Custom"
-                    android:layout_marginStart="@dimen/margin_8"
-                    android:layout_marginEnd="@dimen/margin_16"
-                    android:text="@string/hsc"
-                    app:layout_constraintBottom_toBottomOf="@+id/button_ssc"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/button_ssc"
-                    app:layout_constraintTop_toTopOf="@+id/button_ssc" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </ScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

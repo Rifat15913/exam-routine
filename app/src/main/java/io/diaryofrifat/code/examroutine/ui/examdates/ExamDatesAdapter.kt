@@ -1,23 +1,19 @@
-package io.diaryofrifat.code.examroutine.ui.routine
+package io.diaryofrifat.code.examroutine.ui.examdates
 
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
 import io.diaryofrifat.code.examroutine.R
 import io.diaryofrifat.code.examroutine.data.local.Exam
-import io.diaryofrifat.code.examroutine.databinding.ItemExamBinding
+import io.diaryofrifat.code.examroutine.databinding.ItemExamDateBinding
 import io.diaryofrifat.code.examroutine.ui.base.component.BaseAdapter
 import io.diaryofrifat.code.examroutine.ui.base.component.BaseViewHolder
 import io.diaryofrifat.code.utils.helper.Constants
-import io.diaryofrifat.code.utils.helper.DataUtils
-import io.diaryofrifat.code.utils.helper.DataUtils.Companion.getString
-import io.diaryofrifat.code.utils.helper.SharedPrefUtils
 import io.diaryofrifat.code.utils.helper.TimeUtils
-import java.util.*
 
-class RoutineAdapter : BaseAdapter<Exam>() {
+class ExamDatesAdapter : BaseAdapter<Exam>() {
     override fun newViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<Exam> {
-        return RoutineViewHolder(inflate(parent, R.layout.item_exam))
+        return RoutineViewHolder(inflate(parent, R.layout.item_exam_date))
     }
 
     override fun isEqual(left: Exam, right: Exam): Boolean {
@@ -25,13 +21,13 @@ class RoutineAdapter : BaseAdapter<Exam>() {
     }
 
     inner class RoutineViewHolder(binding: ViewDataBinding) : BaseViewHolder<Exam>(binding) {
-        private val mBinding = binding as ItemExamBinding
+        private val mBinding = binding as ItemExamDateBinding
 
         override fun bind(item: Exam) {
 
-            setClickListener(mBinding.cardViewExamDetails)
+            //setClickListener(mBinding.cardViewExamDetails)
 
-            mBinding.textViewSubjectName.text = item.subjectName
+            /*mBinding.textViewSubjectName.text = item.subjectName
 
             mBinding.textViewSubjectCode.text = String.format(Locale.ENGLISH,
                     DataUtils.getString(R.string.placeholder_subject_code), item.subjectCode)
@@ -47,7 +43,13 @@ class RoutineAdapter : BaseAdapter<Exam>() {
                                     if (examType == getString(R.string.psc)) 150 else 180),
                             Constants.Common.APP_COMMON_TIME_FORMAT))
 
-            mBinding.textViewDate.text = TimeUtils.getFormattedDateString(item.time)
+            mBinding.textViewDate.text = TimeUtils.getFormattedDateString(item.time)*/
+
+            mBinding.textViewDate.text = TimeUtils.getFormattedDateTimeString(item.time,
+                    Constants.Common.DATE_FORMAT)
+
+            mBinding.textViewYear.text = TimeUtils.getFormattedDateTimeString(item.time,
+                    Constants.Common.YEAR_FORMAT)
         }
 
         override fun onClick(view: View) {

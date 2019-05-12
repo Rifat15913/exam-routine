@@ -1,10 +1,10 @@
-package io.diaryofrifat.code.examroutine.ui.routine
+package io.diaryofrifat.code.examroutine.ui.examdates
 
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.DefaultItemAnimator
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.InterstitialAd
@@ -12,10 +12,10 @@ import com.google.android.gms.ads.MobileAds
 import com.google.firebase.analytics.FirebaseAnalytics
 import io.diaryofrifat.code.examroutine.R
 import io.diaryofrifat.code.examroutine.data.local.Exam
-import io.diaryofrifat.code.examroutine.databinding.FragmentExamRoutineBinding
+import io.diaryofrifat.code.examroutine.databinding.FragmentExamDatesBinding
 import io.diaryofrifat.code.examroutine.ui.base.callback.ItemClickListener
 import io.diaryofrifat.code.examroutine.ui.base.component.BaseFragment
-import io.diaryofrifat.code.examroutine.ui.base.helper.LinearMarginItemDecoration
+import io.diaryofrifat.code.examroutine.ui.base.helper.GridSpacingItemDecoration
 import io.diaryofrifat.code.examroutine.ui.examdetails.ExamDetailsActivity
 import io.diaryofrifat.code.utils.helper.*
 import io.diaryofrifat.code.utils.libs.ToastUtils
@@ -23,22 +23,22 @@ import io.diaryofrifat.code.utils.libs.firebase.FirebaseUtils
 import timber.log.Timber
 import java.util.*
 
-class RoutineFragment : BaseFragment<RoutineMvpView, RoutinePresenter>(), RoutineMvpView {
+class ExamDatesFragment : BaseFragment<ExamDatesMvpView, ExamDatesPresenter>(), ExamDatesMvpView {
 
-    private lateinit var mBinding: FragmentExamRoutineBinding
-    private lateinit var mMarginItemDecoration: LinearMarginItemDecoration
+    private lateinit var mBinding: FragmentExamDatesBinding
+    private lateinit var mMarginItemDecoration: GridSpacingItemDecoration
     private var mInterstitialAd: InterstitialAd? = null
     private var mItem: Exam? = null
 
     override val layoutId: Int
-        get() = R.layout.fragment_exam_routine
+        get() = R.layout.fragment_exam_dates
 
-    override fun getFragmentPresenter(): RoutinePresenter {
-        return RoutinePresenter()
+    override fun getFragmentPresenter(): ExamDatesPresenter {
+        return ExamDatesPresenter()
     }
 
     override fun startUI() {
-        mBinding = viewDataBinding as FragmentExamRoutineBinding
+        mBinding = viewDataBinding as FragmentExamDatesBinding
 
         workWithAds()
         workWithViews()
@@ -77,12 +77,10 @@ class RoutineFragment : BaseFragment<RoutineMvpView, RoutinePresenter>(), Routin
 
     private fun workWithViews() {
         if (mContext != null) {
-            mMarginItemDecoration = LinearMarginItemDecoration(
-                    ViewUtils.getPixel(R.dimen.margin_16),
-                    ViewUtils.getPixel(R.dimen.margin_16),
-                    ViewUtils.getPixel(R.dimen.margin_8))
+            mMarginItemDecoration = GridSpacingItemDecoration(
+                    ViewUtils.getPixel(R.dimen.margin_16), 3, false)
 
-            ViewUtils.initializeRecyclerView(mBinding.recyclerViewExams, RoutineAdapter(),
+            ViewUtils.initializeRecyclerView(mBinding.recyclerViewExams, ExamDatesAdapter(),
                     object : ItemClickListener<Exam> {
                         override fun onItemClick(view: View, item: Exam) {
                             val bundle = Bundle()
@@ -101,7 +99,7 @@ class RoutineFragment : BaseFragment<RoutineMvpView, RoutinePresenter>(), Routin
                             }
                         }
                     }
-                    , null, LinearLayoutManager(mContext),
+                    , null, GridLayoutManager(mContext, 3),
                     mMarginItemDecoration, null, DefaultItemAnimator())
         }
     }
@@ -134,8 +132,8 @@ class RoutineFragment : BaseFragment<RoutineMvpView, RoutinePresenter>(), Routin
         mBinding.recyclerViewExams.removeItemDecoration(mMarginItemDecoration)
     }
 
-    private fun getAdapter(): RoutineAdapter {
-        return mBinding.recyclerViewExams.adapter as RoutineAdapter
+    private fun getAdapter(): ExamDatesAdapter {
+        return mBinding.recyclerViewExams.adapter as ExamDatesAdapter
     }
 
     override fun onChildChanged(item: Exam) {
