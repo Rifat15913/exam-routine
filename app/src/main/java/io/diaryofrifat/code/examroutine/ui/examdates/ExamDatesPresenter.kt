@@ -8,13 +8,11 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import io.diaryofrifat.code.examroutine.R
 import io.diaryofrifat.code.examroutine.data.local.Exam
+import io.diaryofrifat.code.examroutine.data.local.ExamType
 import io.diaryofrifat.code.examroutine.ui.base.component.BasePresenter
-import io.diaryofrifat.code.utils.helper.Constants
 import io.diaryofrifat.code.utils.helper.DataUtils.Companion.getString
 import io.diaryofrifat.code.utils.helper.ProgressDialogUtils
-import io.diaryofrifat.code.utils.helper.SharedPrefUtils
 import io.diaryofrifat.code.utils.helper.TimeUtils
-import io.diaryofrifat.code.utils.libs.ToastUtils
 import io.diaryofrifat.code.utils.libs.firebase.FirebaseUtils
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -39,36 +37,10 @@ class ExamDatesPresenter : BasePresenter<ExamDatesMvpView>() {
                 }))
     }
 
-    fun attachFirebaseDatabase(context: Context): Boolean {
+    fun attachFirebaseDatabase(context: Context, examType: ExamType): Boolean {
         ProgressDialogUtils.showProgressDialog(context)
-        val examType: String = SharedPrefUtils.get(Constants.PreferenceKey.EXAM_TYPE,
-                Constants.Default.DEFAULT_STRING)!!
 
-        val databaseExamPath: String?
-
-        when (examType) {
-            getString(R.string.psc) -> {
-                databaseExamPath = getString(R.string.path_psc)
-            }
-
-            getString(R.string.jsc) -> {
-                databaseExamPath = getString(R.string.path_jsc)
-            }
-
-            getString(R.string.ssc) -> {
-                databaseExamPath = getString(R.string.path_ssc)
-            }
-
-            getString(R.string.hsc) -> {
-                databaseExamPath = getString(R.string.path_hsc)
-            }
-
-            else -> {
-                ToastUtils.error(getString(R.string.something_went_wrong))
-                ProgressDialogUtils.hideProgressDialog()
-                return true
-            }
-        }
+        val databaseExamPath: String = getString(R.string.path_exam_types) + examType.id
 
         if (mFirebaseDatabaseReference == null) {
             mFirebaseDatabaseReference = FirebaseUtils.getDatabaseReference(databaseExamPath)
@@ -130,7 +102,6 @@ class ExamDatesPresenter : BasePresenter<ExamDatesMvpView>() {
         }
 
         mFirebaseDatabaseReference?.addChildEventListener(mChildEventListener!!)
-
         return false
     }
 

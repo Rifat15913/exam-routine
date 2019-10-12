@@ -1,7 +1,6 @@
 package io.diaryofrifat.code.examroutine.ui.examdates
 
 import android.content.Intent
-import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.GridLayoutManager
@@ -9,17 +8,19 @@ import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.InterstitialAd
 import com.google.android.gms.ads.MobileAds
-import com.google.firebase.analytics.FirebaseAnalytics
 import io.diaryofrifat.code.examroutine.R
 import io.diaryofrifat.code.examroutine.data.local.Exam
+import io.diaryofrifat.code.examroutine.data.local.ExamType
 import io.diaryofrifat.code.examroutine.databinding.FragmentExamDatesBinding
 import io.diaryofrifat.code.examroutine.ui.base.callback.ItemClickListener
 import io.diaryofrifat.code.examroutine.ui.base.component.BaseFragment
 import io.diaryofrifat.code.examroutine.ui.base.helper.GridSpacingItemDecoration
 import io.diaryofrifat.code.examroutine.ui.examdetails.ExamDetailsActivity
-import io.diaryofrifat.code.utils.helper.*
+import io.diaryofrifat.code.utils.helper.Constants
+import io.diaryofrifat.code.utils.helper.DataUtils
+import io.diaryofrifat.code.utils.helper.ProgressDialogUtils
+import io.diaryofrifat.code.utils.helper.ViewUtils
 import io.diaryofrifat.code.utils.libs.ToastUtils
-import io.diaryofrifat.code.utils.libs.firebase.FirebaseUtils
 import timber.log.Timber
 import java.util.*
 
@@ -29,6 +30,7 @@ class ExamDatesFragment : BaseFragment<ExamDatesMvpView, ExamDatesPresenter>(), 
     private lateinit var mMarginItemDecoration: GridSpacingItemDecoration
     private var mInterstitialAd: InterstitialAd? = null
     private var mItem: Exam? = null
+    private var mExamType: ExamType? = null
 
     override val layoutId: Int
         get() = R.layout.fragment_exam_dates
@@ -40,14 +42,19 @@ class ExamDatesFragment : BaseFragment<ExamDatesMvpView, ExamDatesPresenter>(), 
     override fun startUI() {
         mBinding = viewDataBinding as FragmentExamDatesBinding
 
+        extractDataFromIntent()
         workWithAds()
         workWithViews()
-        if (workWithRoutineData()) {
-            activity?.finish()
-            return
-        }
+        workWithRoutineData()
         setListeners()
         workWithValidation()
+    }
+
+    private fun extractDataFromIntent() {
+        val bundle = arguments
+        if (bundle != null && bundle.containsKey(ExamDatesFragment::class.java.simpleName)) {
+            mExamType = bundle.getParcelable(ExamDatesFragment::class.java.simpleName)
+        }
     }
 
     private fun workWithValidation() {
@@ -60,41 +67,32 @@ class ExamDatesFragment : BaseFragment<ExamDatesMvpView, ExamDatesPresenter>(), 
                 super.onAdClosed()
                 // Go to next page
                 if (mItem != null) {
-                    val bundleAd = Bundle()
-                    bundleAd.putString(FirebaseAnalytics.Param.ITEM_NAME, getString(R.string.interstitial_ad_routine_page))
-                    bundleAd.putBoolean(FirebaseAnalytics.Param.ITEM_CATEGORY, true)
-                    FirebaseUtils.getFirebaseAnalytics()?.logEvent(FirebaseAnalytics.Event.VIEW_ITEM, bundleAd)
-
                     goToExamDetailsPage(mItem!!)
                 }
             }
         }
     }
 
-    private fun workWithRoutineData(): Boolean {
-        return if (mContext == null) true else presenter.attachFirebaseDatabase(mContext!!)
+    private fun workWithRoutineData() {
+        if (mExamType != null) {
+            presenter.attachFirebaseDatabase(mContext!!, mExamType!!)
+        } else {
+            activity?.finish()
+        }
     }
 
     private fun workWithViews() {
         if (mContext != null) {
-            mMarginItemDecoration = GridSpacingItemDecoration(
-                    ViewUtils.getPixel(R.dimen.margin_16), 3, false)
+            mMarginItemDecoration =
+                    GridSpacingItemDecoration(3, ViewUtils.getPixel(R.dimen.margin_16), true)
 
             ViewUtils.initializeRecyclerView(mBinding.recyclerViewExams, ExamDatesAdapter(),
                     object : ItemClickListener<Exam> {
                         override fun onItemClick(view: View, item: Exam) {
-                            val bundle = Bundle()
-                            bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, getString(R.string.exam_item))
-                            FirebaseUtils.getFirebaseAnalytics()?.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle)
-
                             if (mInterstitialAd != null && mInterstitialAd?.isLoaded!!) {
                                 mItem = item
                                 mInterstitialAd?.show()
                             } else {
-                                val bundleAd = Bundle()
-                                bundleAd.putString(FirebaseAnalytics.Param.ITEM_NAME, getString(R.string.interstitial_ad_routine_page))
-                                bundleAd.putBoolean(FirebaseAnalytics.Param.ITEM_CATEGORY, false)
-                                FirebaseUtils.getFirebaseAnalytics()?.logEvent(FirebaseAnalytics.Event.VIEW_ITEM, bundleAd)
                                 goToExamDetailsPage(item)
                             }
                         }
@@ -165,9 +163,10 @@ class ExamDatesFragment : BaseFragment<ExamDatesMvpView, ExamDatesPresenter>(), 
     }
 
     override fun setToolbarTitle(year: String) {
-        val examName: String = SharedPrefUtils.get(Constants.PreferenceKey.EXAM_TYPE)!!
-        setTitle(String.format(Locale.ENGLISH,
-                getString(R.string.placeholder_routine_year),
-                examName, year))
+        if (mExamType != null) {
+            setTitle(String.format(Locale.ENGLISH,
+                    getString(R.string.placeholder_routine_year),
+                    mExamType?.examType, year))
+        }
     }
 }

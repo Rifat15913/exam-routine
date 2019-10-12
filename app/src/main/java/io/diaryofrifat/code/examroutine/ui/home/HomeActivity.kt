@@ -60,9 +60,13 @@ class HomeActivity : BaseActivity<HomeMvpView, HomePresenter>() {
             setTitle(String.format(Locale.ENGLISH,
                     getString(R.string.placeholder_routine),
                     mExamType?.examType))
-        }
 
-        commitFragment(R.id.constraint_layout_fragment_container, ExamDatesFragment())
+            val fragment = ExamDatesFragment()
+            val arguments = Bundle()
+            arguments.putParcelable(ExamDatesFragment::class.java.simpleName, mExamType)
+            fragment.arguments = arguments
+            commitFragment(R.id.constraint_layout_fragment_container, fragment)
+        }
     }
 
     private fun launchAboutPage() {

@@ -2,14 +2,12 @@ package io.diaryofrifat.code.examroutine.ui.decisionmaker
 
 import android.content.Intent
 import android.os.Build
-import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.InterstitialAd
 import com.google.android.gms.ads.MobileAds
-import com.google.firebase.analytics.FirebaseAnalytics
 import io.diaryofrifat.code.examroutine.R
 import io.diaryofrifat.code.examroutine.data.local.ExamType
 import io.diaryofrifat.code.examroutine.databinding.ActivityDecisionMakerBinding
@@ -21,7 +19,6 @@ import io.diaryofrifat.code.utils.helper.DataUtils
 import io.diaryofrifat.code.utils.helper.ProgressDialogUtils
 import io.diaryofrifat.code.utils.helper.ViewUtils
 import io.diaryofrifat.code.utils.libs.ToastUtils
-import io.diaryofrifat.code.utils.libs.firebase.FirebaseUtils
 import kotlinx.android.synthetic.main.activity_decision_maker.*
 import timber.log.Timber
 
@@ -120,10 +117,6 @@ class DecisionMakerActivity : BaseActivity<DecisionMakerMvpView, DecisionMakerPr
         if (mInterstitialAd?.isLoaded!!) {
             mInterstitialAd?.show()
         } else {
-            val bundleAd = Bundle()
-            bundleAd.putString(FirebaseAnalytics.Param.ITEM_NAME, getString(R.string.interstitial_ad_decision_maker_page))
-            bundleAd.putBoolean(FirebaseAnalytics.Param.ITEM_CATEGORY, false)
-            FirebaseUtils.getFirebaseAnalytics()?.logEvent(FirebaseAnalytics.Event.VIEW_ITEM, bundleAd)
             goToHomePage()
         }
     }
