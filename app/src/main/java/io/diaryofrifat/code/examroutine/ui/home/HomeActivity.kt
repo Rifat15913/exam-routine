@@ -5,18 +5,16 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.core.app.ShareCompat
 import androidx.core.view.GravityCompat
 import com.google.firebase.analytics.FirebaseAnalytics
 import io.diaryofrifat.code.examroutine.R
+import io.diaryofrifat.code.examroutine.data.local.ExamType
 import io.diaryofrifat.code.examroutine.databinding.ActivityHomeBinding
 import io.diaryofrifat.code.examroutine.ui.about.AboutFragment
 import io.diaryofrifat.code.examroutine.ui.base.component.BaseActivity
 import io.diaryofrifat.code.examroutine.ui.examdates.ExamDatesFragment
 import io.diaryofrifat.code.utils.helper.AndroidUtils
-import io.diaryofrifat.code.utils.helper.Constants
-import io.diaryofrifat.code.utils.helper.SharedPrefUtils
 import io.diaryofrifat.code.utils.libs.ToastUtils
 import io.diaryofrifat.code.utils.libs.firebase.FirebaseUtils
 import timber.log.Timber
@@ -26,6 +24,7 @@ import java.util.*
 class HomeActivity : BaseActivity<HomeMvpView, HomePresenter>() {
 
     private lateinit var mBinding: ActivityHomeBinding
+    private var mExamType: ExamType? = null
 
     override val layoutResourceId: Int
         get() = R.layout.activity_home
@@ -39,8 +38,15 @@ class HomeActivity : BaseActivity<HomeMvpView, HomePresenter>() {
     }
 
     override fun startUI() {
+        extractDataFromIntent()
         workWithViews()
         setListeners()
+    }
+
+    private fun extractDataFromIntent() {
+        if (intent != null && intent.hasExtra(HomeActivity::class.java.simpleName)) {
+            mExamType = intent.getParcelableExtra(HomeActivity::class.java.simpleName)
+        }
     }
 
     private fun workWithViews() {
@@ -50,10 +56,12 @@ class HomeActivity : BaseActivity<HomeMvpView, HomePresenter>() {
     }
 
     private fun launchHomePage() {
-        val examName: String = SharedPrefUtils.get(Constants.PreferenceKey.EXAM_TYPE)!!
-        setTitle(String.format(Locale.ENGLISH,
-                getString(R.string.placeholder_routine),
-                examName))
+        if (mExamType != null) {
+            setTitle(String.format(Locale.ENGLISH,
+                    getString(R.string.placeholder_routine),
+                    mExamType?.examType))
+        }
+
         commitFragment(R.id.constraint_layout_fragment_container, ExamDatesFragment())
     }
 
@@ -78,23 +86,16 @@ class HomeActivity : BaseActivity<HomeMvpView, HomePresenter>() {
                 }
 
                 R.id.nav_change_exam_type -> {
-                    val bundle = Bundle()
-                    bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, getString(R.string.nav_change_exam_type))
-                    FirebaseUtils.getFirebaseAnalytics()?.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle)
-
                     finish()
                 }
 
                 R.id.nav_rate_it -> {
-                    val bundle = Bundle()
-                    bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, getString(R.string.nav_rate_it))
-                    FirebaseUtils.getFirebaseAnalytics()?.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle)
 
                     try {
                         startActivity(Intent(Intent.ACTION_VIEW,
                                 Uri.parse(getString(R.string.market_link)
                                         + AndroidUtils.getApplicationId())))
-                    } catch (e: android.content.ActivityNotFoundException) {
+                    } catch (e: ActivityNotFoundException) {
                         Timber.e(e)
                         try {
                             startActivity(Intent(Intent.ACTION_VIEW,
@@ -108,10 +109,6 @@ class HomeActivity : BaseActivity<HomeMvpView, HomePresenter>() {
                 }
 
                 R.id.nav_share_the_app -> {
-                    val bundle = Bundle()
-                    bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, getString(R.string.nav_share_the_app))
-                    FirebaseUtils.getFirebaseAnalytics()?.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle)
-
                     ShareCompat.IntentBuilder.from(this)
                             .setType("text/plain")
                             .setChooserTitle(getString(R.string.content_share_the_app))
@@ -121,31 +118,19 @@ class HomeActivity : BaseActivity<HomeMvpView, HomePresenter>() {
                 }
 
                 R.id.nav_about -> {
-                    val bundle = Bundle()
-                    bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, getString(R.string.nav_about))
-                    FirebaseUtils.getFirebaseAnalytics()?.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle)
-
                     launchAboutPage()
                 }
 
                 R.id.nav_privacy_policy -> {
-
+                    startActivity(Intent(
+                            Intent.ACTION_VIEW,
+                            Uri.parse(getString(R.string.privacy_policy_link)))
+                    )
                 }
             }
 
             false
         }
-    }
-
-    fun openWebPage(url: String) {
-        try {
-            val privacyPolicyPageUri = Uri.parse(url)
-            startActivity(Intent(Intent.ACTION_VIEW, privacyPolicyPageUri))
-        } catch (e: ActivityNotFoundException) {
-            Toast.makeText(this, "", Toast.LENGTH_LONG).show()
-            e.printStackTrace()
-        }
-
     }
 
     override fun stopUI() {

@@ -4,29 +4,35 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.view.View
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.InterstitialAd
 import com.google.android.gms.ads.MobileAds
 import com.google.firebase.analytics.FirebaseAnalytics
 import io.diaryofrifat.code.examroutine.R
+import io.diaryofrifat.code.examroutine.data.local.ExamType
 import io.diaryofrifat.code.examroutine.databinding.ActivityDecisionMakerBinding
 import io.diaryofrifat.code.examroutine.ui.base.callback.ItemClickListener
 import io.diaryofrifat.code.examroutine.ui.base.component.BaseActivity
-import io.diaryofrifat.code.examroutine.ui.base.helper.LinearMarginItemDecoration
+import io.diaryofrifat.code.examroutine.ui.base.helper.GridSpacingItemDecoration
 import io.diaryofrifat.code.examroutine.ui.home.HomeActivity
 import io.diaryofrifat.code.utils.helper.DataUtils
+import io.diaryofrifat.code.utils.helper.ProgressDialogUtils
 import io.diaryofrifat.code.utils.helper.ViewUtils
+import io.diaryofrifat.code.utils.libs.ToastUtils
 import io.diaryofrifat.code.utils.libs.firebase.FirebaseUtils
+import kotlinx.android.synthetic.main.activity_decision_maker.*
+import timber.log.Timber
 
 
-class DecisionMakerActivity : BaseActivity<DecisionMakerMvpView, DecisionMakerPresenter>() {
+class DecisionMakerActivity : BaseActivity<DecisionMakerMvpView, DecisionMakerPresenter>(),
+        DecisionMakerMvpView {
 
     private lateinit var mBinding: ActivityDecisionMakerBinding
     private var mInterstitialAd: InterstitialAd? = null
-    private var mSelectedExamType: String? = null
-    private var mItemDecoration: LinearMarginItemDecoration? = null
+    private var mSelectedExamType: ExamType? = null
+    private var mItemDecoration: GridSpacingItemDecoration? = null
 
     override val layoutResourceId: Int
         get() = R.layout.activity_decision_maker
@@ -60,18 +66,18 @@ class DecisionMakerActivity : BaseActivity<DecisionMakerMvpView, DecisionMakerPr
             // Do nothing for Jelly bean and Kitkat devices
         }
 
-        mItemDecoration = LinearMarginItemDecoration(ViewUtils.dpToPx(16).toInt())
+        mItemDecoration = GridSpacingItemDecoration(2, ViewUtils.dpToPx(16).toInt(), true)
 
         ViewUtils.initializeRecyclerView(
                 mBinding.recyclerViewExamTypes,
                 ExamTypeAdapter(),
-                object : ItemClickListener<String> {
-                    override fun onItemClick(view: View, item: String) {
+                object : ItemClickListener<ExamType> {
+                    override fun onItemClick(view: View, item: ExamType) {
                         clickOnItem(item)
                     }
                 },
                 null,
-                LinearLayoutManager(this),
+                GridLayoutManager(this, 2),
                 mItemDecoration,
                 null,
                 null)
@@ -79,6 +85,12 @@ class DecisionMakerActivity : BaseActivity<DecisionMakerMvpView, DecisionMakerPr
 
     private fun loadData() {
         loadAd()
+        loadExamTypes()
+        presenter.checkInternetConnectivity()
+    }
+
+    private fun loadExamTypes() {
+        presenter.attachFirebaseDatabase(this)
     }
 
     private fun loadAd() {
@@ -91,26 +103,19 @@ class DecisionMakerActivity : BaseActivity<DecisionMakerMvpView, DecisionMakerPr
         mInterstitialAd?.adListener = object : AdListener() {
             override fun onAdClosed() {
                 super.onAdClosed()
-                val bundleAd = Bundle()
-                bundleAd.putString(FirebaseAnalytics.Param.ITEM_NAME, getString(R.string.interstitial_ad_decision_maker_page))
-                bundleAd.putBoolean(FirebaseAnalytics.Param.ITEM_CATEGORY, true)
-                FirebaseUtils.getFirebaseAnalytics()?.logEvent(FirebaseAnalytics.Event.VIEW_ITEM, bundleAd)
                 goToHomePage()
             }
         }
     }
 
     override fun stopUI() {
+        presenter.detachFirebaseDatabase()
         mInterstitialAd?.adListener = null
         mInterstitialAd = null
     }
 
-    private fun clickOnItem(item: String) {
+    private fun clickOnItem(item: ExamType) {
         mSelectedExamType = item
-
-        val bundle = Bundle()
-        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, mSelectedExamType)
-        FirebaseUtils.getFirebaseAnalytics()?.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle)
 
         if (mInterstitialAd?.isLoaded!!) {
             mInterstitialAd?.show()
@@ -124,12 +129,43 @@ class DecisionMakerActivity : BaseActivity<DecisionMakerMvpView, DecisionMakerPr
     }
 
     private fun goToHomePage() {
-        val intent = Intent(this, HomeActivity::class.java)
-        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
         if (mSelectedExamType != null) {
+            val intent = Intent(this, HomeActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             intent.putExtra(HomeActivity::class.java.simpleName, mSelectedExamType)
+            startActivity(intent)
         }
+    }
 
-        startActivity(intent)
+    private fun getAdapter(): ExamTypeAdapter {
+        return recycler_view_exam_types.adapter as ExamTypeAdapter
+    }
+
+    override fun onChildChanged(item: ExamType) {
+        getAdapter().addItem(item)
+    }
+
+    override fun onChildAdded(item: ExamType) {
+        getAdapter().addItem(item)
+    }
+
+    override fun onChildRemoved(item: ExamType) {
+        getAdapter().removeItem(item)
+    }
+
+    override fun onChildError(error: Throwable) {
+        Timber.e(error)
+        ToastUtils.error(getString(R.string.something_went_wrong))
+    }
+
+    override fun onInternetConnectivity(state: Boolean) {
+        if (!state) {
+            ToastUtils.error(getString(R.string.error_you_are_not_connected_to_the_internet))
+            ProgressDialogUtils.hideProgressDialog()
+        }
+    }
+
+    override fun clearTheList() {
+        getAdapter().clear()
     }
 }

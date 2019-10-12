@@ -4,24 +4,25 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
 import io.diaryofrifat.code.examroutine.R
+import io.diaryofrifat.code.examroutine.data.local.ExamType
 import io.diaryofrifat.code.examroutine.databinding.ItemExamTypeBinding
 import io.diaryofrifat.code.examroutine.ui.base.component.BaseAdapter
 import io.diaryofrifat.code.examroutine.ui.base.component.BaseViewHolder
 
-class ExamTypeAdapter : BaseAdapter<String>() {
-    override fun isEqual(left: String, right: String): Boolean {
-        return left == right
+class ExamTypeAdapter : BaseAdapter<ExamType>() {
+    override fun isEqual(left: ExamType, right: ExamType): Boolean {
+        return left.id == right.id
     }
 
-    override fun newViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<String> {
+    override fun newViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<ExamType> {
         return ExamTypeViewHolder(inflate(parent, R.layout.item_exam_type))
     }
 
-    inner class ExamTypeViewHolder(binding: ViewDataBinding) : BaseViewHolder<String>(binding) {
+    inner class ExamTypeViewHolder(binding: ViewDataBinding) : BaseViewHolder<ExamType>(binding) {
         private val mBinding = binding as ItemExamTypeBinding
 
-        override fun bind(item: String) {
-            mBinding.materialButtonExamType.text = item
+        override fun bind(item: ExamType) {
+            mBinding.materialButtonExamType.text = item.examType
             itemView.setOnClickListener(this)
         }
 

@@ -6,6 +6,7 @@
     <string name="file_provider_authority" translatable="false">io.diaryofrifat.code.examroutine.fileprovider</string>
     <string name="intent_type_image">image/*</string>
     <string name="intent_extra_return_data">return-data</string>
+    <string name="path_exam_types">routines/</string>
     <string name="path_psc">routines/0</string>
     <string name="path_jsc">routines/1</string>
     <string name="path_ssc">routines/2</string>

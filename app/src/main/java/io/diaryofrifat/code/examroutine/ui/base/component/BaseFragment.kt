@@ -1,7 +1,6 @@
 package io.diaryofrifat.code.examroutine.ui.base.component
 
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import android.view.animation.AnimationUtils
@@ -64,12 +63,9 @@ abstract class BaseFragment<V : MvpView, P : BasePresenter<V>> : Fragment(),
     private val isBaseActivityInstance: Boolean
         get() = BaseActivity::class.java.isInstance(activity)
 
-    override fun onAttach(context: Context?) {
+    override fun onAttach(context: Context) {
         super.onAttach(context)
-
-        if (context != null) {
-            mContext = context
-        }
+        mContext = context
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -80,9 +76,9 @@ abstract class BaseFragment<V : MvpView, P : BasePresenter<V>> : Fragment(),
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         if (getMenuId() > INVALID_ID) {
-            inflater!!.inflate(getMenuId(), menu)
+            inflater.inflate(getMenuId(), menu)
             super.onCreateOptionsMenu(menu, inflater)
         }
     }
@@ -165,10 +161,6 @@ abstract class BaseFragment<V : MvpView, P : BasePresenter<V>> : Fragment(),
     override fun onStop() {
         super.onStop()
         presenter.compositeDisposable.clear()
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
     }
 
     override fun onDestroy() {
