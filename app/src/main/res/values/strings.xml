@@ -6,19 +6,7 @@
     <string name="file_provider_authority" translatable="false">io.diaryofrifat.code.examroutine.fileprovider</string>
     <string name="intent_type_image">image/*</string>
     <string name="intent_extra_return_data">return-data</string>
-    <string name="path_exam_types">routines/</string>
-    <string name="path_psc">routines/0</string>
-    <string name="path_jsc">routines/1</string>
-    <string name="path_ssc">routines/2</string>
-    <string name="path_hsc">routines/3</string>
-    <string name="admob_app_id">ca-app-pub-4319241283573773~3420581513</string>
-    <string name="before_routine_ad_unit_id">ca-app-pub-4319241283573773/7987222926</string>
-    <string name="click_on_date_ad_unit_id">ca-app-pub-4319241283573773/8506450296</string>
-    <string name="click_on_next_item_ad_unit_id">ca-app-pub-4319241283573773/2184584525</string>
-    <string name="click_on_exam_ad_unit_id">ca-app-pub-4319241283573773/8342446149</string>
-    <string name="exam_details_ad_unit_id">ca-app-pub-4319241283573773/2961416510</string>
-    <string name="date_details_ad_unit_id">ca-app-pub-4319241283573773/2455993367</string>
-    <string name="routine_page_bottom_ad_unit_id">ca-app-pub-4319241283573773/5779151540</string>
+
     <string name="please_wait">Please Wait…</string>
     <string name="interstitial_ad_decision_maker_page">Interstitial ad on decision maker page</string>
     <string name="interstitial_ad_routine_page">Interstitial ad on routine page</string>
