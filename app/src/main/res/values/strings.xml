@@ -1,6 +1,6 @@
 <resources>
     <!--App Essentials-->
-    <string name="app_name">Exam Routine: PSC, JSC, SSC, HSC</string>
+    <string name="app_name">Exam Routine</string>
     <string name="app_name_short">Exam Routine</string>
     <string name="app_description">Exam Routine is a native application which provides the Board examination; i.e PSC, JSC, SSC and HSC routines. The application is very simple and user-friendly. You can provide your feedback further to improve the application experience. Thanks for being with us.</string>
     <string name="file_provider_authority" translatable="false">io.diaryofrifat.code.examroutine.fileprovider</string>

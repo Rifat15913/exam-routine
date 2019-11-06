@@ -163,6 +163,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-ads:18.2.0'
     implementation 'com.google.firebase:firebase-database:19.2.0'
     implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
+    implementation 'com.google.firebase:firebase-messaging:20.0.0'
 
     // About page
     implementation 'com.github.medyo:android-about-page:1.2.5'
