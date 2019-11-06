@@ -6,7 +6,7 @@
         android:id="@+id/text_view_time_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/text_regular"
+        android:textColor="@color/textRegular"
         android:textSize="@dimen/text_title"
         android:textStyle="bold"
         tools:text="10:00 AM to 01:00 PM" />

@@ -1,18 +1,9 @@
 package io.diaryofrifat.code.examroutine.ui.base.component
 
 import android.view.View
-import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 
-abstract class BaseViewHolder<T>(private val viewDataBinding: ViewDataBinding)
-    : RecyclerView.ViewHolder(viewDataBinding.root), View.OnClickListener {
-
-    /**
-     * Initializer block
-     * */
-    init {
-        this.viewDataBinding.executePendingBindings()
-    }
+abstract class BaseViewHolder<T>(view: View) : RecyclerView.ViewHolder(view), View.OnClickListener {
 
     /**
      * This method binds the item to item layout

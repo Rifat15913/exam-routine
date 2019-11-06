@@ -6,13 +6,13 @@
     <color name="background">#FFFFFF</color>
 
     <!--Extra colors-->
-    <color name="text_regular">#4C646F</color>
+    <color name="textRegular">#313131</color>
     <color name="text_bold">#404040</color>
     <color name="text_light">#BCBCBC</color>
 
-    <color name="disabled_gray">#D3D2D2</color>
+    <color name="disabledGray">#D3D2D2</color>
     <color name="fortyPercentColorPrimary">#66B00020</color>
-
+    <color name="darkBackground">#494A53</color>
     <color name="white">#ffffff</color>
     <color name="black">#000000</color>
 

@@ -6,10 +6,14 @@ import androidx.databinding.ViewDataBinding
 import io.diaryofrifat.code.examroutine.R
 import io.diaryofrifat.code.examroutine.data.local.ExamType
 import io.diaryofrifat.code.examroutine.databinding.ItemExamTypeBinding
-import io.diaryofrifat.code.examroutine.ui.base.component.BaseAdapter
+import io.diaryofrifat.code.examroutine.ui.base.component.BaseSelectableAdapter
 import io.diaryofrifat.code.examroutine.ui.base.component.BaseViewHolder
 
-class ExamTypeAdapter : BaseAdapter<ExamType>() {
+class SelectExamAdapter : BaseSelectableAdapter<ExamType>() {
+    override fun getItemIdForPosition(position: Int): Long {
+        return getItem(position)?.id!!
+    }
+
     override fun isEqual(left: ExamType, right: ExamType): Boolean {
         return left.id == right.id
     }

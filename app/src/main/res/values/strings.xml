@@ -33,6 +33,9 @@
     <string name="pick_photo">Pick photo</string>
 
     <!--Decision maker page-->
+    <string name="select_exam_toolbar_title">Exam Routine</string>
+    <string name="select_exam_subtitle">Select an exam</string>
+    <string name="select_exam_next">Next</string>
     <string name="choose_one">Choose one please…</string>
     <string name="psc">PSC</string>
     <string name="jsc">JSC</string>

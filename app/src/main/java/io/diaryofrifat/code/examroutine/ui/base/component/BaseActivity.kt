@@ -9,13 +9,10 @@ import android.view.View
 import android.view.animation.AnimationUtils
 import androidx.annotation.CallSuper
 import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
-import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.LifecycleRegistry
 import androidx.lifecycle.ViewModelProviders
 import io.diaryofrifat.code.examroutine.ui.base.callback.MvpView
 import io.diaryofrifat.code.utils.helper.ViewUtils
-import timber.log.Timber
 
 abstract class BaseActivity<V : MvpView, P : BasePresenter<V>>
     : AppCompatActivity(), MvpView, View.OnClickListener, View.OnFocusChangeListener {
@@ -25,16 +22,14 @@ abstract class BaseActivity<V : MvpView, P : BasePresenter<V>>
      * It is used by Fragments and Support Library Activities.
      * You can also directly use it if you have a custom LifecycleOwner.
      */
-    private val mLifecycleRegistry = LifecycleRegistry(this)
+    private lateinit var mLifecycleRegistry: LifecycleRegistry
 
     /**
      * Fields
      * */
     // Child class has to pass it's layout resource id via this field
     protected abstract val layoutResourceId: Int
-    // Child class data binding object for views
-    protected var viewDataBinding: ViewDataBinding? = null
-        private set
+
     protected var menu: Menu? = null
         private set
     protected var currentFragment: BaseFragment<*, *>? = null
@@ -80,6 +75,8 @@ abstract class BaseActivity<V : MvpView, P : BasePresenter<V>>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        mLifecycleRegistry = LifecycleRegistry(this)
+
         if (layoutResourceId > INVALID_ID) {
             initializeLayout()
             initializePresenter()
@@ -119,15 +116,7 @@ abstract class BaseActivity<V : MvpView, P : BasePresenter<V>>
      * This method initializes the layout to the activity
      * */
     private fun initializeLayout() {
-        try {
-            viewDataBinding = DataBindingUtil.setContentView(this, layoutResourceId)
-        } catch (e: Exception) {
-            Timber.e(e)
-        }
-
-        if (viewDataBinding == null) {
-            setContentView(layoutResourceId)
-        }
+        setContentView(layoutResourceId)
     }
 
     /**
@@ -182,10 +171,6 @@ abstract class BaseActivity<V : MvpView, P : BasePresenter<V>>
     override fun onStop() {
         super.onStop()
         presenter.compositeDisposable.clear()
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
     }
 
     override fun onDestroy() {

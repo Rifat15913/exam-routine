@@ -5,13 +5,11 @@ import android.os.Bundle
 import android.view.*
 import android.view.animation.AnimationUtils
 import androidx.annotation.CallSuper
-import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleRegistry
 import androidx.lifecycle.ViewModelProviders
 import io.diaryofrifat.code.examroutine.ui.base.callback.MvpView
-import timber.log.Timber
 
 abstract class BaseFragment<V : MvpView, P : BasePresenter<V>> : Fragment(),
         MvpView, View.OnClickListener {
@@ -21,7 +19,7 @@ abstract class BaseFragment<V : MvpView, P : BasePresenter<V>> : Fragment(),
      * It is used by Fragments and Support Library Activities.
      * You can also directly use it if you have a custom LifecycleOwner.
      */
-    private val mLifecycleRegistry = LifecycleRegistry(this)
+    private lateinit var mLifecycleRegistry: LifecycleRegistry
 
     /**
      * Fields
@@ -85,6 +83,8 @@ abstract class BaseFragment<V : MvpView, P : BasePresenter<V>> : Fragment(),
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
+        mLifecycleRegistry = LifecycleRegistry(this)
+
         return if (layoutId > INVALID_ID) {
             initializeLayout(inflater, layoutId, container)
         } else {
@@ -101,20 +101,7 @@ abstract class BaseFragment<V : MvpView, P : BasePresenter<V>> : Fragment(),
      * @return [View] inflated layout view
      * */
     private fun initializeLayout(inflater: LayoutInflater, layoutId: Int, container: ViewGroup?): View? {
-        var view: View? = null
-
-        try {
-            viewDataBinding = DataBindingUtil.inflate(inflater, layoutId, container, false)
-            view = viewDataBinding?.root
-        } catch (e: Exception) {
-            Timber.e(e)
-        }
-
-        if (viewDataBinding == null) {
-            view = inflater.inflate(layoutId, container, false)
-        }
-
-        return view
+        return inflater.inflate(layoutId, container, false)
     }
 
     @CallSuper

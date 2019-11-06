@@ -10,11 +10,11 @@
     </style>
 
     <style name="TextViewStyle" parent="android:Widget.TextView">
-        <item name="android:fontFamily">@font/opensans_regular</item>
+        <item name="android:fontFamily">@font/regular</item>
     </style>
 
     <style name="ButtonStyle" parent="android:Widget.Holo.Button">
-        <item name="android:fontFamily">@font/opensans_regular</item>
+        <item name="android:fontFamily">@font/regular</item>
     </style>
 
     <style name="AppTheme.FullScreen">
@@ -58,7 +58,7 @@
         <item name="android:layout_marginStart">@dimen/margin_16</item>
         <item name="android:layout_marginEnd">@dimen/margin_16</item>
         <item name="android:ellipsize">end</item>
-        <item name="android:textColor">@color/text_regular</item>
+        <item name="android:textColor">@color/textRegular</item>
         <item name="android:textSize">@dimen/text_body</item>
     </style>
 

@@ -55,4 +55,10 @@ class Constants {
             val SUFFIX_IMAGE = ".jpg"
         }
     }
+
+    class SelectionIds {
+        companion object {
+            const val EXAM_TYPE = "exam_type"
+        }
+    }
 }

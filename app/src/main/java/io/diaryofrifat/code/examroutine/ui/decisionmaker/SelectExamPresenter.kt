@@ -17,7 +17,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
 
-class DecisionMakerPresenter : BasePresenter<DecisionMakerMvpView>() {
+class SelectExamPresenter : BasePresenter<SelectExamMvpView>() {
     private var mFirebaseDatabaseReference: DatabaseReference? = null
     private var mChildEventListener: ChildEventListener? = null
 
