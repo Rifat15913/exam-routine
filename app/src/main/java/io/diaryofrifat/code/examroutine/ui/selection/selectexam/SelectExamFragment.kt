@@ -1,6 +1,5 @@
-package io.diaryofrifat.code.examroutine.ui.selectexam
+package io.diaryofrifat.code.examroutine.ui.selection.selectexam
 
-import android.os.Build
 import android.view.View
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.gms.ads.AdListener
@@ -10,24 +9,24 @@ import com.google.android.gms.ads.MobileAds
 import io.diaryofrifat.code.examroutine.R
 import io.diaryofrifat.code.examroutine.data.local.ExamType
 import io.diaryofrifat.code.examroutine.ui.base.callback.ItemClickListener
-import io.diaryofrifat.code.examroutine.ui.base.component.BaseActivity
+import io.diaryofrifat.code.examroutine.ui.base.component.BaseFragment
 import io.diaryofrifat.code.examroutine.ui.base.helper.GridSpacingItemDecoration
 import io.diaryofrifat.code.utils.helper.DataUtils
 import io.diaryofrifat.code.utils.helper.ViewUtils
 import io.diaryofrifat.code.utils.libs.ToastUtils
-import kotlinx.android.synthetic.main.activity_select_exam.*
+import kotlinx.android.synthetic.main.fragment_select_exam.*
 import timber.log.Timber
 
 
-class SelectExamActivity : BaseActivity<SelectExamMvpView, SelectExamPresenter>(), SelectExamMvpView {
+class SelectExamFragment : BaseFragment<SelectExamMvpView, SelectExamPresenter>(), SelectExamMvpView {
 
     private var mInterstitialAd: InterstitialAd? = null
     private var mSelectedExamType: ExamType? = null
 
-    override val layoutResourceId: Int
-        get() = R.layout.activity_select_exam
+    override val layoutId: Int
+        get() = R.layout.fragment_select_exam
 
-    override fun getActivityPresenter(): SelectExamPresenter {
+    override fun getFragmentPresenter(): SelectExamPresenter {
         return SelectExamPresenter()
     }
 
@@ -39,18 +38,6 @@ class SelectExamActivity : BaseActivity<SelectExamMvpView, SelectExamPresenter>(
     }
 
     private fun initialize() {
-        // Handle status bar color
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-            ViewUtils.setStatusBarColor(this, R.color.white)
-        } else if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            ViewUtils.setStatusBarColor(this, R.color.darkBackground)
-        } else {
-            // Do nothing for Jelly bean and Kitkat devices
-        }
-
-        window.setBackgroundDrawable(null)
-
         ViewUtils.initializeRecyclerView(
                 recycler_view_exams,
                 SelectExamAdapter(),
@@ -61,7 +48,7 @@ class SelectExamActivity : BaseActivity<SelectExamMvpView, SelectExamPresenter>(
                     }
                 },
                 null,
-                GridLayoutManager(this, 2),
+                GridLayoutManager(mContext, 2),
                 GridSpacingItemDecoration(2,
                         ViewUtils.getPixel(R.dimen.margin_8),
                         true),
@@ -79,15 +66,15 @@ class SelectExamActivity : BaseActivity<SelectExamMvpView, SelectExamPresenter>(
     }
 
     private fun loadAd() {
-        MobileAds.initialize(this, DataUtils.getString(R.string.admob_app_id))
-        mInterstitialAd = InterstitialAd(applicationContext)
+        MobileAds.initialize(mContext, DataUtils.getString(R.string.admob_app_id))
+        mInterstitialAd = InterstitialAd(mContext)
         mInterstitialAd?.adUnitId = getString(R.string.select_exam_type_ad_unit_id)
         mInterstitialAd?.loadAd(AdRequest.Builder().build())
     }
 
     private fun loadData() {
         presenter.checkInternetConnectivity()
-        presenter.getExamTypes(this)
+        presenter.getExamTypes(mContext)
     }
 
     override fun stopUI() {

@@ -2,14 +2,10 @@ package io.diaryofrifat.code.examroutine.ui.examdates
 
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.ViewDataBinding
 import io.diaryofrifat.code.examroutine.R
 import io.diaryofrifat.code.examroutine.data.local.Exam
-import io.diaryofrifat.code.examroutine.databinding.ItemExamDateBinding
 import io.diaryofrifat.code.examroutine.ui.base.component.BaseAdapter
 import io.diaryofrifat.code.examroutine.ui.base.component.BaseViewHolder
-import io.diaryofrifat.code.utils.helper.Constants
-import io.diaryofrifat.code.utils.helper.TimeUtils
 
 class ExamDatesAdapter : BaseAdapter<Exam>() {
     override fun newViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<Exam> {
@@ -20,8 +16,7 @@ class ExamDatesAdapter : BaseAdapter<Exam>() {
         return left.id == right.id
     }
 
-    inner class RoutineViewHolder(binding: ViewDataBinding) : BaseViewHolder<Exam>(binding) {
-        private val mBinding = binding as ItemExamDateBinding
+    inner class RoutineViewHolder(view: View) : BaseViewHolder<Exam>(view) {
 
         override fun bind(item: Exam) {
 
@@ -45,11 +40,11 @@ class ExamDatesAdapter : BaseAdapter<Exam>() {
 
             mBinding.textViewDate.text = TimeUtils.getFormattedDateString(item.time)*/
 
-            mBinding.textViewDate.text = TimeUtils.getFormattedDateTimeString(item.time,
+            /*mBinding.textViewDate.text = TimeUtils.getFormattedDateTimeString(item.time,
                     Constants.Common.DATE_FORMAT)
 
             mBinding.textViewYear.text = TimeUtils.getFormattedDateTimeString(item.time,
-                    Constants.Common.YEAR_FORMAT)
+                    Constants.Common.YEAR_FORMAT)*/
         }
 
         override fun onClick(view: View) {

@@ -10,20 +10,18 @@ import androidx.core.view.GravityCompat
 import com.google.firebase.analytics.FirebaseAnalytics
 import io.diaryofrifat.code.examroutine.R
 import io.diaryofrifat.code.examroutine.data.local.ExamType
-import io.diaryofrifat.code.examroutine.databinding.ActivityHomeBinding
 import io.diaryofrifat.code.examroutine.ui.about.AboutFragment
 import io.diaryofrifat.code.examroutine.ui.base.component.BaseActivity
 import io.diaryofrifat.code.examroutine.ui.examdates.ExamDatesFragment
 import io.diaryofrifat.code.utils.helper.AndroidUtils
 import io.diaryofrifat.code.utils.libs.ToastUtils
-import io.diaryofrifat.code.utils.libs.firebase.FirebaseUtils
+import kotlinx.android.synthetic.main.activity_home.*
 import timber.log.Timber
 import java.util.*
 
 
 class HomeActivity : BaseActivity<HomeMvpView, HomePresenter>() {
 
-    private lateinit var mBinding: ActivityHomeBinding
     private var mExamType: ExamType? = null
 
     override val layoutResourceId: Int
@@ -45,12 +43,11 @@ class HomeActivity : BaseActivity<HomeMvpView, HomePresenter>() {
 
     private fun extractDataFromIntent() {
         if (intent != null && intent.hasExtra(HomeActivity::class.java.simpleName)) {
-            mExamType = intent.getParcelableExtra(HomeActivity::class.java.simpleName)
+            // mExamType = intent.getParcelableExtra(HomeActivity::class.java.simpleName)
         }
     }
 
     private fun workWithViews() {
-        mBinding = viewDataBinding as ActivityHomeBinding
         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_menu_white)
         launchHomePage()
     }
@@ -59,11 +56,11 @@ class HomeActivity : BaseActivity<HomeMvpView, HomePresenter>() {
         if (mExamType != null) {
             setTitle(String.format(Locale.ENGLISH,
                     getString(R.string.placeholder_routine),
-                    mExamType?.examType))
+                    mExamType?.examTypeTitle))
 
             val fragment = ExamDatesFragment()
             val arguments = Bundle()
-            arguments.putParcelable(ExamDatesFragment::class.java.simpleName, mExamType)
+            // arguments.putParcelable(ExamDatesFragment::class.java.simpleName, mExamType)
             fragment.arguments = arguments
             commitFragment(R.id.constraint_layout_fragment_container, fragment)
         }
@@ -75,15 +72,15 @@ class HomeActivity : BaseActivity<HomeMvpView, HomePresenter>() {
     }
 
     private fun setListeners() {
-        mBinding.navigationViewDrawerMenu.setNavigationItemSelectedListener {
-            mBinding.drawerLayoutWholeContainer.closeDrawers()
+        navigation_view_drawer_menu?.setNavigationItemSelectedListener {
+            drawer_layout_whole_container?.closeDrawers()
 
             when (it.itemId) {
                 R.id.nav_home -> {
                     if (currentFragment !is ExamDatesFragment) {
                         val bundle = Bundle()
                         bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, getString(R.string.nav_routine))
-                        FirebaseUtils.getFirebaseAnalytics()?.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle)
+                        // FirebaseUtils.getFirebaseAnalytics()?.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle)
 
                         launchHomePage()
                     }
@@ -144,7 +141,7 @@ class HomeActivity : BaseActivity<HomeMvpView, HomePresenter>() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             android.R.id.home -> {
-                mBinding.drawerLayoutWholeContainer.openDrawer(GravityCompat.START)
+                drawer_layout_whole_container?.openDrawer(GravityCompat.START)
                 true
             }
 

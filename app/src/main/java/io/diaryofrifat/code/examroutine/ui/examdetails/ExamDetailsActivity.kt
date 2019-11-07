@@ -4,17 +4,15 @@ import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.MobileAds
 import io.diaryofrifat.code.examroutine.R
 import io.diaryofrifat.code.examroutine.data.local.Exam
-import io.diaryofrifat.code.examroutine.databinding.ActivityExamDetailsBinding
 import io.diaryofrifat.code.examroutine.ui.base.component.BaseActivity
 import io.diaryofrifat.code.utils.helper.Constants
 import io.diaryofrifat.code.utils.helper.DataUtils
 import io.diaryofrifat.code.utils.helper.SharedPrefUtils
 import io.diaryofrifat.code.utils.helper.TimeUtils
+import kotlinx.android.synthetic.main.activity_exam_details.*
 import java.util.*
 
 class ExamDetailsActivity : BaseActivity<ExamDetailsMvpView, ExamDetailsPresenter>() {
-
-    private lateinit var mBinding: ActivityExamDetailsBinding
 
     override val layoutResourceId: Int
         get() = R.layout.activity_exam_details
@@ -28,7 +26,6 @@ class ExamDetailsActivity : BaseActivity<ExamDetailsMvpView, ExamDetailsPresente
     }
 
     override fun startUI() {
-        mBinding = viewDataBinding as ActivityExamDetailsBinding
         workWithAds()
         workWithViews()
     }
@@ -39,21 +36,21 @@ class ExamDetailsActivity : BaseActivity<ExamDetailsMvpView, ExamDetailsPresente
 
     private fun workWithAds() {
         MobileAds.initialize(this, DataUtils.getString(R.string.admob_app_id))
-        mBinding.bannerAdView.loadAd(AdRequest.Builder().build())
+        banner_ad_view?.loadAd(AdRequest.Builder().build())
     }
 
     private fun workWithViews() {
         val item = extractExamDetailsData()
 
         if (item != null) {
-            mBinding.textViewSubjectName.text = item.subjectName
+            text_view_subject_name?.text = item.subjectName
 
-            mBinding.textViewSubjectCode.text = String.format(Locale.ENGLISH,
+            text_view_subject_code?.text = String.format(Locale.ENGLISH,
                     DataUtils.getString(R.string.placeholder_subject_code), item.subjectCode)
 
             val examType: String = SharedPrefUtils.get(Constants.PreferenceKey.EXAM_TYPE)!!
 
-            mBinding.textViewTime.text = String.format(Locale.ENGLISH,
+            text_view_time?.text = String.format(Locale.ENGLISH,
                     DataUtils.getString(R.string.placeholder_exam_time),
                     TimeUtils.getFormattedDateTimeString(item.time,
                             Constants.Common.APP_COMMON_TIME_FORMAT),
@@ -62,7 +59,7 @@ class ExamDetailsActivity : BaseActivity<ExamDetailsMvpView, ExamDetailsPresente
                                     if (examType == getString(R.string.psc)) 150 else 180),
                             Constants.Common.APP_COMMON_TIME_FORMAT))
 
-            mBinding.textViewDate.text = TimeUtils.getFormattedDateString(item.time)
+            text_view_date?.text = TimeUtils.getFormattedDateString(item.time)
         }
     }
 

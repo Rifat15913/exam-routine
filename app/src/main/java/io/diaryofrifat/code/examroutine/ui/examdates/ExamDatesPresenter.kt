@@ -9,11 +9,11 @@ import com.google.firebase.database.DatabaseReference
 import io.diaryofrifat.code.examroutine.R
 import io.diaryofrifat.code.examroutine.data.local.Exam
 import io.diaryofrifat.code.examroutine.data.local.ExamType
+import io.diaryofrifat.code.examroutine.data.remote.service.DatabaseService
 import io.diaryofrifat.code.examroutine.ui.base.component.BasePresenter
+import io.diaryofrifat.code.examroutine.ui.base.helper.ProgressDialogUtils
 import io.diaryofrifat.code.utils.helper.DataUtils.Companion.getString
-import io.diaryofrifat.code.utils.helper.ProgressDialogUtils
 import io.diaryofrifat.code.utils.helper.TimeUtils
-import io.diaryofrifat.code.utils.libs.firebase.FirebaseUtils
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -33,24 +33,24 @@ class ExamDatesPresenter : BasePresenter<ExamDatesMvpView>() {
                     mvpView?.onInternetConnectivity(it)
                 }, {
                     Timber.e(it)
-                    ProgressDialogUtils.hideProgressDialog()
+                    ProgressDialogUtils.on().hideProgressDialog()
                 }))
     }
 
     fun attachFirebaseDatabase(context: Context, examType: ExamType): Boolean {
-        ProgressDialogUtils.showProgressDialog(context)
+        ProgressDialogUtils.on().showProgressDialog(context)
 
         val databaseExamPath: String = getString(R.string.path_exam_types) + examType.id
 
         if (mFirebaseDatabaseReference == null) {
-            mFirebaseDatabaseReference = FirebaseUtils.getDatabaseReference(databaseExamPath)
+            mFirebaseDatabaseReference = DatabaseService.getDatabaseReference(databaseExamPath)
         }
 
         if (mChildEventListener == null) {
             mChildEventListener = object : ChildEventListener {
                 override fun onCancelled(error: DatabaseError) {
                     mvpView?.onChildError(error.toException())
-                    ProgressDialogUtils.hideProgressDialog()
+                    ProgressDialogUtils.on().hideProgressDialog()
                 }
 
                 override fun onChildMoved(data: DataSnapshot, p1: String?) {
@@ -62,14 +62,14 @@ class ExamDatesPresenter : BasePresenter<ExamDatesMvpView>() {
                         mvpView?.clearTheList()
                         var count: Long = 0
 
-                        ProgressDialogUtils.showProgressDialog(context)
+                        ProgressDialogUtils.on().showProgressDialog(context)
 
                         for (item in data.children) {
                             mvpView?.onChildChanged(item.getValue(Exam::class.java)!!)
                             count++
 
                             if (count == data.childrenCount) {
-                                ProgressDialogUtils.hideProgressDialog()
+                                ProgressDialogUtils.on().hideProgressDialog()
                                 mvpView?.setToolbarTitle(TimeUtils.getYear(
                                         (item.getValue(Exam::class.java)!!.time)).toString())
                             }
@@ -86,7 +86,7 @@ class ExamDatesPresenter : BasePresenter<ExamDatesMvpView>() {
                             count++
 
                             if (count == data.childrenCount) {
-                                ProgressDialogUtils.hideProgressDialog()
+                                ProgressDialogUtils.on().hideProgressDialog()
                                 mvpView?.setToolbarTitle(TimeUtils.getYear(
                                         (item.getValue(Exam::class.java)!!.time)).toString())
                             }

@@ -1,4 +1,4 @@
-package io.diaryofrifat.code.examroutine.ui.selectexam
+package io.diaryofrifat.code.examroutine.ui.selection.selectexam
 
 import io.diaryofrifat.code.examroutine.data.local.ExamType
 import io.diaryofrifat.code.examroutine.ui.base.callback.MvpView

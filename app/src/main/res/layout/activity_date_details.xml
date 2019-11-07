@@ -1,77 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:ads="http://schemas.android.com/apk/res-auto"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/white">
+    <TextView
+        android:id="@+id/text_view_date"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_16"
+        android:textColor="@color/textRegular"
+        android:textSize="@dimen/text_title"
+        android:textStyle="bold"
+        ads:layout_constraintBottom_toTopOf="@+id/recycler_view_exams"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Saturday, 02 Feb, 2019" />
 
-        <TextView
-            android:id="@+id/text_view_date"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_16"
-            android:textColor="@color/textRegular"
-            android:textSize="@dimen/text_title"
-            android:textStyle="bold"
-            ads:layout_constraintBottom_toTopOf="@+id/recycler_view_exams"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="Saturday, 02 Feb, 2019" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view_exams"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        ads:layout_constraintBottom_toTopOf="@+id/banner_ad_view"
+        ads:layout_constraintTop_toBottomOf="@+id/text_view_date"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:itemCount="5"
+        tools:listitem="@layout/item_exam" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_view_exams"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            ads:layout_constraintBottom_toTopOf="@+id/banner_ad_view"
-            ads:layout_constraintTop_toBottomOf="@+id/text_view_date"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:itemCount="5"
-            tools:listitem="@layout/item_exam" />
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/banner_ad_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        ads:adSize="BANNER"
+        ads:adUnitId="@string/date_details_ad_unit_id"
+        ads:layout_constraintBottom_toBottomOf="parent"
+        ads:layout_constraintEnd_toEndOf="parent"
+        ads:layout_constraintStart_toStartOf="parent"
+        ads:layout_constraintTop_toBottomOf="@+id/recycler_view_exams" />
 
-        <com.google.android.gms.ads.AdView
-            android:id="@+id/banner_ad_view"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            ads:adSize="BANNER"
-            ads:adUnitId="@string/date_details_ad_unit_id"
-            ads:layout_constraintBottom_toBottomOf="parent"
-            ads:layout_constraintEnd_toEndOf="parent"
-            ads:layout_constraintStart_toStartOf="parent"
-            ads:layout_constraintTop_toBottomOf="@+id/recycler_view_exams" />
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/chip_next_exam_date"
+        style="@style/Widget.MaterialComponents.Button.Icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margin_16"
+        android:layout_marginBottom="@dimen/margin_16"
+        android:paddingStart="@dimen/padding_12"
+        android:paddingTop="@dimen/padding_16"
+        android:paddingEnd="@dimen/padding_20"
+        android:paddingBottom="@dimen/padding_16"
+        android:text="@string/next_exam_date"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_body"
+        app:backgroundTint="@color/colorPrimary"
+        app:cornerRadius="@dimen/radius_25"
+        app:icon="@drawable/ic_next"
+        app:iconSize="@dimen/width_24"
+        app:layout_constraintBottom_toTopOf="@+id/banner_ad_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/chip_next_exam_date"
-            style="@style/Widget.MaterialComponents.Button.Icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/margin_16"
-            android:layout_marginBottom="@dimen/margin_16"
-            android:paddingStart="@dimen/padding_12"
-            android:paddingTop="@dimen/padding_16"
-            android:paddingEnd="@dimen/padding_20"
-            android:paddingBottom="@dimen/padding_16"
-            android:text="@string/next_exam_date"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textSize="@dimen/text_body"
-            app:backgroundTint="@color/colorPrimary"
-            app:cornerRadius="@dimen/radius_25"
-            app:icon="@drawable/ic_next"
-            app:iconSize="@dimen/width_24"
-            app:layout_constraintBottom_toTopOf="@+id/banner_ad_view"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-</layout>
+</androidx.constraintlayout.widget.ConstraintLayout>

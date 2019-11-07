@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
@@ -11,7 +10,7 @@
         android:id="@+id/constraint_layout_head_container"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/constraint_layout_body_container"
+        app:layout_constraintBottom_toTopOf="@+id/constraint_layout_fragment_container"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -49,54 +48,12 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraint_layout_body_container"
+        android:id="@+id/constraint_layout_fragment_container"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraint_layout_head_container">
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/text_view_subtitle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_32"
-            android:layout_marginTop="@dimen/margin_32"
-            android:layout_marginEnd="@dimen/margin_32"
-            android:layout_marginBottom="@dimen/margin_16"
-            android:drawablePadding="@dimen/padding_16"
-            android:gravity="center_vertical"
-            android:text="@string/select_exam_subtitle"
-            android:textColor="@color/textRegular"
-            android:textSize="@dimen/textParagraphTitle"
-            app:drawableStartCompat="@drawable/ic_exam"
-            app:fontFamily="@font/semi_bold"
-            app:layout_constraintBottom_toTopOf="@+id/recycler_view_exams"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0"
-            app:layout_constraintVertical_chainStyle="spread_inside"
-            app:textAllCaps="false" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_view_exams"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:paddingStart="@dimen/padding_24"
-            android:paddingEnd="@dimen/padding_24"
-            android:paddingTop="@dimen/padding_8"
-            android:paddingBottom="@dimen/padding_8"
-            android:layout_marginBottom="@dimen/margin_16"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_view_subtitle"
-            tools:listitem="@layout/item_option" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        app:layout_constraintTop_toBottomOf="@+id/constraint_layout_head_container" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

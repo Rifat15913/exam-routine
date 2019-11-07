@@ -1,4 +1,4 @@
-package io.diaryofrifat.code.examroutine.ui.selectexam
+package io.diaryofrifat.code.examroutine.ui.selection.selectexam
 
 import android.view.View
 import android.view.ViewGroup

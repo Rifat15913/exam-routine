@@ -1,4 +1,4 @@
-package io.diaryofrifat.code.examroutine.ui.selectexam
+package io.diaryofrifat.code.examroutine.ui.selection.selectexam
 
 import android.content.Context
 import com.github.pwittchen.reactivenetwork.library.rx2.ReactiveNetwork

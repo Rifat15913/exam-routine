@@ -28,7 +28,7 @@ abstract class BaseFragment<V : MvpView, P : BasePresenter<V>> : Fragment(),
     protected lateinit var presenter: P
 
     // This fragment context
-    protected var mContext: Context? = null
+    protected lateinit var mContext: Context
 
     /**
      * The methods to be implemented by the child class (Abstract methods)

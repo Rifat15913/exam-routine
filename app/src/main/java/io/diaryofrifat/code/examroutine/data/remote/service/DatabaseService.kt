@@ -23,7 +23,7 @@ object DatabaseService {
      * @param path database path
      * @return [DatabaseReference] reference of the database
      * */
-    private fun getDatabaseReference(path: String): DatabaseReference? {
+    fun getDatabaseReference(path: String): DatabaseReference? {
         return mFirebaseDatabase.reference.child(path)
     }
 
