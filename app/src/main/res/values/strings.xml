@@ -22,7 +22,7 @@
     <string name="error_context_is_null">Context is null</string>
     <string name="error_image_uri_is_null">Image Uri is null</string>
     <string name="something_went_wrong">Something went wrong</string>
-    <string name="error_you_are_not_connected_to_the_internet">You are not connected to the internet. Please connect</string>
+    <string name="error_you_are_not_connected_to_the_internet">Please connect to the Internet</string>
     <string name="error_could_not_find_the_application">Sorry. Could not find the application.</string>
 
     <!--Warning-->

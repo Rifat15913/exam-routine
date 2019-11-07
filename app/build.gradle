@@ -27,7 +27,7 @@ android {
 
     buildTypes {
         debug {
-            buildConfigField('String', "admob_app_id", exam_routine_debug_admob_app_id)
+/*            buildConfigField('String', "admob_app_id", exam_routine_debug_admob_app_id)
             buildConfigField('String', "before_routine_ad_unit_id", exam_routine_debug_before_routine_ad_unit_id)
             buildConfigField('String', "click_on_date_ad_unit_id", exam_routine_debug_click_on_date_ad_unit_id)
             buildConfigField('String', "click_on_next_item_ad_unit_id", exam_routine_debug_click_on_next_item_ad_unit_id)
@@ -39,7 +39,7 @@ android {
             buildConfigField('String', "path_psc", exam_routine_main_path_psc)
             buildConfigField('String', "path_jsc", exam_routine_main_path_jsc)
             buildConfigField('String', "path_ssc", exam_routine_main_path_ssc)
-            buildConfigField('String', "path_hsc", exam_routine_main_path_hsc)
+            buildConfigField('String', "path_hsc", exam_routine_main_path_hsc)*/
 
             resValue('string', "admob_app_id", exam_routine_debug_admob_app_id)
             resValue('string', "before_routine_ad_unit_id", exam_routine_debug_before_routine_ad_unit_id)
@@ -61,7 +61,7 @@ android {
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
 
-            buildConfigField('String', "admob_app_id", exam_routine_main_admob_app_id)
+/*            buildConfigField('String', "admob_app_id", exam_routine_main_admob_app_id)
             buildConfigField('String', "before_routine_ad_unit_id", exam_routine_main_before_routine_ad_unit_id)
             buildConfigField('String', "click_on_date_ad_unit_id", exam_routine_main_click_on_date_ad_unit_id)
             buildConfigField('String', "click_on_next_item_ad_unit_id", exam_routine_main_click_on_next_item_ad_unit_id)
@@ -73,7 +73,7 @@ android {
             buildConfigField('String', "path_psc", exam_routine_main_path_psc)
             buildConfigField('String', "path_jsc", exam_routine_main_path_jsc)
             buildConfigField('String', "path_ssc", exam_routine_main_path_ssc)
-            buildConfigField('String', "path_hsc", exam_routine_main_path_hsc)
+            buildConfigField('String', "path_hsc", exam_routine_main_path_hsc)*/
 
             resValue('string', "admob_app_id", exam_routine_main_admob_app_id)
             resValue('string', "before_routine_ad_unit_id", exam_routine_main_before_routine_ad_unit_id)

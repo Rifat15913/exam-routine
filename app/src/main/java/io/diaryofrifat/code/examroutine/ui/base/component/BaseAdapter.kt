@@ -1,8 +1,8 @@
 package io.diaryofrifat.code.examroutine.ui.base.component
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 import io.diaryofrifat.code.examroutine.R
@@ -267,8 +267,7 @@ abstract class BaseAdapter<T> : RecyclerView.Adapter<BaseViewHolder<T>>() {
      * @param itemLayout layout id of the item
      * @return [ViewDataBinding] data binding object
      * */
-    fun inflate(parent: ViewGroup, itemLayout: Int): ViewDataBinding {
-        return DataBindingUtil.inflate(LayoutInflater.from(parent.context),
-                itemLayout, parent, false)
+    fun inflate(parent: ViewGroup, itemLayout: Int): View {
+        return LayoutInflater.from(parent.context).inflate(itemLayout, parent, false)
     }
 }

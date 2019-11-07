@@ -2,37 +2,33 @@ package io.diaryofrifat.code.examroutine.ui.selectexam
 
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.ViewDataBinding
 import io.diaryofrifat.code.examroutine.R
 import io.diaryofrifat.code.examroutine.data.local.ExamType
-import io.diaryofrifat.code.examroutine.databinding.ItemExamTypeBinding
-import io.diaryofrifat.code.examroutine.ui.base.component.BaseSelectableAdapter
+import io.diaryofrifat.code.examroutine.ui.base.component.BaseAdapter
 import io.diaryofrifat.code.examroutine.ui.base.component.BaseViewHolder
+import kotlinx.android.synthetic.main.item_option.view.*
 
-class SelectExamAdapter : BaseSelectableAdapter<ExamType>() {
-    override fun getItemIdForPosition(position: Int): Long {
-        return getItem(position)?.id!!
-    }
-
+class SelectExamAdapter : BaseAdapter<ExamType>() {
     override fun isEqual(left: ExamType, right: ExamType): Boolean {
         return left.id == right.id
     }
 
     override fun newViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<ExamType> {
-        return ExamTypeViewHolder(inflate(parent, R.layout.item_exam_type))
+        return ExamTypeViewHolder(inflate(parent, R.layout.item_option))
     }
 
-    inner class ExamTypeViewHolder(binding: ViewDataBinding) : BaseViewHolder<ExamType>(binding) {
-        private val mBinding = binding as ItemExamTypeBinding
+    inner class ExamTypeViewHolder(view: View) : BaseViewHolder<ExamType>(view) {
 
         override fun bind(item: ExamType) {
-            mBinding.materialButtonExamType.text = item.examType
-            itemView.setOnClickListener(this)
+            itemView.text_view_title?.text = item.examTypeTitle
+            setClickListener(itemView)
         }
 
         override fun onClick(view: View) {
-            if (getItem(adapterPosition) != null) {
-                mItemClickListener?.onItemClick(view, getItem(adapterPosition)!!)
+            super.onClick(view)
+
+            getItem(adapterPosition)?.let {
+                mItemClickListener?.onItemClick(view, it, adapterPosition)
             }
         }
     }

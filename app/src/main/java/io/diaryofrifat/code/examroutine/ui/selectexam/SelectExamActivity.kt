@@ -1,27 +1,19 @@
 package io.diaryofrifat.code.examroutine.ui.selectexam
 
-import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.view.View
-import androidx.recyclerview.selection.SelectionPredicates
 import androidx.recyclerview.selection.SelectionTracker
-import androidx.recyclerview.selection.StableIdKeyProvider
-import androidx.recyclerview.selection.StorageStrategy
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.InterstitialAd
 import com.google.android.gms.ads.MobileAds
-import com.lusosmile.main.ui.base.component.BaseItemDetailsLookup
 import io.diaryofrifat.code.examroutine.R
 import io.diaryofrifat.code.examroutine.data.local.ExamType
 import io.diaryofrifat.code.examroutine.ui.base.callback.SelectionListener
 import io.diaryofrifat.code.examroutine.ui.base.component.BaseActivity
 import io.diaryofrifat.code.examroutine.ui.base.helper.GridSpacingItemDecoration
-import io.diaryofrifat.code.examroutine.ui.base.helper.ProgressDialogUtils
-import io.diaryofrifat.code.examroutine.ui.home.HomeActivity
-import io.diaryofrifat.code.utils.helper.Constants
 import io.diaryofrifat.code.utils.helper.DataUtils
 import io.diaryofrifat.code.utils.helper.ViewUtils
 import io.diaryofrifat.code.utils.libs.ToastUtils
@@ -68,17 +60,13 @@ class SelectExamActivity : BaseActivity<SelectExamMvpView, SelectExamPresenter>(
     }
 
     override fun startUI() {
-        MobileAds.initialize(this, DataUtils.getString(R.string.admob_app_id))
-        initialization()
+        initialize()
         setListeners()
-    }
-
-    private fun initialization() {
-        loadViews()
+        loadAd()
         loadData()
     }
 
-    private fun loadViews() {
+    private fun initialize() {
         window.setBackgroundDrawable(null)
 
         ViewUtils.initializeRecyclerView(
@@ -87,38 +75,14 @@ class SelectExamActivity : BaseActivity<SelectExamMvpView, SelectExamPresenter>(
                 null,
                 null,
                 GridLayoutManager(this, 2),
-                GridSpacingItemDecoration(2, ViewUtils.getPixel(R.dimen.margin_8), true),
+                GridSpacingItemDecoration(2,
+                        ViewUtils.getPixel(R.dimen.margin_8),
+                        true),
                 null,
                 null)
-
-        mTracker = SelectionTracker.Builder<Long>(
-                Constants.SelectionIds.EXAM_TYPE,
-                recycler_view_exams,
-                StableIdKeyProvider(recycler_view_exams),
-                BaseItemDetailsLookup(recycler_view_exams),
-                StorageStrategy.createLongStorage())
-                .withSelectionPredicate(SelectionPredicates.createSelectSingleAnything())
-                .build()
-
-        getAdapter().tracker = mTracker
-        getAdapter().selectionListener = this
-    }
-
-    private fun loadData() {
-        loadAd()
-        presenter.attachFirebaseDatabase(this)
-        presenter.checkInternetConnectivity()
-    }
-
-    private fun loadAd() {
-        mInterstitialAd = InterstitialAd(applicationContext)
-        mInterstitialAd?.adUnitId = getString(R.string.before_routine_ad_unit_id)
-        mInterstitialAd?.loadAd(AdRequest.Builder().build())
     }
 
     private fun setListeners() {
-        setClickListener(text_view_next_steps)
-
         mInterstitialAd?.adListener = object : AdListener() {
             override fun onAdClosed() {
                 super.onAdClosed()
@@ -127,8 +91,20 @@ class SelectExamActivity : BaseActivity<SelectExamMvpView, SelectExamPresenter>(
         }
     }
 
+    private fun loadAd() {
+        MobileAds.initialize(this, DataUtils.getString(R.string.admob_app_id))
+        mInterstitialAd = InterstitialAd(applicationContext)
+        mInterstitialAd?.adUnitId = getString(R.string.before_routine_ad_unit_id)
+        mInterstitialAd?.loadAd(AdRequest.Builder().build())
+    }
+
+    private fun loadData() {
+        presenter.checkInternetConnectivity()
+        presenter.getExamTypes(this)
+    }
+
     override fun stopUI() {
-        presenter.detachFirebaseDatabase()
+        presenter.detachExamTypeListener()
         mInterstitialAd?.adListener = null
         mInterstitialAd = null
     }
@@ -148,12 +124,7 @@ class SelectExamActivity : BaseActivity<SelectExamMvpView, SelectExamPresenter>(
     }
 
     private fun goToHomePage() {
-        if (mSelectedExamType != null) {
-            val intent = Intent(this, HomeActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-            intent.putExtra(HomeActivity::class.java.simpleName, mSelectedExamType)
-            startActivity(intent)
-        }
+
     }
 
     private fun getAdapter(): SelectExamAdapter {
@@ -164,7 +135,7 @@ class SelectExamActivity : BaseActivity<SelectExamMvpView, SelectExamPresenter>(
         getAdapter().addItem(item)
     }
 
-    override fun onChildAdded(item: ExamType) {
+    override fun onExamTypesAdded(item: ExamType) {
         getAdapter().addItem(item)
     }
 
@@ -172,15 +143,14 @@ class SelectExamActivity : BaseActivity<SelectExamMvpView, SelectExamPresenter>(
         getAdapter().removeItem(item)
     }
 
-    override fun onChildError(error: Throwable) {
+    override fun onErrorGettingExamType(error: Throwable) {
         Timber.e(error)
-        ToastUtils.error(getString(R.string.something_went_wrong))
+        ToastUtils.nativeShort(getString(R.string.something_went_wrong))
     }
 
-    override fun onInternetConnectivity(state: Boolean) {
-        if (!state) {
-            ToastUtils.error(getString(R.string.error_you_are_not_connected_to_the_internet))
-            ProgressDialogUtils.on().hideProgressDialog()
+    override fun onInternetConnectivity(isConnected: Boolean) {
+        if (!isConnected) {
+            ToastUtils.nativeLong(getString(R.string.error_you_are_not_connected_to_the_internet))
         }
     }
 
