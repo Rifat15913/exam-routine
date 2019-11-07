@@ -32,7 +32,7 @@
         </activity>
 
         <activity
-            android:name=".ui.decisionmaker.SelectExamActivity"
+            android:name=".ui.selectexam.SelectExamActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.GradientStatusBar" />
 

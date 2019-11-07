@@ -3,7 +3,7 @@ package io.diaryofrifat.code.examroutine.ui.splash
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import io.diaryofrifat.code.examroutine.ui.decisionmaker.SelectExamActivity
+import io.diaryofrifat.code.examroutine.ui.selectexam.SelectExamActivity
 
 class SplashActivity : AppCompatActivity() {
 

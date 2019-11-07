@@ -6,8 +6,8 @@
     <string name="file_provider_authority" translatable="false">io.diaryofrifat.code.examroutine.fileprovider</string>
     <string name="intent_type_image">image/*</string>
     <string name="intent_extra_return_data">return-data</string>
-
-    <string name="please_wait">Please Wait…</string>
+    <string name="loading">Loading…</string>
+    <string name="please_wait">Please Wait</string>
     <string name="interstitial_ad_decision_maker_page">Interstitial ad on decision maker page</string>
     <string name="interstitial_ad_routine_page">Interstitial ad on routine page</string>
 

@@ -1,4 +1,4 @@
-package io.diaryofrifat.code.examroutine.ui.decisionmaker
+package io.diaryofrifat.code.examroutine.ui.selectexam
 
 import android.content.Intent
 import android.os.Build
@@ -19,10 +19,10 @@ import io.diaryofrifat.code.examroutine.data.local.ExamType
 import io.diaryofrifat.code.examroutine.ui.base.callback.SelectionListener
 import io.diaryofrifat.code.examroutine.ui.base.component.BaseActivity
 import io.diaryofrifat.code.examroutine.ui.base.helper.GridSpacingItemDecoration
+import io.diaryofrifat.code.examroutine.ui.base.helper.ProgressDialogUtils
 import io.diaryofrifat.code.examroutine.ui.home.HomeActivity
 import io.diaryofrifat.code.utils.helper.Constants
 import io.diaryofrifat.code.utils.helper.DataUtils
-import io.diaryofrifat.code.utils.helper.ProgressDialogUtils
 import io.diaryofrifat.code.utils.helper.ViewUtils
 import io.diaryofrifat.code.utils.libs.ToastUtils
 import kotlinx.android.synthetic.main.activity_select_exam.*
@@ -106,12 +106,8 @@ class SelectExamActivity : BaseActivity<SelectExamMvpView, SelectExamPresenter>(
 
     private fun loadData() {
         loadAd()
-        loadExamTypes()
-        presenter.checkInternetConnectivity()
-    }
-
-    private fun loadExamTypes() {
         presenter.attachFirebaseDatabase(this)
+        presenter.checkInternetConnectivity()
     }
 
     private fun loadAd() {
@@ -184,7 +180,7 @@ class SelectExamActivity : BaseActivity<SelectExamMvpView, SelectExamPresenter>(
     override fun onInternetConnectivity(state: Boolean) {
         if (!state) {
             ToastUtils.error(getString(R.string.error_you_are_not_connected_to_the_internet))
-            ProgressDialogUtils.hideProgressDialog()
+            ProgressDialogUtils.on().hideProgressDialog()
         }
     }
 

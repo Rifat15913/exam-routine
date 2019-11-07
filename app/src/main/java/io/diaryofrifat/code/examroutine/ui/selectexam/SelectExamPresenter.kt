@@ -1,4 +1,4 @@
-package io.diaryofrifat.code.examroutine.ui.decisionmaker
+package io.diaryofrifat.code.examroutine.ui.selectexam
 
 import android.content.Context
 import com.github.pwittchen.reactivenetwork.library.rx2.ReactiveNetwork
@@ -9,8 +9,8 @@ import com.google.firebase.database.DatabaseReference
 import io.diaryofrifat.code.examroutine.R
 import io.diaryofrifat.code.examroutine.data.local.ExamType
 import io.diaryofrifat.code.examroutine.ui.base.component.BasePresenter
+import io.diaryofrifat.code.examroutine.ui.base.helper.ProgressDialogUtils
 import io.diaryofrifat.code.utils.helper.DataUtils
-import io.diaryofrifat.code.utils.helper.ProgressDialogUtils
 import io.diaryofrifat.code.utils.libs.firebase.FirebaseUtils
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -31,12 +31,12 @@ class SelectExamPresenter : BasePresenter<SelectExamMvpView>() {
                     mvpView?.onInternetConnectivity(it)
                 }, {
                     Timber.e(it)
-                    ProgressDialogUtils.hideProgressDialog()
+                    ProgressDialogUtils.on().hideProgressDialog()
                 }))
     }
 
     fun attachFirebaseDatabase(context: Context): Boolean {
-        ProgressDialogUtils.showProgressDialog(context)
+        ProgressDialogUtils.on().showProgressDialog(context)
 
         val databaseExamPath = DataUtils.getString(R.string.path_exam_types)
 
@@ -48,7 +48,7 @@ class SelectExamPresenter : BasePresenter<SelectExamMvpView>() {
             mChildEventListener = object : ChildEventListener {
                 override fun onCancelled(error: DatabaseError) {
                     mvpView?.onChildError(error.toException())
-                    ProgressDialogUtils.hideProgressDialog()
+                    ProgressDialogUtils.on().hideProgressDialog()
                 }
 
                 override fun onChildMoved(data: DataSnapshot, p1: String?) {
@@ -59,7 +59,7 @@ class SelectExamPresenter : BasePresenter<SelectExamMvpView>() {
                     if (data.hasChildren()) {
                         var count: Long = 0
 
-                        ProgressDialogUtils.showProgressDialog(context)
+                        ProgressDialogUtils.on().showProgressDialog(context)
 
                         for (item in data.children) {
                             item.key?.let {
@@ -69,7 +69,7 @@ class SelectExamPresenter : BasePresenter<SelectExamMvpView>() {
                             count++
 
                             if (count == data.childrenCount) {
-                                ProgressDialogUtils.hideProgressDialog()
+                                ProgressDialogUtils.on().hideProgressDialog()
                             }
                         }
                     }
@@ -87,7 +87,7 @@ class SelectExamPresenter : BasePresenter<SelectExamMvpView>() {
                             count++
 
                             if (count == data.childrenCount) {
-                                ProgressDialogUtils.hideProgressDialog()
+                                ProgressDialogUtils.on().hideProgressDialog()
                             }
                         }
                     }
@@ -97,7 +97,7 @@ class SelectExamPresenter : BasePresenter<SelectExamMvpView>() {
                     if (data.hasChildren()) {
                         var count: Long = 0
 
-                        ProgressDialogUtils.showProgressDialog(context)
+                        ProgressDialogUtils.on().showProgressDialog(context)
 
                         for (item in data.children) {
                             item.key?.let {
@@ -107,7 +107,7 @@ class SelectExamPresenter : BasePresenter<SelectExamMvpView>() {
                             count++
 
                             if (count == data.childrenCount) {
-                                ProgressDialogUtils.hideProgressDialog()
+                                ProgressDialogUtils.on().hideProgressDialog()
                             }
                         }
                     }
