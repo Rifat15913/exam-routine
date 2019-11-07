@@ -11,9 +11,10 @@
         app:cardPreventCornerOverlap="false">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraint_layout_item_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/background_list_item">
+            android:background="@color/white">
 
             <TextView
                 android:id="@+id/text_view_title"
@@ -22,7 +23,7 @@
                 android:layout_marginEnd="0dp"
                 android:gravity="center"
                 android:padding="@dimen/padding_32"
-                android:textColor="@color/text_color_list_item"
+                android:textColor="@color/textRegular"
                 android:textSize="@dimen/text_body"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"

@@ -57,5 +57,39 @@ class DataUtils private constructor() {
             return Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE + "://"
                     + AndroidUtils.getApplicationId() + "/" + resourceId)
         }
+
+        /**
+         * This method returns a converted title case string
+         *
+         * @param given given string
+         * @return desired [String]
+         * */
+        fun toTitleCase(given: String, isChangeable: Boolean = true): String {
+            var isSpace = true
+            val builder = StringBuilder(given)
+            val len = builder.length
+
+            for (i in 0 until len) {
+                val char = builder[i]
+                if (isSpace) {
+                    if (!Character.isWhitespace(char)) {
+                        // Convert to title case and switch out of whitespace mode.
+                        builder.setCharAt(i, Character.toTitleCase(char))
+                        isSpace = false
+                    }
+                } else if (Character.isWhitespace(char)) {
+                    isSpace = true
+                } else {
+                    builder.setCharAt(i,
+                            if (isChangeable)
+                                Character.toLowerCase(char)
+                            else
+                                char
+                    )
+                }
+            }
+
+            return builder.toString()
+        }
     }
 }

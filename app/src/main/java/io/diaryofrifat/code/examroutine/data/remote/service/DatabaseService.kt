@@ -1,8 +1,8 @@
 package io.diaryofrifat.code.examroutine.data.remote.service
 
-import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import io.diaryofrifat.code.examroutine.R
 import io.diaryofrifat.code.utils.helper.DataUtils
 
@@ -27,11 +27,17 @@ object DatabaseService {
         return mFirebaseDatabase.reference.child(path)
     }
 
-    fun getExamTypes(listener: ChildEventListener): DatabaseReference? {
+    /**
+     * This method provides all the exam types
+     *
+     * @param listener to get all the exam types
+     * @return [DatabaseReference] reference of the exam types
+     * */
+    fun getExamTypes(listener: ValueEventListener): DatabaseReference? {
         return mFirebaseDatabase.reference
                 .child(DataUtils.getString(R.string.path_exam_types))
                 .apply {
-                    addChildEventListener(listener)
+                    addValueEventListener(listener)
                 }
     }
 }

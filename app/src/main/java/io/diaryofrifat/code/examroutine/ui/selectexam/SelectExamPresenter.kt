@@ -2,10 +2,10 @@ package io.diaryofrifat.code.examroutine.ui.selectexam
 
 import android.content.Context
 import com.github.pwittchen.reactivenetwork.library.rx2.ReactiveNetwork
-import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ValueEventListener
 import io.diaryofrifat.code.examroutine.data.local.ExamType
 import io.diaryofrifat.code.examroutine.data.remote.service.DatabaseService
 import io.diaryofrifat.code.examroutine.ui.base.component.BasePresenter
@@ -17,7 +17,7 @@ import timber.log.Timber
 
 class SelectExamPresenter : BasePresenter<SelectExamMvpView>() {
     private var mExamTypeReference: DatabaseReference? = null
-    private var mExamTypeListener: ChildEventListener? = null
+    private var mExamTypeListener: ValueEventListener? = null
 
     fun checkInternetConnectivity() {
         val checkInternetConnectivity: Single<Boolean> = ReactiveNetwork.checkInternetConnectivity()
@@ -36,77 +36,26 @@ class SelectExamPresenter : BasePresenter<SelectExamMvpView>() {
         val dialog = ProgressDialogUtils.on().showProgressDialog(context)
 
         if (mExamTypeListener == null) {
-            mExamTypeListener = object : ChildEventListener {
+            mExamTypeListener = object : ValueEventListener {
                 override fun onCancelled(error: DatabaseError) {
-                    mvpView?.onErrorGettingExamType(error.toException())
+                    mvpView?.onErrorGettingExamTypes(error.toException())
                     dialog?.dismiss()
                 }
 
-                override fun onChildMoved(data: DataSnapshot, p1: String?) {
+                override fun onDataChange(data: DataSnapshot) {
+                    val list: MutableList<ExamType> = ArrayList()
 
-                }
-
-                override fun onChildChanged(data: DataSnapshot, p1: String?) {
-                    /*if (data.hasChildren()) {
-                        var count: Long = 0
-
-                        ProgressDialogUtils.on().showProgressDialog(context)
-
-                        for (item in data.children) {
-                            item.key?.let {
-                                mvpView?.onChildChanged(ExamType(data.key!!, it))
-                            }
-
-                            count++
-
-                            if (count == data.childrenCount) {
-                                ProgressDialogUtils.on().hideProgressDialog()
-                            }
-                        }
-                    }*/
-                }
-
-                override fun onChildAdded(data: DataSnapshot, p1: String?) {
                     if (data.hasChildren()) {
-
-                        var count: Long = 0
-
-                        for (item in data.children) {
-                            item.key?.let {
-                                mvpView?.onExamTypesAdded(
-                                        ExamType(count, it, item.toString())
-                                )
-                            }
-
-                            count++
-
-                            if (count == data.childrenCount) {
-                                dialog?.dismiss()
+                        for ((count, item) in data.children.withIndex()) {
+                            if (item.key != null && item.value != null) {
+                                list.add(ExamType(count, item.key!!, item.value.toString()))
                             }
                         }
+
+                        mvpView?.onGettingExamTypes(list)
+                        dialog?.dismiss()
                     }
                 }
-
-                override fun onChildRemoved(data: DataSnapshot) {
-                    /*if (data.hasChildren()) {
-                        var count: Long = 0
-
-                        ProgressDialogUtils.on().showProgressDialog(context)
-
-                        for (item in data.children) {
-                            item.key?.let {
-                                mvpView?.onChildRemoved(ExamType(data.key!!, it))
-                            }
-
-                            count++
-
-                            if (count == data.childrenCount) {
-                                ProgressDialogUtils.on().hideProgressDialog()
-                            }
-                        }
-                    }*/
-                }
-
             }
         }
 

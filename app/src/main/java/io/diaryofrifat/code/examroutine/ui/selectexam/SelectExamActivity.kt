@@ -11,6 +11,7 @@ import com.google.android.gms.ads.InterstitialAd
 import com.google.android.gms.ads.MobileAds
 import io.diaryofrifat.code.examroutine.R
 import io.diaryofrifat.code.examroutine.data.local.ExamType
+import io.diaryofrifat.code.examroutine.ui.base.callback.ItemClickListener
 import io.diaryofrifat.code.examroutine.ui.base.callback.SelectionListener
 import io.diaryofrifat.code.examroutine.ui.base.component.BaseActivity
 import io.diaryofrifat.code.examroutine.ui.base.helper.GridSpacingItemDecoration
@@ -72,7 +73,12 @@ class SelectExamActivity : BaseActivity<SelectExamMvpView, SelectExamPresenter>(
         ViewUtils.initializeRecyclerView(
                 recycler_view_exams,
                 SelectExamAdapter(),
-                null,
+                object : ItemClickListener<ExamType> {
+                    override fun onItemClick(view: View, item: ExamType, position: Int) {
+                        super.onItemClick(view, item, position)
+                        ToastUtils.nativeLong("Position $position, Item: $item")
+                    }
+                },
                 null,
                 GridLayoutManager(this, 2),
                 GridSpacingItemDecoration(2,
@@ -131,19 +137,12 @@ class SelectExamActivity : BaseActivity<SelectExamMvpView, SelectExamPresenter>(
         return recycler_view_exams?.adapter as SelectExamAdapter
     }
 
-    override fun onChildChanged(item: ExamType) {
-        getAdapter().addItem(item)
+    override fun onGettingExamTypes(list: List<ExamType>) {
+        getAdapter().clear()
+        getAdapter().addItems(list)
     }
 
-    override fun onExamTypesAdded(item: ExamType) {
-        getAdapter().addItem(item)
-    }
-
-    override fun onChildRemoved(item: ExamType) {
-        getAdapter().removeItem(item)
-    }
-
-    override fun onErrorGettingExamType(error: Throwable) {
+    override fun onErrorGettingExamTypes(error: Throwable) {
         Timber.e(error)
         ToastUtils.nativeShort(getString(R.string.something_went_wrong))
     }
@@ -152,9 +151,5 @@ class SelectExamActivity : BaseActivity<SelectExamMvpView, SelectExamPresenter>(
         if (!isConnected) {
             ToastUtils.nativeLong(getString(R.string.error_you_are_not_connected_to_the_internet))
         }
-    }
-
-    override fun clearTheList() {
-        getAdapter().clear()
     }
 }
