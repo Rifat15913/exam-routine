@@ -1,4 +1,4 @@
-package io.diaryofrifat.code.examroutine.ui.selection.selectexam
+package io.diaryofrifat.code.examroutine.ui.selection.selectsubcategory
 
 import android.content.Context
 import com.github.pwittchen.reactivenetwork.library.rx2.ReactiveNetwork
@@ -15,14 +15,9 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
 
-class SelectExamPresenter : BasePresenter<SelectExamMvpView>() {
-    // Database reference
+class SelectSubcategoryPresenter : BasePresenter<SelectSubcategoryMvpView>() {
     private var mExamTypeReference: DatabaseReference? = null
-    private var mSubcategoryKeyReference: DatabaseReference? = null
-
-    // Database listener
     private var mExamTypeListener: ValueEventListener? = null
-    private var mSubcategoryKeyListener: ValueEventListener? = null
 
     fun checkInternetConnectivity() {
         val checkInternetConnectivity: Single<Boolean> = ReactiveNetwork.checkInternetConnectivity()
@@ -43,10 +38,8 @@ class SelectExamPresenter : BasePresenter<SelectExamMvpView>() {
         if (mExamTypeListener == null) {
             mExamTypeListener = object : ValueEventListener {
                 override fun onCancelled(error: DatabaseError) {
-                    mvpView?.onError(error.toException())
+                    mvpView?.onErrorGettingExamTypes(error.toException())
                     dialog?.dismiss()
-                    mExamTypeReference = null
-                    detachExamTypeListener()
                 }
 
                 override fun onDataChange(data: DataSnapshot) {
@@ -61,8 +54,6 @@ class SelectExamPresenter : BasePresenter<SelectExamMvpView>() {
 
                         mvpView?.onGettingExamTypes(list)
                         dialog?.dismiss()
-                        mExamTypeReference = null
-                        detachExamTypeListener()
                     }
                 }
             }
@@ -73,59 +64,14 @@ class SelectExamPresenter : BasePresenter<SelectExamMvpView>() {
         }
     }
 
-    fun getSubcategoryKeys(context: Context, categoryKey: String) {
-        val dialog = ProgressDialogUtils.on().showProgressDialog(context)
-
-        if (mSubcategoryKeyListener == null) {
-            mSubcategoryKeyListener = object : ValueEventListener {
-                override fun onCancelled(error: DatabaseError) {
-                    mvpView?.onError(error.toException())
-                    dialog?.dismiss()
-                    mSubcategoryKeyReference = null
-                    detachSubcategoryKeyListener()
-                }
-
-                override fun onDataChange(data: DataSnapshot) {
-                    val list: MutableList<String> = ArrayList()
-
-                    if (data.hasChildren()) {
-                        for (item in data.children) {
-                            if (item.key != null) {
-                                list.add(item.key!!)
-                            }
-                        }
-                    }
-
-                    mvpView?.onGettingSubcategoryKeys(list)
-                    dialog?.dismiss()
-                    mSubcategoryKeyReference = null
-                    detachSubcategoryKeyListener()
-                }
-            }
-        }
-
-        if (mSubcategoryKeyReference == null && mSubcategoryKeyListener != null) {
-            mSubcategoryKeyReference = DatabaseService.getSubcategoryKeys(mSubcategoryKeyListener!!, categoryKey)
-        }
-    }
-
     override fun detachView() {
         super.detachView()
         detachExamTypeListener()
-        detachSubcategoryKeyListener()
     }
 
-    private fun detachExamTypeListener() {
+    fun detachExamTypeListener() {
         if (mExamTypeListener != null) {
             mExamTypeReference?.removeEventListener(mExamTypeListener!!)
-            mExamTypeListener = null
-        }
-    }
-
-    private fun detachSubcategoryKeyListener() {
-        if (mSubcategoryKeyListener != null) {
-            mSubcategoryKeyReference?.removeEventListener(mSubcategoryKeyListener!!)
-            mSubcategoryKeyListener = null
         }
     }
 }

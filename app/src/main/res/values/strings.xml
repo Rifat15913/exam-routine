@@ -32,8 +32,10 @@
     <string name="do_something">Do something</string>
     <string name="pick_photo">Pick photo</string>
 
-    <!--Decision maker page-->
+    <!--Selection container page-->
     <string name="select_exam_toolbar_title">Exam Routine</string>
+
+    <!--Select exam page-->
     <string name="select_exam_subtitle">Select an exam</string>
     <string name="select_exam_next">Next</string>
     <string name="choose_one">Choose one please…</string>
@@ -41,6 +43,9 @@
     <string name="jsc">JSC</string>
     <string name="ssc">SSC</string>
     <string name="hsc">HSC</string>
+
+    <!--Select subcategory page-->
+    <string name="select_subcategory_subtitle">Select an option</string>
 
     <!--Routine page-->
     <string name="placeholder_subject_code">Subject Code: %s</string>

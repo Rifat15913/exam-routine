@@ -36,6 +36,7 @@ android {
             resValue('string', "date_details_ad_unit_id", exam_routine_debug_date_details_ad_unit_id)
             resValue('string', "routine_page_bottom_ad_unit_id", exam_routine_debug_routine_page_bottom_ad_unit_id)
             resValue('string', "path_exam_types", exam_routine_main_path_exam_types)
+            resValue('string', "path_subcategory_keys", exam_routine_main_path_subcategory_keys)
             resValue('string', "path_psc", exam_routine_main_path_psc)
             resValue('string', "path_jsc", exam_routine_main_path_jsc)
             resValue('string', "path_ssc", exam_routine_main_path_ssc)
@@ -56,6 +57,7 @@ android {
             resValue('string', "date_details_ad_unit_id", exam_routine_main_date_details_ad_unit_id)
             resValue('string', "routine_page_bottom_ad_unit_id", exam_routine_main_routine_page_bottom_ad_unit_id)
             resValue('string', "path_exam_types", exam_routine_main_path_exam_types)
+            resValue('string', "path_subcategory_keys", exam_routine_main_path_subcategory_keys)
             resValue('string', "path_psc", exam_routine_main_path_psc)
             resValue('string', "path_jsc", exam_routine_main_path_jsc)
             resValue('string', "path_ssc", exam_routine_main_path_ssc)
@@ -129,7 +131,7 @@ dependencies {
 
     // Firebase
     implementation 'com.google.firebase:firebase-core:17.2.1'
-    implementation 'com.google.firebase:firebase-ads:18.2.0'
+    implementation 'com.google.firebase:firebase-ads:18.3.0'
     implementation 'com.google.firebase:firebase-database:19.2.0'
     implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
     implementation 'com.google.firebase:firebase-messaging:20.0.0'

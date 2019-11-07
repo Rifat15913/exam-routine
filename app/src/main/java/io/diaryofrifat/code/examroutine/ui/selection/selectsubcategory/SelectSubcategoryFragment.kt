@@ -1,4 +1,4 @@
-package io.diaryofrifat.code.examroutine.ui.selection.selectexam
+package io.diaryofrifat.code.examroutine.ui.selection.selectsubcategory
 
 import android.view.View
 import androidx.recyclerview.widget.GridLayoutManager
@@ -11,37 +11,47 @@ import io.diaryofrifat.code.examroutine.data.local.ExamType
 import io.diaryofrifat.code.examroutine.ui.base.callback.ItemClickListener
 import io.diaryofrifat.code.examroutine.ui.base.component.BaseFragment
 import io.diaryofrifat.code.examroutine.ui.base.helper.GridSpacingItemDecoration
-import io.diaryofrifat.code.examroutine.ui.selection.container.SelectionContainerActivity
 import io.diaryofrifat.code.utils.helper.DataUtils
 import io.diaryofrifat.code.utils.helper.ViewUtils
 import io.diaryofrifat.code.utils.libs.ToastUtils
-import kotlinx.android.synthetic.main.fragment_select_exam.*
+import kotlinx.android.synthetic.main.fragment_select_subcategory.*
 import timber.log.Timber
 
 
-class SelectExamFragment : BaseFragment<SelectExamMvpView, SelectExamPresenter>(), SelectExamMvpView {
+class SelectSubcategoryFragment : BaseFragment<SelectSubcategoryMvpView, SelectSubcategoryPresenter>(), SelectSubcategoryMvpView {
 
     private var mInterstitialAd: InterstitialAd? = null
     private var mSelectedExamType: ExamType? = null
+    private var mSubcategoryKeys: MutableList<String> = ArrayList()
 
     override val layoutId: Int
-        get() = R.layout.fragment_select_exam
+        get() = R.layout.fragment_select_subcategory
 
-    override fun getFragmentPresenter(): SelectExamPresenter {
-        return SelectExamPresenter()
+    override fun getFragmentPresenter(): SelectSubcategoryPresenter {
+        return SelectSubcategoryPresenter()
     }
 
     override fun startUI() {
+        extractDataFromArguments()
         initialize()
-        loadAd()
         setListeners()
+        loadAd()
         loadData()
+    }
+
+    private fun extractDataFromArguments() {
+        val bundle = arguments
+        if (bundle != null && bundle.containsKey(SelectSubcategoryFragment::class.java.simpleName)) {
+            mSubcategoryKeys.addAll(
+                    bundle.getStringArrayList(SelectSubcategoryFragment::class.java.simpleName)!!
+            )
+        }
     }
 
     private fun initialize() {
         ViewUtils.initializeRecyclerView(
-                recycler_view_exams,
-                SelectExamAdapter(),
+                recycler_view_subcategory,
+                SelectSubcategoryAdapter(),
                 object : ItemClickListener<ExamType> {
                     override fun onItemClick(view: View, item: ExamType, position: Int) {
                         super.onItemClick(view, item, position)
@@ -61,7 +71,7 @@ class SelectExamFragment : BaseFragment<SelectExamMvpView, SelectExamPresenter>(
         mInterstitialAd?.adListener = object : AdListener() {
             override fun onAdClosed() {
                 super.onAdClosed()
-                goToNextPage()
+                goToSubcategoryPage()
             }
         }
     }
@@ -79,6 +89,7 @@ class SelectExamFragment : BaseFragment<SelectExamMvpView, SelectExamPresenter>(
     }
 
     override fun stopUI() {
+        presenter.detachExamTypeListener()
         mInterstitialAd?.adListener = null
         mInterstitialAd = null
     }
@@ -89,18 +100,16 @@ class SelectExamFragment : BaseFragment<SelectExamMvpView, SelectExamPresenter>(
         if (mInterstitialAd?.isLoaded!!) {
             mInterstitialAd?.show()
         } else {
-            goToNextPage()
+            goToSubcategoryPage()
         }
     }
 
-    private fun goToNextPage() {
-        if (mSelectedExamType != null) {
-            presenter.getSubcategoryKeys(mContext, mSelectedExamType?.examTypeKey!!)
-        }
+    private fun goToSubcategoryPage() {
+        ToastUtils.nativeLong("Item: $mSelectedExamType")
     }
 
-    private fun getAdapter(): SelectExamAdapter {
-        return recycler_view_exams?.adapter as SelectExamAdapter
+    private fun getAdapter(): SelectSubcategoryAdapter {
+        return recycler_view_subcategory?.adapter as SelectSubcategoryAdapter
     }
 
     override fun onGettingExamTypes(list: List<ExamType>) {
@@ -108,7 +117,7 @@ class SelectExamFragment : BaseFragment<SelectExamMvpView, SelectExamPresenter>(
         getAdapter().addItems(list)
     }
 
-    override fun onError(error: Throwable) {
+    override fun onErrorGettingExamTypes(error: Throwable) {
         Timber.e(error)
         ToastUtils.nativeShort(getString(R.string.something_went_wrong))
     }
@@ -116,15 +125,6 @@ class SelectExamFragment : BaseFragment<SelectExamMvpView, SelectExamPresenter>(
     override fun onInternetConnectivity(isConnected: Boolean) {
         if (!isConnected) {
             ToastUtils.nativeLong(getString(R.string.error_you_are_not_connected_to_the_internet))
-        }
-    }
-
-    override fun onGettingSubcategoryKeys(list: List<String>) {
-        if (list.isEmpty()) {
-            // No subcategory found
-            ToastUtils.nativeLong("No subcategory found")
-        } else {
-            (activity as SelectionContainerActivity).visitSelectSubcategory(list)
         }
     }
 }

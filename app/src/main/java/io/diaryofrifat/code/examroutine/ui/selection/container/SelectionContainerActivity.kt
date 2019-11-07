@@ -1,11 +1,18 @@
 package io.diaryofrifat.code.examroutine.ui.selection.container
 
 import android.os.Build
+import android.os.Bundle
 import android.view.View
 import io.diaryofrifat.code.examroutine.R
 import io.diaryofrifat.code.examroutine.ui.base.component.BaseActivity
+import io.diaryofrifat.code.examroutine.ui.base.makeItInvisible
+import io.diaryofrifat.code.examroutine.ui.base.makeItVisible
+import io.diaryofrifat.code.examroutine.ui.base.setRipple
 import io.diaryofrifat.code.examroutine.ui.selection.selectexam.SelectExamFragment
+import io.diaryofrifat.code.examroutine.ui.selection.selectsubcategory.SelectSubcategoryFragment
 import io.diaryofrifat.code.utils.helper.ViewUtils
+import kotlinx.android.synthetic.main.activity_selection_container.*
+import java.util.*
 
 class SelectionContainerActivity : BaseActivity<SelectionContainerMvpView, SelectionContainerPresenter>() {
     override val layoutResourceId: Int
@@ -17,6 +24,7 @@ class SelectionContainerActivity : BaseActivity<SelectionContainerMvpView, Selec
 
     override fun startUI() {
         initialize()
+        setListeners()
         visitSelectExamType()
     }
 
@@ -32,13 +40,50 @@ class SelectionContainerActivity : BaseActivity<SelectionContainerMvpView, Selec
         }
 
         window.setBackgroundDrawable(null)
+        image_view_back?.setRipple(R.color.colorPrimary26)
+    }
+
+    private fun setListeners() {
+        setClickListener(image_view_back)
     }
 
     override fun stopUI() {
 
     }
 
-    fun visitSelectExamType() {
+    override fun onClick(view: View) {
+        super.onClick(view)
+
+        when (view.id) {
+            R.id.image_view_back -> {
+                onBackPressed()
+            }
+        }
+    }
+
+    private fun visitSelectExamType() {
+        image_view_back.makeItInvisible()
         commitFragment(R.id.constraint_layout_fragment_container, SelectExamFragment())
+    }
+
+    fun visitSelectSubcategory(list: List<String>) {
+        image_view_back.makeItVisible()
+
+        val fragment = SelectSubcategoryFragment().apply {
+            arguments = Bundle().apply {
+                putStringArrayList(SelectSubcategoryFragment::class.java.simpleName,
+                        list as ArrayList<String>)
+            }
+        }
+
+        commitFragment(R.id.constraint_layout_fragment_container, fragment)
+    }
+
+    override fun onBackPressed() {
+        if (currentFragment is SelectExamFragment) {
+            super.onBackPressed()
+        } else {
+            visitSelectExamType()
+        }
     }
 }

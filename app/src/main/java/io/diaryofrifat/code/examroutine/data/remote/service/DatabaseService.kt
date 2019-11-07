@@ -40,4 +40,18 @@ object DatabaseService {
                     addValueEventListener(listener)
                 }
     }
+
+    /**
+     * This method provides all the subcategory keys
+     *
+     * @param listener to get all the subcategory keys
+     * @return [DatabaseReference] reference of the subcategory keys
+     * */
+    fun getSubcategoryKeys(listener: ValueEventListener, categoryKey: String): DatabaseReference? {
+        return mFirebaseDatabase.reference
+                .child(DataUtils.getString(R.string.path_subcategory_keys) + categoryKey)
+                .apply {
+                    addValueEventListener(listener)
+                }
+    }
 }
