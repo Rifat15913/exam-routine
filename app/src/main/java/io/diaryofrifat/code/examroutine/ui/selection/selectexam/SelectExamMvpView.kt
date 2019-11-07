@@ -5,7 +5,7 @@ import io.diaryofrifat.code.examroutine.ui.base.callback.MvpView
 
 interface SelectExamMvpView : MvpView {
     fun onGettingExamTypes(list: List<ExamType>)
-    fun onGettingSubcategoryKeys(list: List<String>)
+    fun onGettingSubcategories(subcategoryList: List<ExamType>)
     fun onError(error: Throwable)
     fun onInternetConnectivity(isConnected: Boolean)
 }

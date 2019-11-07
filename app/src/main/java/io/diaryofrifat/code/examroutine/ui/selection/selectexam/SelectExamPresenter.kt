@@ -18,11 +18,11 @@ import timber.log.Timber
 class SelectExamPresenter : BasePresenter<SelectExamMvpView>() {
     // Database reference
     private var mExamTypeReference: DatabaseReference? = null
-    private var mSubcategoryKeyReference: DatabaseReference? = null
+    private var mSubcategoryReference: DatabaseReference? = null
 
     // Database listener
     private var mExamTypeListener: ValueEventListener? = null
-    private var mSubcategoryKeyListener: ValueEventListener? = null
+    private var mSubcategoryListener: ValueEventListener? = null
 
     fun checkInternetConnectivity() {
         val checkInternetConnectivity: Single<Boolean> = ReactiveNetwork.checkInternetConnectivity()
@@ -45,8 +45,8 @@ class SelectExamPresenter : BasePresenter<SelectExamMvpView>() {
                 override fun onCancelled(error: DatabaseError) {
                     mvpView?.onError(error.toException())
                     dialog?.dismiss()
-                    mExamTypeReference = null
                     detachExamTypeListener()
+                    mExamTypeReference = null
                 }
 
                 override fun onDataChange(data: DataSnapshot) {
@@ -61,8 +61,8 @@ class SelectExamPresenter : BasePresenter<SelectExamMvpView>() {
 
                         mvpView?.onGettingExamTypes(list)
                         dialog?.dismiss()
-                        mExamTypeReference = null
                         detachExamTypeListener()
+                        mExamTypeReference = null
                     }
                 }
             }
@@ -73,46 +73,44 @@ class SelectExamPresenter : BasePresenter<SelectExamMvpView>() {
         }
     }
 
-    fun getSubcategoryKeys(context: Context, categoryKey: String) {
-        val dialog = ProgressDialogUtils.on().showProgressDialog(context)
-
-        if (mSubcategoryKeyListener == null) {
-            mSubcategoryKeyListener = object : ValueEventListener {
+    fun getSubcategories(categoryKey: String) {
+        if (mSubcategoryListener == null) {
+            mSubcategoryListener = object : ValueEventListener {
                 override fun onCancelled(error: DatabaseError) {
                     mvpView?.onError(error.toException())
-                    dialog?.dismiss()
-                    mSubcategoryKeyReference = null
-                    detachSubcategoryKeyListener()
+                    detachSubcategoryListener()
+                    mSubcategoryReference = null
                 }
 
                 override fun onDataChange(data: DataSnapshot) {
-                    val list: MutableList<String> = ArrayList()
+                    val subcategoryList: MutableList<ExamType> = ArrayList()
 
                     if (data.hasChildren()) {
-                        for (item in data.children) {
-                            if (item.key != null) {
-                                list.add(item.key!!)
+                        for ((count, item) in data.children.withIndex()) {
+                            if (item.key != null && item.value != null) {
+                                subcategoryList.add(
+                                        ExamType(count, item.key!!, item.value.toString())
+                                )
                             }
                         }
                     }
 
-                    mvpView?.onGettingSubcategoryKeys(list)
-                    dialog?.dismiss()
-                    mSubcategoryKeyReference = null
-                    detachSubcategoryKeyListener()
+                    mvpView?.onGettingSubcategories(subcategoryList)
+                    detachSubcategoryListener()
+                    mSubcategoryReference = null
                 }
             }
         }
 
-        if (mSubcategoryKeyReference == null && mSubcategoryKeyListener != null) {
-            mSubcategoryKeyReference = DatabaseService.getSubcategoryKeys(mSubcategoryKeyListener!!, categoryKey)
+        if (mSubcategoryReference == null && mSubcategoryListener != null) {
+            mSubcategoryReference = DatabaseService.getSubcategories(mSubcategoryListener!!, categoryKey)
         }
     }
 
     override fun detachView() {
         super.detachView()
         detachExamTypeListener()
-        detachSubcategoryKeyListener()
+        detachSubcategoryListener()
     }
 
     private fun detachExamTypeListener() {
@@ -122,10 +120,10 @@ class SelectExamPresenter : BasePresenter<SelectExamMvpView>() {
         }
     }
 
-    private fun detachSubcategoryKeyListener() {
-        if (mSubcategoryKeyListener != null) {
-            mSubcategoryKeyReference?.removeEventListener(mSubcategoryKeyListener!!)
-            mSubcategoryKeyListener = null
+    private fun detachSubcategoryListener() {
+        if (mSubcategoryListener != null) {
+            mSubcategoryReference?.removeEventListener(mSubcategoryListener!!)
+            mSubcategoryListener = null
         }
     }
 }

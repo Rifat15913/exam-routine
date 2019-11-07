@@ -44,6 +44,8 @@ class Constants {
     class IntentKey {
         companion object {
             const val MODEL = "MODEL"
+            const val CATEGORY = "category"
+            const val SUBCATEGORY = "subcategory"
         }
     }
 

@@ -104,14 +104,12 @@ class ExamDatesFragment : BaseFragment<ExamDatesMvpView, ExamDatesPresenter>(), 
     }
 
     private fun workWithAds() {
-        if (mContext != null) {
-            MobileAds.initialize(mContext, DataUtils.getString(R.string.admob_app_id))
-            banner_ad_view.loadAd(AdRequest.Builder().build())
+        MobileAds.initialize(mContext, DataUtils.getString(R.string.admob_app_id))
+        banner_ad_view.loadAd(AdRequest.Builder().build())
 
-            mInterstitialAd = InterstitialAd(mContext.applicationContext)
-            mInterstitialAd?.adUnitId = getString(R.string.click_on_exam_ad_unit_id)
-            mInterstitialAd?.loadAd(AdRequest.Builder().build())
-        }
+        mInterstitialAd = InterstitialAd(mContext.applicationContext)
+        mInterstitialAd?.adUnitId = getString(R.string.click_on_exam_ad_unit_id)
+        mInterstitialAd?.loadAd(AdRequest.Builder().build())
     }
 
     override fun stopUI() {

@@ -4,12 +4,14 @@ import android.os.Build
 import android.os.Bundle
 import android.view.View
 import io.diaryofrifat.code.examroutine.R
+import io.diaryofrifat.code.examroutine.data.local.ExamType
 import io.diaryofrifat.code.examroutine.ui.base.component.BaseActivity
 import io.diaryofrifat.code.examroutine.ui.base.makeItInvisible
 import io.diaryofrifat.code.examroutine.ui.base.makeItVisible
 import io.diaryofrifat.code.examroutine.ui.base.setRipple
 import io.diaryofrifat.code.examroutine.ui.selection.selectexam.SelectExamFragment
 import io.diaryofrifat.code.examroutine.ui.selection.selectsubcategory.SelectSubcategoryFragment
+import io.diaryofrifat.code.utils.helper.Constants
 import io.diaryofrifat.code.utils.helper.ViewUtils
 import kotlinx.android.synthetic.main.activity_selection_container.*
 import java.util.*
@@ -35,8 +37,6 @@ class SelectionContainerActivity : BaseActivity<SelectionContainerMvpView, Selec
             ViewUtils.setStatusBarColor(this, R.color.white)
         } else if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             ViewUtils.setStatusBarColor(this, R.color.darkBackground)
-        } else {
-            // Do nothing for Jelly bean and Kitkat devices
         }
 
         window.setBackgroundDrawable(null)
@@ -66,13 +66,14 @@ class SelectionContainerActivity : BaseActivity<SelectionContainerMvpView, Selec
         commitFragment(R.id.constraint_layout_fragment_container, SelectExamFragment())
     }
 
-    fun visitSelectSubcategory(list: List<String>) {
+    fun visitSelectSubcategory(subcategoryList: List<ExamType>, category: ExamType) {
         image_view_back.makeItVisible()
 
         val fragment = SelectSubcategoryFragment().apply {
             arguments = Bundle().apply {
-                putStringArrayList(SelectSubcategoryFragment::class.java.simpleName,
-                        list as ArrayList<String>)
+                putParcelable(Constants.IntentKey.CATEGORY, category)
+                putParcelableArrayList(Constants.IntentKey.SUBCATEGORY,
+                        subcategoryList as ArrayList<ExamType>)
             }
         }
 

@@ -95,7 +95,7 @@ class SelectExamFragment : BaseFragment<SelectExamMvpView, SelectExamPresenter>(
 
     private fun goToNextPage() {
         if (mSelectedExamType != null) {
-            presenter.getSubcategoryKeys(mContext, mSelectedExamType?.examTypeKey!!)
+            presenter.getSubcategories(mSelectedExamType?.examTypeKey!!)
         }
     }
 
@@ -119,12 +119,15 @@ class SelectExamFragment : BaseFragment<SelectExamMvpView, SelectExamPresenter>(
         }
     }
 
-    override fun onGettingSubcategoryKeys(list: List<String>) {
-        if (list.isEmpty()) {
+    override fun onGettingSubcategories(subcategoryList: List<ExamType>) {
+        if (subcategoryList.isEmpty()) {
             // No subcategory found
             ToastUtils.nativeLong("No subcategory found")
         } else {
-            (activity as SelectionContainerActivity).visitSelectSubcategory(list)
+            if (mSelectedExamType != null) {
+                (activity as SelectionContainerActivity)
+                        .visitSelectSubcategory(subcategoryList, mSelectedExamType!!)
+            }
         }
     }
 }
