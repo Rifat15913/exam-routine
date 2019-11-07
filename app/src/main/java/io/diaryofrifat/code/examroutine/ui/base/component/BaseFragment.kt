@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.*
 import android.view.animation.AnimationUtils
 import androidx.annotation.CallSuper
-import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleRegistry
 import androidx.lifecycle.ViewModelProviders
@@ -26,9 +25,6 @@ abstract class BaseFragment<V : MvpView, P : BasePresenter<V>> : Fragment(),
      * */
     // Child class has to pass it's layout resource id via this field
     protected abstract val layoutId: Int
-    // Child class data binding object for views
-    protected var viewDataBinding: ViewDataBinding? = null
-        private set
     protected lateinit var presenter: P
 
     // This fragment context

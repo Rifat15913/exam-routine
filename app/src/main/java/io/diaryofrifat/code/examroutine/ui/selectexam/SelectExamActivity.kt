@@ -1,9 +1,7 @@
 package io.diaryofrifat.code.examroutine.ui.selectexam
 
 import android.os.Build
-import android.os.Bundle
 import android.view.View
-import androidx.recyclerview.selection.SelectionTracker
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdRequest
@@ -12,7 +10,6 @@ import com.google.android.gms.ads.MobileAds
 import io.diaryofrifat.code.examroutine.R
 import io.diaryofrifat.code.examroutine.data.local.ExamType
 import io.diaryofrifat.code.examroutine.ui.base.callback.ItemClickListener
-import io.diaryofrifat.code.examroutine.ui.base.callback.SelectionListener
 import io.diaryofrifat.code.examroutine.ui.base.component.BaseActivity
 import io.diaryofrifat.code.examroutine.ui.base.helper.GridSpacingItemDecoration
 import io.diaryofrifat.code.utils.helper.DataUtils
@@ -22,42 +19,16 @@ import kotlinx.android.synthetic.main.activity_select_exam.*
 import timber.log.Timber
 
 
-class SelectExamActivity : BaseActivity<SelectExamMvpView, SelectExamPresenter>(),
-        SelectExamMvpView, SelectionListener {
+class SelectExamActivity : BaseActivity<SelectExamMvpView, SelectExamPresenter>(), SelectExamMvpView {
 
     private var mInterstitialAd: InterstitialAd? = null
     private var mSelectedExamType: ExamType? = null
-
-    private var mTracker: SelectionTracker<Long>? = null
 
     override val layoutResourceId: Int
         get() = R.layout.activity_select_exam
 
     override fun getActivityPresenter(): SelectExamPresenter {
         return SelectExamPresenter()
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        // Handle status bar color
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-            ViewUtils.setStatusBarColor(this, R.color.white)
-        } else if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            ViewUtils.setStatusBarColor(this, R.color.darkBackground)
-        } else {
-            // Do nothing for Jelly bean and Kitkat devices
-        }
-
-        if (savedInstanceState != null) {
-            mTracker?.onRestoreInstanceState(savedInstanceState)
-        }
-
-        super.onCreate(savedInstanceState)
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        mTracker?.onSaveInstanceState(outState)
-        super.onSaveInstanceState(outState)
     }
 
     override fun startUI() {
@@ -68,6 +39,16 @@ class SelectExamActivity : BaseActivity<SelectExamMvpView, SelectExamPresenter>(
     }
 
     private fun initialize() {
+        // Handle status bar color
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+            ViewUtils.setStatusBarColor(this, R.color.white)
+        } else if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            ViewUtils.setStatusBarColor(this, R.color.darkBackground)
+        } else {
+            // Do nothing for Jelly bean and Kitkat devices
+        }
+
         window.setBackgroundDrawable(null)
 
         ViewUtils.initializeRecyclerView(
@@ -76,7 +57,7 @@ class SelectExamActivity : BaseActivity<SelectExamMvpView, SelectExamPresenter>(
                 object : ItemClickListener<ExamType> {
                     override fun onItemClick(view: View, item: ExamType, position: Int) {
                         super.onItemClick(view, item, position)
-                        ToastUtils.nativeLong("Position $position, Item: $item")
+                        clickOnItem(item)
                     }
                 },
                 null,
@@ -92,7 +73,7 @@ class SelectExamActivity : BaseActivity<SelectExamMvpView, SelectExamPresenter>(
         mInterstitialAd?.adListener = object : AdListener() {
             override fun onAdClosed() {
                 super.onAdClosed()
-                goToHomePage()
+                goToSubcategoryPage()
             }
         }
     }
@@ -100,7 +81,7 @@ class SelectExamActivity : BaseActivity<SelectExamMvpView, SelectExamPresenter>(
     private fun loadAd() {
         MobileAds.initialize(this, DataUtils.getString(R.string.admob_app_id))
         mInterstitialAd = InterstitialAd(applicationContext)
-        mInterstitialAd?.adUnitId = getString(R.string.before_routine_ad_unit_id)
+        mInterstitialAd?.adUnitId = getString(R.string.select_exam_type_ad_unit_id)
         mInterstitialAd?.loadAd(AdRequest.Builder().build())
     }
 
@@ -115,22 +96,18 @@ class SelectExamActivity : BaseActivity<SelectExamMvpView, SelectExamPresenter>(
         mInterstitialAd = null
     }
 
-    override fun onSelect(size: Int) {
-
-    }
-
     private fun clickOnItem(item: ExamType) {
         mSelectedExamType = item
 
         if (mInterstitialAd?.isLoaded!!) {
             mInterstitialAd?.show()
         } else {
-            goToHomePage()
+            goToSubcategoryPage()
         }
     }
 
-    private fun goToHomePage() {
-
+    private fun goToSubcategoryPage() {
+        ToastUtils.nativeLong("Item: $mSelectedExamType")
     }
 
     private fun getAdapter(): SelectExamAdapter {

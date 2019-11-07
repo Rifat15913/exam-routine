@@ -3,7 +3,6 @@ package io.diaryofrifat.code.examroutine.ui.base.component
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 import io.diaryofrifat.code.examroutine.R
 import io.diaryofrifat.code.examroutine.ui.base.callback.ItemClickListener
