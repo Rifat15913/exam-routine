@@ -9,6 +9,7 @@ import io.diaryofrifat.code.examroutine.data.local.ExamType
 import io.diaryofrifat.code.examroutine.ui.base.callback.ItemClickListener
 import io.diaryofrifat.code.examroutine.ui.base.component.BaseFragment
 import io.diaryofrifat.code.examroutine.ui.base.helper.GridSpacingItemDecoration
+import io.diaryofrifat.code.examroutine.ui.home.container.HomeActivity
 import io.diaryofrifat.code.examroutine.ui.selection.container.SelectionContainerActivity
 import io.diaryofrifat.code.utils.helper.Constants
 import io.diaryofrifat.code.utils.helper.DataUtils
@@ -100,9 +101,9 @@ class SelectSubcategoryFragment
     }
 
     private fun clickOnItem(item: ExamType) {
-        // Go to routine page from here
-        // Take category and subcategory by putting them into intent
-        ToastUtils.nativeLong(item.toString())
+        if(mCategory != null) {
+            HomeActivity.startActivity(mContext, mCategory!!, item)
+        }
     }
 
     private fun getAdapter(): SelectSubcategoryAdapter {

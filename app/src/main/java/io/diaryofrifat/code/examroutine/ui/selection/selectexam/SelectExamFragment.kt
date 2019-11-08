@@ -11,6 +11,7 @@ import io.diaryofrifat.code.examroutine.data.local.ExamType
 import io.diaryofrifat.code.examroutine.ui.base.callback.ItemClickListener
 import io.diaryofrifat.code.examroutine.ui.base.component.BaseFragment
 import io.diaryofrifat.code.examroutine.ui.base.helper.GridSpacingItemDecoration
+import io.diaryofrifat.code.examroutine.ui.home.container.HomeActivity
 import io.diaryofrifat.code.examroutine.ui.selection.container.SelectionContainerActivity
 import io.diaryofrifat.code.utils.helper.DataUtils
 import io.diaryofrifat.code.utils.helper.ViewUtils
@@ -133,8 +134,9 @@ class SelectExamFragment : BaseFragment<SelectExamMvpView, SelectExamPresenter>(
 
     override fun onGettingSubcategories(subcategoryList: List<ExamType>) {
         if (subcategoryList.isEmpty()) {
-            // No subcategory found
-            ToastUtils.nativeLong("No subcategory found")
+            if(mSelectedExamType != null) {
+                HomeActivity.startActivity(mContext, mSelectedExamType!!, null)
+            }
         } else {
             if (mSelectedExamType != null) {
                 (activity as SelectionContainerActivity)

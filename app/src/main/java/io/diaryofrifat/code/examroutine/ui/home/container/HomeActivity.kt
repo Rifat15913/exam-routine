@@ -1,6 +1,7 @@
-package io.diaryofrifat.code.examroutine.ui.home
+package io.diaryofrifat.code.examroutine.ui.home.container
 
 import android.content.ActivityNotFoundException
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -14,6 +15,7 @@ import io.diaryofrifat.code.examroutine.ui.about.AboutFragment
 import io.diaryofrifat.code.examroutine.ui.base.component.BaseActivity
 import io.diaryofrifat.code.examroutine.ui.examdates.ExamDatesFragment
 import io.diaryofrifat.code.utils.helper.AndroidUtils
+import io.diaryofrifat.code.utils.helper.Constants
 import io.diaryofrifat.code.utils.libs.ToastUtils
 import kotlinx.android.synthetic.main.activity_home.*
 import timber.log.Timber
@@ -21,6 +23,22 @@ import java.util.*
 
 
 class HomeActivity : BaseActivity<HomeMvpView, HomePresenter>() {
+
+    companion object {
+        /**
+         * This method starts current activity
+         *
+         * @param context UI context
+         * */
+        fun startActivity(context: Context, category: ExamType, subcategory: ExamType?) {
+            runCurrentActivity(context, Intent(context, HomeActivity::class.java).apply {
+                putExtra(Constants.IntentKey.CATEGORY, category)
+                if (subcategory != null) {
+                    putExtra(Constants.IntentKey.SUBCATEGORY, subcategory)
+                }
+            })
+        }
+    }
 
     private var mExamType: ExamType? = null
 
@@ -49,7 +67,7 @@ class HomeActivity : BaseActivity<HomeMvpView, HomePresenter>() {
 
     private fun workWithViews() {
         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_menu_white)
-        launchHomePage()
+        // launchHomePage()
     }
 
     private fun launchHomePage() {
