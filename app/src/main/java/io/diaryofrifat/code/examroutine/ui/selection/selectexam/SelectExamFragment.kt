@@ -23,6 +23,8 @@ class SelectExamFragment : BaseFragment<SelectExamMvpView, SelectExamPresenter>(
 
     private var mInterstitialAd: InterstitialAd? = null
     private var mSelectedExamType: ExamType? = null
+    private var mItemDecoration =
+            GridSpacingItemDecoration(2, ViewUtils.getPixel(R.dimen.margin_8))
 
     override val layoutId: Int
         get() = R.layout.fragment_select_exam
@@ -50,11 +52,21 @@ class SelectExamFragment : BaseFragment<SelectExamMvpView, SelectExamPresenter>(
                 },
                 null,
                 GridLayoutManager(mContext, 2),
-                GridSpacingItemDecoration(2,
-                        ViewUtils.getPixel(R.dimen.margin_8),
-                        true),
+                null,
                 null,
                 null)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        recycler_view_exams?.addItemDecoration(mItemDecoration)
+        presenter.attachExamTypeListener()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        recycler_view_exams?.removeItemDecoration(mItemDecoration)
+        presenter.detachExamTypeListener()
     }
 
     private fun setListeners() {

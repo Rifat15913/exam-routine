@@ -104,6 +104,7 @@ abstract class BaseFragment<V : MvpView, P : BasePresenter<V>> : Fragment(),
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initializePresenter()
+        this.startUI()
     }
 
     /**
@@ -130,11 +131,6 @@ abstract class BaseFragment<V : MvpView, P : BasePresenter<V>> : Fragment(),
         }
 
         presenter.activity = activity
-    }
-
-    override fun onStart() {
-        super.onStart()
-        this.startUI()
     }
 
     override fun onClick(view: View) {

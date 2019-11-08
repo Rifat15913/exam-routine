@@ -23,12 +23,24 @@ class SelectSubcategoryFragment
 
     private var mSubcategoryList: MutableList<ExamType> = ArrayList()
     private var mCategory: ExamType? = null
+    private var mItemDecoration =
+            GridSpacingItemDecoration(2, ViewUtils.getPixel(R.dimen.margin_8))
 
     override val layoutId: Int
         get() = R.layout.fragment_select_subcategory
 
     override fun getFragmentPresenter(): SelectSubcategoryPresenter {
         return SelectSubcategoryPresenter()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        recycler_view_subcategory?.addItemDecoration(mItemDecoration)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        recycler_view_subcategory?.removeItemDecoration(mItemDecoration)
     }
 
     override fun startUI() {
@@ -66,9 +78,7 @@ class SelectSubcategoryFragment
                 },
                 null,
                 GridLayoutManager(mContext, 2),
-                GridSpacingItemDecoration(2,
-                        ViewUtils.getPixel(R.dimen.margin_8),
-                        true),
+                null,
                 null,
                 null)
     }

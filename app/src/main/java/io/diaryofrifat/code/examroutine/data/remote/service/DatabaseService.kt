@@ -2,7 +2,6 @@ package io.diaryofrifat.code.examroutine.data.remote.service
 
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
 import io.diaryofrifat.code.examroutine.R
 import io.diaryofrifat.code.utils.helper.DataUtils
 
@@ -30,28 +29,20 @@ object DatabaseService {
     /**
      * This method provides all the exam types
      *
-     * @param listener to get all the exam types
      * @return [DatabaseReference] reference of the exam types
      * */
-    fun getExamTypes(listener: ValueEventListener): DatabaseReference? {
+    fun getExamTypes(): DatabaseReference? {
         return mFirebaseDatabase.reference
                 .child(DataUtils.getString(R.string.path_exam_types))
-                .apply {
-                    addValueEventListener(listener)
-                }
     }
 
     /**
      * This method provides all the subcategory keys
      *
-     * @param listener to get all the subcategory keys
      * @return [DatabaseReference] reference of the subcategory keys
      * */
-    fun getSubcategories(listener: ValueEventListener, categoryKey: String): DatabaseReference? {
+    fun getSubcategories(categoryKey: String): DatabaseReference? {
         return mFirebaseDatabase.reference
                 .child(DataUtils.getString(R.string.path_subcategories) + categoryKey)
-                .apply {
-                    addValueEventListener(listener)
-                }
     }
 }

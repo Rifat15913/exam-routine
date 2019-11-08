@@ -45,8 +45,6 @@ class SelectExamPresenter : BasePresenter<SelectExamMvpView>() {
                 override fun onCancelled(error: DatabaseError) {
                     mvpView?.onError(error.toException())
                     dialog?.dismiss()
-                    detachExamTypeListener()
-                    mExamTypeReference = null
                 }
 
                 override fun onDataChange(data: DataSnapshot) {
@@ -61,15 +59,25 @@ class SelectExamPresenter : BasePresenter<SelectExamMvpView>() {
 
                         mvpView?.onGettingExamTypes(list)
                         dialog?.dismiss()
-                        detachExamTypeListener()
-                        mExamTypeReference = null
                     }
                 }
             }
         }
 
-        if (mExamTypeReference == null && mExamTypeListener != null) {
-            mExamTypeReference = DatabaseService.getExamTypes(mExamTypeListener!!)
+        if (mExamTypeReference == null) {
+            mExamTypeReference = DatabaseService.getExamTypes()
+        }
+    }
+
+    fun attachExamTypeListener() {
+        if(mExamTypeListener != null){
+            mExamTypeReference?.addValueEventListener(mExamTypeListener!!)
+        }
+    }
+
+    fun detachExamTypeListener() {
+        if (mExamTypeListener != null) {
+            mExamTypeReference?.removeEventListener(mExamTypeListener!!)
         }
     }
 
@@ -102,21 +110,16 @@ class SelectExamPresenter : BasePresenter<SelectExamMvpView>() {
             }
         }
 
-        if (mSubcategoryReference == null && mSubcategoryListener != null) {
-            mSubcategoryReference = DatabaseService.getSubcategories(mSubcategoryListener!!, categoryKey)
+        if (mSubcategoryReference == null) {
+            mSubcategoryReference = DatabaseService.getSubcategories(categoryKey)
         }
+
+        attachSubcategoryListener()
     }
 
-    override fun detachView() {
-        super.detachView()
-        detachExamTypeListener()
-        detachSubcategoryListener()
-    }
-
-    private fun detachExamTypeListener() {
-        if (mExamTypeListener != null) {
-            mExamTypeReference?.removeEventListener(mExamTypeListener!!)
-            mExamTypeListener = null
+    private fun attachSubcategoryListener() {
+        if (mSubcategoryListener != null) {
+            mSubcategoryReference?.addValueEventListener(mSubcategoryListener!!)
         }
     }
 
@@ -125,5 +128,10 @@ class SelectExamPresenter : BasePresenter<SelectExamMvpView>() {
             mSubcategoryReference?.removeEventListener(mSubcategoryListener!!)
             mSubcategoryListener = null
         }
+    }
+
+    override fun detachView() {
+        super.detachView()
+        detachSubcategoryListener()
     }
 }
