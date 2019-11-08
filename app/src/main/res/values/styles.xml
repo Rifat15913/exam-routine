@@ -64,7 +64,7 @@
 
     <style name="ExamRoutineItem.Inner">
         <item name="android:textColor">@color/colorWhite</item>
-        <item name="android:textSize">@dimen/text_title</item>
+        <item name="android:textSize">@dimen/textTitle</item>
         <item name="android:gravity">center</item>
     </style>
 </resources>

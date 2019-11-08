@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_16"
         android:textColor="@color/textRegular"
-        android:textSize="@dimen/text_title"
+        android:textSize="@dimen/textTitle"
         android:textStyle="bold"
         ads:layout_constraintBottom_toTopOf="@+id/recycler_view_exams"
         app:layout_constraintEnd_toEndOf="parent"

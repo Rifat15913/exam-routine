@@ -1,98 +1,156 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/card_view_exam_details"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:stateListAnimator="@animator/card_animator_with_translationz"
     app:cardBackgroundColor="@color/colorWhite"
-    app:cardCornerRadius="@dimen/radius_8"
     app:cardElevation="@dimen/elevation_2"
     app:cardPreventCornerOverlap="false">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
+
+        <View
+            android:id="@+id/view_initial_separator"
+            android:layout_width="6dp"
+            android:layout_height="0dp"
+            android:background="@color/colorPrimary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/text_view_day"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/text_view_day"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_24"
+            android:layout_marginEnd="@dimen/margin_24"
+            android:gravity="center"
+            android:maxLength="3"
+            android:text="Sat"
+            android:textColor="@color/textRegular"
+            android:textSize="@dimen/textParagraphTitle"
+            app:fontFamily="@font/semi_bold"
+            app:layout_constraintBottom_toTopOf="@+id/text_view_date"
+            app:layout_constraintEnd_toStartOf="@+id/view_separator"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toEndOf="@+id/view_initial_separator"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:textAllCaps="false" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/text_view_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:maxLength="2"
+            android:text="09"
+            android:textColor="@color/textRegular"
+            android:textSize="@dimen/text_focus"
+            app:fontFamily="@font/bold"
+            app:layout_constraintBottom_toTopOf="@+id/text_view_month"
+            app:layout_constraintEnd_toEndOf="@+id/text_view_day"
+            app:layout_constraintStart_toStartOf="@+id/text_view_day"
+            app:layout_constraintTop_toBottomOf="@+id/text_view_day"
+            app:textAllCaps="false" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/text_view_month"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:maxLength="3"
+            android:text="Nov"
+            android:textColor="@color/textRegular"
+            android:textSize="@dimen/textParagraphTitle"
+            app:fontFamily="@font/semi_bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/text_view_day"
+            app:layout_constraintStart_toStartOf="@+id/text_view_day"
+            app:layout_constraintTop_toBottomOf="@+id/text_view_date"
+            app:textAllCaps="false" />
+
+        <View
+            android:id="@+id/view_separator"
+            android:layout_width="1dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/margin_16"
+            android:layout_marginBottom="@dimen/margin_16"
+            android:background="@color/shadow"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/text_view_subject_name"
+            app:layout_constraintStart_toEndOf="@+id/text_view_day"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/text_view_subject_code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_16"
+            android:layout_marginEnd="@dimen/margin_16"
+            android:text="#101"
+            android:textColor="@color/textLight"
+            android:textSize="@dimen/text_body"
+            app:fontFamily="@font/regular"
+            app:layout_constraintBottom_toTopOf="@+id/text_view_subject_name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/view_separator"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/text_view_subject_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_16"
-            android:layout_marginTop="@dimen/margin_16"
-            android:layout_marginEnd="@dimen/margin_16"
+            android:layout_marginTop="@dimen/margin_8"
+            android:text="Physics 1st paper"
             android:textColor="@color/textRegular"
-            android:textSize="@dimen/textPageTitle"
+            android:textSize="@dimen/textTitle"
             app:fontFamily="@font/bold"
-            app:layout_constraintBottom_toTopOf="@+id/text_view_date"
+            app:layout_constraintBottom_toTopOf="@+id/text_view_time"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="Physics 1st paper" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/text_view_date"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_8"
-            android:textColor="@color/textRegular"
-            android:textSize="@dimen/textParagraphTitle"
-            app:fontFamily="@font/regular"
-            app:layout_constraintBottom_toTopOf="@+id/text_view_subject_code"
-            app:layout_constraintEnd_toEndOf="@+id/text_view_subject_name"
-            app:layout_constraintStart_toStartOf="@+id/text_view_subject_name"
-            app:layout_constraintTop_toBottomOf="@+id/text_view_subject_name"
-            tools:text="Friday, 08 November, 2019" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/text_view_subject_code"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_8"
-            android:textColor="@color/textRegular"
-            android:textSize="@dimen/text_body"
-            app:fontFamily="@font/regular"
-            app:layout_constraintEnd_toEndOf="@+id/text_view_subject_name"
-            app:layout_constraintStart_toStartOf="@+id/text_view_subject_name"
-            app:layout_constraintTop_toBottomOf="@+id/text_view_date"
-            tools:text="Subject Code: 101" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/text_view_subcategory"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_16"
-            android:paddingStart="0dp"
-            android:paddingTop="@dimen/padding_8"
-            android:paddingEnd="@dimen/padding_8"
-            android:paddingBottom="@dimen/padding_8"
-            android:textColor="@color/textRegular"
-            android:textSize="@dimen/text_body"
-            app:fontFamily="@font/semi_bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/text_view_time"
-            app:layout_constraintHorizontal_weight="2"
-            app:layout_constraintStart_toStartOf="@+id/text_view_subject_name"
-            app:layout_constraintTop_toBottomOf="@+id/text_view_subject_code"
-            tools:text="#science" />
+            app:layout_constraintStart_toEndOf="@+id/view_separator"
+            app:layout_constraintTop_toBottomOf="@+id/text_view_subject_code" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/text_view_time"
             android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:background="@color/colorPrimary"
-            android:gravity="start|top"
-            android:padding="@dimen/padding_8"
-            android:textColor="@color/colorWhite"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_8"
+            android:layout_marginBottom="@dimen/margin_8"
+            android:text="10:00 AM - 01:00 PM"
+            android:textColor="@color/textRegular"
             android:textSize="@dimen/text_body"
             app:fontFamily="@font/regular"
+            app:layout_constraintBottom_toTopOf="@+id/chip_subcategory"
+            app:layout_constraintEnd_toEndOf="@+id/text_view_subject_name"
+            app:layout_constraintStart_toStartOf="@+id/text_view_subject_name"
+            app:layout_constraintTop_toBottomOf="@+id/text_view_subject_name" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_subcategory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_16"
+            android:layout_marginBottom="@dimen/margin_16"
+            android:fontFamily="@font/semi_bold"
+            android:text="Science"
+            android:textColor="@color/colorWhite"
+            app:chipBackgroundColor="@color/colorBlack"
+            app:chipIconEnabled="false"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_weight="3"
-            app:layout_constraintStart_toEndOf="@+id/text_view_subcategory"
-            app:layout_constraintTop_toTopOf="@+id/text_view_subcategory"
-            tools:text="10:00 AM - 01:00 PM" />
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_view_time" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

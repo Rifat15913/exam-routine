@@ -34,6 +34,6 @@ class SplashActivity : AppCompatActivity() {
                         this.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                     }
             )
-        }, 1000)
+        }, 600)
     }
 }

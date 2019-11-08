@@ -34,11 +34,13 @@
         <activity
             android:name=".ui.selection.container.SelectionContainerActivity"
             android:screenOrientation="portrait"
+            android:launchMode="singleTop"
             android:theme="@style/AppTheme" />
 
         <activity
             android:name=".ui.home.container.HomeActivity"
             android:screenOrientation="portrait"
+            android:launchMode="singleTop"
             android:theme="@style/AppTheme.GradientStatusBar" />
 
         <activity

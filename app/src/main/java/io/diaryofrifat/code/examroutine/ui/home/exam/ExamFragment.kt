@@ -18,7 +18,7 @@ class ExamFragment : BaseFragment<ExamMvpView, ExamPresenter>(), ExamMvpView {
     private var mCategory: ExamType? = null
     private var mSubcategory: ExamType? = null
     private val mItemDecoration = LinearMarginItemDecoration(
-            ViewUtils.getPixel(R.dimen.margin_8)
+            ViewUtils.getPixel(R.dimen.margin_16)
     )
 
     override val layoutId: Int

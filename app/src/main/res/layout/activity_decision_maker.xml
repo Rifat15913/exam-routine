@@ -27,7 +27,7 @@
             android:layout_marginEnd="@dimen/margin_16"
             android:text="@string/choose_one"
             android:textColor="@color/textRegular"
-            android:textSize="@dimen/text_title"
+            android:textSize="@dimen/textTitle"
             app:layout_constraintBottom_toTopOf="@+id/recycler_view_exam_types"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
