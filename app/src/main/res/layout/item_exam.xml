@@ -144,6 +144,7 @@
             android:fontFamily="@font/semi_bold"
             android:text="Science"
             android:textColor="@color/colorWhite"
+            app:chipCornerRadius="@dimen/radius_4"
             app:chipBackgroundColor="@color/colorBlack"
             app:chipIconEnabled="false"
             app:layout_constraintBottom_toBottomOf="parent"
