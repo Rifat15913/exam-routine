@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
-    android:background="@color/white">
+    android:background="@color/colorWhite">
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/text_view_subtitle"
@@ -51,7 +51,7 @@
         android:id="@+id/banner_ad_view"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@color/white"
+        android:background="@color/colorWhite"
         ads:adSize="BANNER"
         ads:adUnitId="@string/select_subcategory_ad_unit_id"
         ads:layout_constraintBottom_toBottomOf="parent"

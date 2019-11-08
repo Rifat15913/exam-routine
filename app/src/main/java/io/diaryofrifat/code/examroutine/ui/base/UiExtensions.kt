@@ -41,8 +41,8 @@ fun BasePresenter<*>.getString(stringResourceId: Int): String {
     return DataUtils.getString(stringResourceId)
 }
 
-fun String.toTitleCase(): String {
-    return DataUtils.toTitleCase(this)
+fun String.toTitleCase(isChangeable: Boolean = true): String {
+    return DataUtils.toTitleCase(this, isChangeable)
 }
 
 fun View.setRipple(colorResourceId: Int) {

@@ -23,7 +23,7 @@
             android:id="@+id/banner_ad_view"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="@color/white"
+            android:background="@color/colorWhite"
             ads:adSize="BANNER"
             ads:adUnitId="@string/select_subcategory_ad_unit_id"
             ads:layout_constraintBottom_toBottomOf="parent"

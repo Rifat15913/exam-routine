@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="@color/colorWhite">
 
     <TextView
         android:id="@+id/text_view_date"
@@ -36,7 +36,7 @@
         android:id="@+id/banner_ad_view"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@color/white"
+        android:background="@color/colorWhite"
         ads:adSize="BANNER"
         ads:adUnitId="@string/date_details_ad_unit_id"
         ads:layout_constraintBottom_toBottomOf="parent"
@@ -57,7 +57,7 @@
         android:paddingBottom="@dimen/padding_16"
         android:text="@string/next_exam_date"
         android:textAllCaps="false"
-        android:textColor="@color/white"
+        android:textColor="@color/colorWhite"
         android:textSize="@dimen/text_body"
         app:backgroundTint="@color/colorPrimary"
         app:cornerRadius="@dimen/radius_25"

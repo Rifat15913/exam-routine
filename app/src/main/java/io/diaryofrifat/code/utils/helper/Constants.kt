@@ -14,6 +14,7 @@ class Constants {
 
     class Common {
         companion object {
+            const val SLASH = "/"
             const val APP_COMMON_DATE_FORMAT: String = "EEEE, dd MMMM, yyyy"
             const val APP_COMMON_TIME_FORMAT: String = "hh:mm a"
             const val DATE_FORMAT = "dd MMM"

@@ -3,6 +3,8 @@ package io.diaryofrifat.code.examroutine.data.remote.service
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import io.diaryofrifat.code.examroutine.R
+import io.diaryofrifat.code.examroutine.data.local.ExamType
+import io.diaryofrifat.code.utils.helper.Constants
 import io.diaryofrifat.code.utils.helper.DataUtils
 
 object DatabaseService {
@@ -38,11 +40,30 @@ object DatabaseService {
 
     /**
      * This method provides all the subcategory keys
-     *
+     * @param categoryKey key of the category
      * @return [DatabaseReference] reference of the subcategory keys
      * */
     fun getSubcategories(categoryKey: String): DatabaseReference? {
         return mFirebaseDatabase.reference
                 .child(DataUtils.getString(R.string.path_subcategories) + categoryKey)
+    }
+
+    /**
+     * This method provides all the exams
+     * @param category category of the exam
+     * @param subcategory subcategory of the exam
+     * @return [DatabaseReference] reference of the exams
+     * */
+    fun getExams(category: ExamType, subcategory: ExamType?): DatabaseReference? {
+        return mFirebaseDatabase.reference
+                .child(DataUtils.getString(R.string.path_exams)
+                        + category.examTypeKey
+                        +
+                        if (subcategory != null) {
+                            Constants.Common.SLASH + subcategory.examTypeKey
+                        } else {
+                            Constants.Default.DEFAULT_STRING
+                        }
+                )
     }
 }

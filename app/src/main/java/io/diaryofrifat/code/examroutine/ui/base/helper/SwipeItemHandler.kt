@@ -61,11 +61,11 @@ class SwipeItemHandler(private val mSwipeDirection: SwipeDirection,
                             .beginConfig()
                             .fontSize(ViewUtils.getResources().getDimensionPixelSize(R.dimen.text_body))
                             .useFont(ViewUtils.getFont(R.font.regular))
-                            .textColor(ViewUtils.getColor(R.color.white))
+                            .textColor(ViewUtils.getColor(R.color.colorWhite))
                             .bold()
                             .endConfig()
                             .buildRect(DataUtils.getString(mBackgroundMaterialResourceId),
-                                    ViewUtils.getColor(R.color.white))
+                                    ViewUtils.getColor(R.color.colorWhite))
                 }
 
         val background = ColorDrawable()

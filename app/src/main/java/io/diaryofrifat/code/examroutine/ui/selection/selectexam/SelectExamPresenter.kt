@@ -56,10 +56,10 @@ class SelectExamPresenter : BasePresenter<SelectExamMvpView>() {
                                 list.add(ExamType(count, item.key!!, item.value.toString()))
                             }
                         }
-
-                        mvpView?.onGettingExamTypes(list)
-                        dialog?.dismiss()
                     }
+
+                    mvpView?.onGettingExamTypes(list)
+                    dialog?.dismiss()
                 }
             }
         }

@@ -7,7 +7,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white">
+        android:background="@color/colorWhite">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -28,7 +28,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_margin="@dimen/margin_16"
-            android:background="@color/white"
+            android:background="@color/colorWhite"
             ads:cardBackgroundColor="@color/colorPrimary"
             ads:layout_constraintWidth_default="spread"
             ads:layout_constraintWidth_percent="1.0"
@@ -96,7 +96,7 @@
             android:id="@+id/banner_ad_view"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="@color/white"
+            android:background="@color/colorWhite"
             ads:adSize="BANNER"
             ads:adUnitId="@string/exam_details_ad_unit_id"
             ads:layout_constraintBottom_toBottomOf="parent"

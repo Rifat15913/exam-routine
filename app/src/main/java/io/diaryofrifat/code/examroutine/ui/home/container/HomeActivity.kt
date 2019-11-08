@@ -4,8 +4,9 @@ import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
-import android.view.MenuItem
+import android.view.View
 import androidx.core.app.ShareCompat
 import androidx.core.view.GravityCompat
 import com.google.firebase.analytics.FirebaseAnalytics
@@ -13,6 +14,8 @@ import io.diaryofrifat.code.examroutine.R
 import io.diaryofrifat.code.examroutine.data.local.ExamType
 import io.diaryofrifat.code.examroutine.ui.about.AboutFragment
 import io.diaryofrifat.code.examroutine.ui.base.component.BaseActivity
+import io.diaryofrifat.code.examroutine.ui.base.setRipple
+import io.diaryofrifat.code.examroutine.ui.base.toTitleCase
 import io.diaryofrifat.code.examroutine.ui.examdates.ExamDatesFragment
 import io.diaryofrifat.code.examroutine.ui.home.exam.ExamFragment
 import io.diaryofrifat.code.utils.helper.AndroidUtils
@@ -46,10 +49,6 @@ class HomeActivity : BaseActivity<HomeMvpView, HomePresenter>() {
     override val layoutResourceId: Int
         get() = R.layout.activity_home
 
-    override fun getToolbarId(): Int? {
-        return R.id.toolbar
-    }
-
     override fun getActivityPresenter(): HomePresenter {
         return HomePresenter()
     }
@@ -74,13 +73,28 @@ class HomeActivity : BaseActivity<HomeMvpView, HomePresenter>() {
     }
 
     private fun initialize() {
-        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_menu_white)
+        // Handle status bar color
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+            status_bar?.setBackgroundResource(R.color.colorWhite)
+        } else if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            status_bar?.setBackgroundResource(R.color.darkBackground)
+        }
+
+        window.setBackgroundDrawable(null)
+        image_view_menu?.setRipple(R.color.colorPrimary26)
+
         visitExam()
+    }
+
+    private fun setPageTitle(title: String) {
+        text_view_title?.text = title
     }
 
     private fun visitExam() {
         if (mCategory != null) {
-            // Set page title
+            setPageTitle(mCategory?.examTypeTitle!!.toTitleCase(false))
+
             val fragment = ExamFragment().apply {
                 val args = Bundle()
                 args.putParcelable(Constants.IntentKey.CATEGORY, mCategory)
@@ -99,6 +113,8 @@ class HomeActivity : BaseActivity<HomeMvpView, HomePresenter>() {
     }
 
     private fun setListeners() {
+        setClickListener(image_view_menu)
+
         navigation_view_drawer_menu?.setNavigationItemSelectedListener {
             drawer_layout_whole_container?.closeDrawers()
 
@@ -165,14 +181,13 @@ class HomeActivity : BaseActivity<HomeMvpView, HomePresenter>() {
 
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            android.R.id.home -> {
-                drawer_layout_whole_container?.openDrawer(GravityCompat.START)
-                true
-            }
+    override fun onClick(view: View) {
+        super.onClick(view)
 
-            else -> super.onOptionsItemSelected(item)
+        when (view.id) {
+            R.id.image_view_menu -> {
+                drawer_layout_whole_container?.openDrawer(GravityCompat.START)
+            }
         }
     }
 }

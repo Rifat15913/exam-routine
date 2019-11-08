@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#D4170B</color>
-    <color name="colorPrimaryDark">#D4170B</color>
-    <color name="colorAccent">#D4170B</color>
+    <color name="colorPrimary">#B00020</color>
+    <color name="colorPrimaryDark">#B00020</color>
+    <color name="colorAccent">#B00020</color>
     <color name="background">#FFFFFF</color>
 
     <!--Extra colors-->
@@ -11,9 +11,9 @@
     <color name="text_light">#BCBCBC</color>
 
     <color name="disabledGray">#D3D2D2</color>
-    <color name="fortyPercentColorPrimary">#66D4170B</color>
+    <color name="fortyPercentColorPrimary">#66B00020</color>
     <color name="darkBackground">#494A53</color>
-    <color name="white">#ffffff</color>
+    <color name="colorWhite">#ffffff</color>
     <color name="black">#000000</color>
 
     <color name="shadow">#d0d8dc</color>
@@ -21,7 +21,7 @@
     <color name="negative_red">#F5393E</color>
 
     <!--Ripple colors-->
-    <color name="colorPrimary26">#43D4170B</color>
-    <color name="colorPrimary50">#80D4170B</color>
+    <color name="colorPrimary26">#43B00020</color>
+    <color name="colorPrimary50">#80B00020</color>
 
 </resources>

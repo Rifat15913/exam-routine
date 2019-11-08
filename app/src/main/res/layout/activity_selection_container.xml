@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
-    android:background="@color/white">
+    android:background="@color/colorWhite">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraint_layout_head_container"
@@ -19,19 +19,22 @@
             android:id="@+id/text_view_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_32"
+            android:layout_marginStart="@dimen/margin_16"
             android:layout_marginTop="@dimen/margin_24"
-            android:layout_marginEnd="@dimen/margin_32"
+            android:layout_marginEnd="@dimen/margin_16"
             android:layout_marginBottom="@dimen/margin_24"
+            android:ellipsize="end"
             android:gravity="center"
+            android:maxLines="1"
+            android:singleLine="true"
             android:text="@string/select_exam_toolbar_title"
             android:textAllCaps="false"
             android:textColor="@color/textRegular"
             android:textSize="@dimen/textPageTitle"
             app:fontFamily="@font/bold"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/image_view_back_dummy"
+            app:layout_constraintStart_toEndOf="@+id/image_view_back"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatImageView
@@ -40,13 +43,27 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_24"
             android:padding="@dimen/padding_8"
-            app:tint="@color/colorPrimary"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/text_view_title"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_back" />
+            app:srcCompat="@drawable/ic_back"
+            app:tint="@color/colorPrimary" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/image_view_back_dummy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_24"
+            android:padding="@dimen/padding_8"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/text_view_title"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_back"
+            app:tint="@color/colorPrimary" />
 
         <View
             android:id="@+id/view_shadow"
