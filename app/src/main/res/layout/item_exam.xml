@@ -1,66 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/card_view_exam_details"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:stateListAnimator="@animator/card_animator_with_translationz"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="@dimen/radius_8"
+    app:cardElevation="@dimen/elevation_2"
+    app:cardPreventCornerOverlap="false">
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/card_view_exam_details"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:cardBackgroundColor="@color/white"
-        android:stateListAnimator="@animator/card_animator_with_translationz"
-        app:cardCornerRadius="@dimen/radius_4"
-        app:cardElevation="@dimen/elevation_2"
-        app:cardPreventCornerOverlap="false">
+        android:layout_height="match_parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/text_view_subject_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_16"
+            android:layout_marginTop="@dimen/margin_16"
+            android:layout_marginEnd="@dimen/margin_16"
+            android:textColor="@color/textRegular"
+            android:textSize="@dimen/textPageTitle"
+            app:fontFamily="@font/extra_bold"
+            app:layout_constraintBottom_toTopOf="@+id/text_view_date"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Physics 1st paper" />
 
-            <TextView
-                android:id="@+id/text_view_subject_name"
-                style="@style/ExamRoutineItem"
-                android:layout_marginTop="@dimen/margin_16"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/text_view_subject_code"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="Physics 1st paper" />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/text_view_date"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_8"
+            android:textColor="@color/textRegular"
+            android:textSize="@dimen/textParagraphTitle"
+            app:fontFamily="@font/regular"
+            app:layout_constraintBottom_toTopOf="@+id/text_view_subject_code"
+            app:layout_constraintEnd_toEndOf="@+id/text_view_subject_name"
+            app:layout_constraintStart_toStartOf="@+id/text_view_subject_name"
+            app:layout_constraintTop_toBottomOf="@+id/text_view_subject_name"
+            tools:text="Friday, 08 November, 2019" />
 
-            <TextView
-                android:id="@+id/text_view_subject_code"
-                style="@style/ExamRoutineItem"
-                android:layout_marginTop="@dimen/margin_8"
-                app:layout_constraintBottom_toTopOf="@+id/text_view_time"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/text_view_subject_name"
-                tools:text="Code - 101" />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/text_view_subject_code"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_8"
+            android:textColor="@color/textRegular"
+            android:textSize="@dimen/text_body"
+            app:fontFamily="@font/regular"
+            app:layout_constraintEnd_toEndOf="@+id/text_view_subject_name"
+            app:layout_constraintStart_toStartOf="@+id/text_view_subject_name"
+            app:layout_constraintTop_toBottomOf="@+id/text_view_date"
+            tools:text="Subject Code: 101" />
 
-            <TextView
-                android:id="@+id/text_view_time"
-                style="@style/ExamRoutineItem"
-                android:layout_marginTop="@dimen/margin_8"
-                app:layout_constraintBottom_toTopOf="@+id/text_view_date"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/text_view_subject_code"
-                tools:text="02:00 PM to 05:00 PM" />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/text_view_subcategory"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_16"
+            android:paddingStart="0dp"
+            android:paddingTop="@dimen/padding_8"
+            android:paddingEnd="@dimen/padding_8"
+            android:paddingBottom="@dimen/padding_8"
+            android:textColor="@color/textRegular"
+            android:textSize="@dimen/text_body"
+            app:fontFamily="@font/semi_bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/text_view_time"
+            app:layout_constraintHorizontal_weight="2"
+            app:layout_constraintStart_toStartOf="@+id/text_view_subject_name"
+            app:layout_constraintTop_toBottomOf="@+id/text_view_subject_code"
+            tools:text="#science" />
 
-            <TextView
-                android:id="@+id/text_view_date"
-                style="@style/ExamRoutineItem"
-                android:layout_marginTop="@dimen/margin_8"
-                android:layout_marginBottom="@dimen/margin_16"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/text_view_time"
-                tools:text="Monday, 07 January, 2019" />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/text_view_time"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@color/colorPrimary"
+            android:gravity="start|top"
+            android:padding="@dimen/padding_8"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_body"
+            app:fontFamily="@font/regular"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_weight="3"
+            app:layout_constraintStart_toEndOf="@+id/text_view_subcategory"
+            app:layout_constraintTop_toTopOf="@+id/text_view_subcategory"
+            tools:text="10:00 AM - 01:00 PM" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </com.google.android.material.card.MaterialCardView>
-
-</layout>
+</com.google.android.material.card.MaterialCardView>

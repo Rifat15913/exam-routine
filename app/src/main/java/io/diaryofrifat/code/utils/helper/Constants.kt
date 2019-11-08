@@ -63,4 +63,14 @@ class Constants {
             const val EXAM_TYPE = "exam_type"
         }
     }
+
+    class Firebase {
+        companion object {
+            const val SUBJECT_CODE = "subject_code"
+            const val SUBJECT_NAME = "subject_name"
+            const val ENDING_TIME = "ending_time"
+            const val STARTING_TIME = "starting_time"
+            const val VISITING_URL = "visiting_url"
+        }
+    }
 }

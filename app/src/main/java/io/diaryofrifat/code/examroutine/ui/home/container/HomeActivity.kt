@@ -14,12 +14,12 @@ import io.diaryofrifat.code.examroutine.data.local.ExamType
 import io.diaryofrifat.code.examroutine.ui.about.AboutFragment
 import io.diaryofrifat.code.examroutine.ui.base.component.BaseActivity
 import io.diaryofrifat.code.examroutine.ui.examdates.ExamDatesFragment
+import io.diaryofrifat.code.examroutine.ui.home.exam.ExamFragment
 import io.diaryofrifat.code.utils.helper.AndroidUtils
 import io.diaryofrifat.code.utils.helper.Constants
 import io.diaryofrifat.code.utils.libs.ToastUtils
 import kotlinx.android.synthetic.main.activity_home.*
 import timber.log.Timber
-import java.util.*
 
 
 class HomeActivity : BaseActivity<HomeMvpView, HomePresenter>() {
@@ -40,7 +40,8 @@ class HomeActivity : BaseActivity<HomeMvpView, HomePresenter>() {
         }
     }
 
-    private var mExamType: ExamType? = null
+    private var mCategory: ExamType? = null
+    private var mSubcategory: ExamType? = null
 
     override val layoutResourceId: Int
         get() = R.layout.activity_home
@@ -55,31 +56,39 @@ class HomeActivity : BaseActivity<HomeMvpView, HomePresenter>() {
 
     override fun startUI() {
         extractDataFromIntent()
-        workWithViews()
+        initialize()
         setListeners()
     }
 
     private fun extractDataFromIntent() {
-        if (intent != null && intent.hasExtra(HomeActivity::class.java.simpleName)) {
-            // mExamType = intent.getParcelableExtra(HomeActivity::class.java.simpleName)
+        if (intent != null
+                && intent.hasExtra(Constants.IntentKey.CATEGORY)) {
+            mCategory = intent.getParcelableExtra(Constants.IntentKey.CATEGORY)
+
+            if (intent.hasExtra(Constants.IntentKey.SUBCATEGORY)) {
+                mSubcategory = intent.getParcelableExtra(Constants.IntentKey.SUBCATEGORY)
+            }
+        } else {
+            onBackPressed()
         }
     }
 
-    private fun workWithViews() {
+    private fun initialize() {
         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_menu_white)
-        // launchHomePage()
+        visitExam()
     }
 
-    private fun launchHomePage() {
-        if (mExamType != null) {
-            setTitle(String.format(Locale.ENGLISH,
-                    getString(R.string.placeholder_routine),
-                    mExamType?.examTypeTitle))
-
-            val fragment = ExamDatesFragment()
-            val arguments = Bundle()
-            // arguments.putParcelable(ExamDatesFragment::class.java.simpleName, mExamType)
-            fragment.arguments = arguments
+    private fun visitExam() {
+        if (mCategory != null) {
+            // Set page title
+            val fragment = ExamFragment().apply {
+                val args = Bundle()
+                args.putParcelable(Constants.IntentKey.CATEGORY, mCategory)
+                mSubcategory?.let {
+                    args.putParcelable(Constants.IntentKey.SUBCATEGORY, mSubcategory)
+                }
+                arguments = args
+            }
             commitFragment(R.id.constraint_layout_fragment_container, fragment)
         }
     }
@@ -100,7 +109,7 @@ class HomeActivity : BaseActivity<HomeMvpView, HomePresenter>() {
                         bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, getString(R.string.nav_routine))
                         // FirebaseUtils.getFirebaseAnalytics()?.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle)
 
-                        launchHomePage()
+                        visitExam()
                     }
                 }
 
