@@ -4,7 +4,7 @@ import android.content.Context
 import com.github.pwittchen.reactivenetwork.library.rx2.ReactiveNetwork
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.Query
 import com.google.firebase.database.ValueEventListener
 import io.diaryofrifat.code.examroutine.data.local.ExamType
 import io.diaryofrifat.code.examroutine.data.remote.model.Exam
@@ -18,7 +18,7 @@ import timber.log.Timber
 
 class ExamPresenter : BasePresenter<ExamMvpView>() {
     // Database reference
-    private var mExamReference: DatabaseReference? = null
+    private var mExamReference: Query? = null
 
     // Database listener
     private var mExamListener: ValueEventListener? = null

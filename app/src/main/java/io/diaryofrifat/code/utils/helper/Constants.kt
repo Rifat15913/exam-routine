@@ -17,6 +17,9 @@ class Constants {
             const val SLASH = "/"
             const val APP_COMMON_DATE_FORMAT: String = "EEEE, dd MMMM, yyyy"
             const val APP_COMMON_TIME_FORMAT: String = "hh:mm a"
+            const val APP_COMMON_ONLY_DATE_FORMAT: String = "dd"
+            const val APP_COMMON_ONLY_DAY_FORMAT: String = "E"
+            const val APP_COMMON_ONLY_MONTH_FORMAT: String = "MMM"
             const val DATE_FORMAT = "dd MMM"
             const val YEAR_FORMAT = "yyyy"
         }

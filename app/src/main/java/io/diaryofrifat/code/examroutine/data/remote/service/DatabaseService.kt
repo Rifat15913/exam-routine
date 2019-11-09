@@ -2,6 +2,7 @@ package io.diaryofrifat.code.examroutine.data.remote.service
 
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.Query
 import io.diaryofrifat.code.examroutine.R
 import io.diaryofrifat.code.examroutine.data.local.ExamType
 import io.diaryofrifat.code.utils.helper.Constants
@@ -54,7 +55,7 @@ object DatabaseService {
      * @param subcategory subcategory of the exam
      * @return [DatabaseReference] reference of the exams
      * */
-    fun getExams(category: ExamType, subcategory: ExamType?): DatabaseReference? {
+    fun getExams(category: ExamType, subcategory: ExamType?): Query? {
         return mFirebaseDatabase.reference
                 .child(DataUtils.getString(R.string.path_exams)
                         + category.examTypeKey
@@ -64,6 +65,6 @@ object DatabaseService {
                         } else {
                             Constants.Default.DEFAULT_STRING
                         }
-                )
+                ).orderByChild(Constants.Firebase.STARTING_TIME)
     }
 }

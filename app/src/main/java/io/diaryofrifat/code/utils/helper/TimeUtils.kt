@@ -93,6 +93,42 @@ class TimeUtils private constructor() {
         }
 
         /**
+         * This method returns a formatted day name
+         *
+         * @param timeInMillis time
+         */
+        fun getFormattedDayNameString(timeInMillis: Long): String {
+            val calendar = Calendar.getInstance()
+            calendar.timeInMillis = timeInMillis
+            return SimpleDateFormat(Constants.Common.APP_COMMON_ONLY_DAY_FORMAT,
+                    Locale.ENGLISH).format(calendar.time)
+        }
+
+        /**
+         * This method returns a formatted only date
+         *
+         * @param timeInMillis time
+         */
+        fun getFormattedOnlyDateString(timeInMillis: Long): String {
+            val calendar = Calendar.getInstance()
+            calendar.timeInMillis = timeInMillis
+            return SimpleDateFormat(Constants.Common.APP_COMMON_ONLY_DATE_FORMAT,
+                    Locale.ENGLISH).format(calendar.time)
+        }
+
+        /**
+         * This method returns a formatted month
+         *
+         * @param timeInMillis time
+         */
+        fun getFormattedMonthString(timeInMillis: Long): String {
+            val calendar = Calendar.getInstance()
+            calendar.timeInMillis = timeInMillis
+            return SimpleDateFormat(Constants.Common.APP_COMMON_ONLY_MONTH_FORMAT,
+                    Locale.ENGLISH).format(calendar.time)
+        }
+
+        /**
          * This method provides time in milliseconds format after some amount of minutes
          *
          * @param timeStamp first time in milliseconds

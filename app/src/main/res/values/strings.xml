@@ -47,9 +47,11 @@
     <!--Select subcategory page-->
     <string name="select_subcategory_subtitle">Select an option</string>
 
-    <!--Routine page-->
+    <!--Exam page-->
+    <string name="exam_placeholder_subject_code">#%s</string>
+    <string name="exam_na_subcategory">N/A</string>
     <string name="placeholder_subject_code">Subject Code: %s</string>
-    <string name="placeholder_exam_time">%s to %s</string>
+    <string name="placeholder_exam_time">%s - %s</string>
     <string name="placeholder_routine">%s Routine</string>
     <string name="placeholder_routine_year">%s Routine %s</string>
     <string name="nav_change_exam_type">Change exam type</string>
