@@ -17,6 +17,10 @@ import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
 
 class ExamPresenter : BasePresenter<ExamMvpView>() {
+
+    // Exam list
+    val mExamList: MutableList<Exam> = ArrayList()
+
     // Database reference
     private var mExamReference: Query? = null
 
@@ -66,6 +70,8 @@ class ExamPresenter : BasePresenter<ExamMvpView>() {
                         }
                     }
 
+                    mExamList.clear()
+                    mExamList.addAll(list)
                     mvpView?.onGettingExams(list)
                     dialog?.dismiss()
                 }

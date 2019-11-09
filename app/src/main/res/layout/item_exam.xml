@@ -5,7 +5,7 @@
     android:id="@+id/card_view_exam_details"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardElevation="@dimen/elevation_2"
+    app:cardElevation="@dimen/elevation_4"
     app:cardPreventCornerOverlap="false">
 
     <androidx.constraintlayout.widget.ConstraintLayout

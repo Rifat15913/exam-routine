@@ -51,6 +51,9 @@
     <!--Exam page-->
     <string name="exam_placeholder_subject_code">#%s</string>
     <string name="exam_na_subcategory">N/A</string>
+    <string name="exam_legend_past">Past</string>
+    <string name="exam_legend_today">Today</string>
+    <string name="exam_legend_future">Future</string>
     <string name="placeholder_subject_code">Subject Code: %s</string>
     <string name="placeholder_exam_time">%s - %s</string>
     <string name="placeholder_routine">%s Routine</string>
