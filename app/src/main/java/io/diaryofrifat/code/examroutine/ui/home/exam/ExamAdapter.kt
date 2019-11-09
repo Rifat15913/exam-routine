@@ -1,8 +1,11 @@
 package io.diaryofrifat.code.examroutine.ui.home.exam
 
+import android.content.res.ColorStateList
 import android.text.TextUtils
+import android.text.format.DateUtils
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import io.diaryofrifat.code.examroutine.R
 import io.diaryofrifat.code.examroutine.data.remote.model.Exam
 import io.diaryofrifat.code.examroutine.ui.base.component.BaseAdapter
@@ -12,12 +15,21 @@ import io.diaryofrifat.code.examroutine.ui.base.makeItInvisible
 import io.diaryofrifat.code.examroutine.ui.base.makeItVisible
 import io.diaryofrifat.code.utils.helper.Constants
 import io.diaryofrifat.code.utils.helper.TimeUtils
+import io.diaryofrifat.code.utils.helper.ViewUtils
 import kotlinx.android.synthetic.main.item_exam.view.*
 import java.util.*
 
 class ExamAdapter : BaseAdapter<Exam>() {
+
+    private lateinit var mRecyclerView: RecyclerView
+
     override fun isEqual(left: Exam, right: Exam): Boolean {
         return left.id == right.id
+    }
+
+    override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
+        super.onAttachedToRecyclerView(recyclerView)
+        mRecyclerView = recyclerView
     }
 
     override fun newViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<Exam> {
@@ -58,6 +70,32 @@ class ExamAdapter : BaseAdapter<Exam>() {
             itemView.text_view_day?.text = TimeUtils.getFormattedDayNameString(item.startingTime)
             itemView.text_view_date?.text = TimeUtils.getFormattedOnlyDateString(item.startingTime)
             itemView.text_view_month?.text = TimeUtils.getFormattedMonthString(item.startingTime)
+
+            val desiredColor: Int =
+                    if (item.startingTime < TimeUtils.currentTime()) {
+                        if (DateUtils.isToday(item.startingTime)) {
+                            ViewUtils.getColor(R.color.colorAlternativeGreen)
+                        } else {
+                            ViewUtils.getColor(R.color.textLight)
+                        }
+                    } else {
+                        if (DateUtils.isToday(item.startingTime)) {
+                            ViewUtils.getColor(R.color.colorAlternativeGreen)
+                        } else {
+                            ViewUtils.getColor(R.color.colorPrimary)
+                        }
+                    }
+
+            itemView.view_initial_separator?.setBackgroundColor(desiredColor)
+            itemView.text_view_day?.setTextColor(desiredColor)
+            itemView.text_view_date?.setTextColor(desiredColor)
+            itemView.text_view_month?.setTextColor(desiredColor)
+
+            itemView.text_view_subject_name?.setTextColor(desiredColor)
+            itemView.text_view_time?.setTextColor(desiredColor)
+
+            itemView.text_view_subject_code?.setTextColor(desiredColor)
+            itemView.chip_subcategory?.chipBackgroundColor = ColorStateList.valueOf(desiredColor)
         }
     }
 }

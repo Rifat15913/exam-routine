@@ -5,23 +5,21 @@
     android:id="@+id/card_view_exam_details"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:stateListAnimator="@animator/card_animator_with_translationz"
-    app:cardBackgroundColor="@color/colorWhite"
     app:cardElevation="@dimen/elevation_2"
-    app:cardPreventCornerOverlap="false"
-    tools:ignore="UnusedAttribute">
+    app:cardPreventCornerOverlap="false">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/colorWhite">
 
         <View
             android:id="@+id/view_initial_separator"
             android:layout_width="6dp"
             android:layout_height="0dp"
             android:background="@color/colorPrimary"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/text_view_day"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -29,22 +27,19 @@
             android:id="@+id/text_view_day"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_24"
-            android:layout_marginEnd="@dimen/margin_24"
             android:gravity="center"
             android:maxLength="3"
-            tools:text="Sat"
-            android:textColor="@color/textRegular"
+            android:textColor="@color/colorPrimary"
             android:textSize="@dimen/textParagraphTitle"
-            app:fontFamily="@font/semi_bold"
+            app:fontFamily="@font/regular"
             app:layout_constraintBottom_toTopOf="@+id/text_view_date"
             app:layout_constraintEnd_toStartOf="@+id/view_separator"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toEndOf="@+id/view_initial_separator"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_chainStyle="packed"
-            app:textAllCaps="false" />
+            app:textAllCaps="false"
+            tools:text="Sat" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/text_view_date"
@@ -52,15 +47,15 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:maxLength="2"
-            tools:text="09"
-            android:textColor="@color/textRegular"
-            android:textSize="@dimen/text_focus"
-            app:fontFamily="@font/bold"
+            android:textColor="@color/colorPrimary"
+            android:textSize="26sp"
+            app:fontFamily="@font/semi_bold"
             app:layout_constraintBottom_toTopOf="@+id/text_view_month"
             app:layout_constraintEnd_toEndOf="@+id/text_view_day"
             app:layout_constraintStart_toStartOf="@+id/text_view_day"
             app:layout_constraintTop_toBottomOf="@+id/text_view_day"
-            app:textAllCaps="false" />
+            app:textAllCaps="false"
+            tools:text="09" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/text_view_month"
@@ -68,15 +63,15 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:maxLength="3"
-            tools:text="Nov"
-            android:textColor="@color/textRegular"
+            android:textColor="@color/colorPrimary"
             android:textSize="@dimen/textParagraphTitle"
-            app:fontFamily="@font/semi_bold"
+            app:fontFamily="@font/regular"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/text_view_day"
             app:layout_constraintStart_toStartOf="@+id/text_view_day"
             app:layout_constraintTop_toBottomOf="@+id/text_view_date"
-            app:textAllCaps="false" />
+            app:textAllCaps="false"
+            tools:text="Nov" />
 
         <View
             android:id="@+id/view_separator"
@@ -84,10 +79,11 @@
             android:layout_height="0dp"
             android:layout_marginTop="@dimen/margin_16"
             android:layout_marginBottom="@dimen/margin_16"
-            android:background="@color/shadow"
+            android:layout_marginStart="@dimen/margin_72"
+            android:background="@color/colorShadow"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/text_view_subject_name"
-            app:layout_constraintStart_toEndOf="@+id/text_view_day"
+            app:layout_constraintStart_toEndOf="@+id/view_initial_separator"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -96,7 +92,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_16"
             android:layout_marginEnd="@dimen/margin_16"
-            tools:text="#101"
             android:textColor="@color/textLight"
             android:textSize="@dimen/text_body"
             app:fontFamily="@font/regular"
@@ -105,7 +100,8 @@
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toEndOf="@+id/view_separator"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_chainStyle="packed" />
+            app:layout_constraintVertical_chainStyle="packed"
+            tools:text="#101" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/text_view_subject_name"
@@ -113,14 +109,14 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_16"
             android:layout_marginTop="@dimen/margin_8"
-            tools:text="Physics 1st paper"
             android:textColor="@color/textRegular"
             android:textSize="@dimen/textTitle"
             app:fontFamily="@font/bold"
             app:layout_constraintBottom_toTopOf="@+id/text_view_time"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/view_separator"
-            app:layout_constraintTop_toBottomOf="@+id/text_view_subject_code" />
+            app:layout_constraintTop_toBottomOf="@+id/text_view_subject_code"
+            tools:text="Physics 1st paper" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/text_view_time"
@@ -128,31 +124,32 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_8"
             android:layout_marginBottom="@dimen/margin_8"
-            tools:text="10:00 AM - 01:00 PM"
             android:textColor="@color/textRegular"
             android:textSize="@dimen/text_body"
             app:fontFamily="@font/regular"
             app:layout_constraintBottom_toTopOf="@+id/chip_subcategory"
             app:layout_constraintEnd_toEndOf="@+id/text_view_subject_name"
             app:layout_constraintStart_toStartOf="@+id/text_view_subject_name"
-            app:layout_constraintTop_toBottomOf="@+id/text_view_subject_name" />
+            app:layout_constraintTop_toBottomOf="@+id/text_view_subject_name"
+            tools:text="10:00 AM - 01:00 PM" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chip_subcategory"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_16"
             android:layout_marginEnd="@dimen/margin_16"
             android:layout_marginBottom="@dimen/margin_16"
             android:fontFamily="@font/semi_bold"
-            tools:text="Science"
             android:textColor="@color/colorWhite"
             app:chipBackgroundColor="@color/colorBlack"
             app:chipIconEnabled="false"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_view_time" />
+            app:layout_constraintStart_toEndOf="@+id/view_separator"
+            app:layout_constraintTop_toBottomOf="@+id/text_view_time"
+            tools:text="Science" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -15,8 +15,8 @@
     <color name="darkBackground">#494A53</color>
     <color name="colorWhite">#ffffff</color>
     <color name="colorBlack">#000000</color>
-
-    <color name="shadow">#d0d8dc</color>
+    <color name="colorAlternativeGreen">#006400</color>
+    <color name="colorShadow">#d0d8dc</color>
     <color name="transparent">#00000000</color>
     <color name="negative_red">#F5393E</color>
 

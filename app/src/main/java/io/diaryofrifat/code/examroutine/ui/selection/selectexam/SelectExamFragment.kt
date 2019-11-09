@@ -11,11 +11,14 @@ import io.diaryofrifat.code.examroutine.data.local.ExamType
 import io.diaryofrifat.code.examroutine.ui.base.callback.ItemClickListener
 import io.diaryofrifat.code.examroutine.ui.base.component.BaseFragment
 import io.diaryofrifat.code.examroutine.ui.base.helper.GridSpacingItemDecoration
+import io.diaryofrifat.code.examroutine.ui.base.makeItGone
+import io.diaryofrifat.code.examroutine.ui.base.makeItVisible
 import io.diaryofrifat.code.examroutine.ui.home.container.HomeActivity
 import io.diaryofrifat.code.examroutine.ui.selection.container.SelectionContainerActivity
 import io.diaryofrifat.code.utils.helper.DataUtils
 import io.diaryofrifat.code.utils.helper.ViewUtils
 import io.diaryofrifat.code.utils.libs.ToastUtils
+import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.fragment_select_exam.*
 import timber.log.Timber
 
@@ -56,6 +59,20 @@ class SelectExamFragment : BaseFragment<SelectExamMvpView, SelectExamPresenter>(
                 null,
                 null,
                 null)
+
+        presenter.compositeDisposable.add(getAdapter().dataChanges()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    if (it == 0) {
+                        text_view_empty_placeholder?.makeItVisible()
+                    } else {
+                        text_view_empty_placeholder?.makeItGone()
+                    }
+                }, {
+                    Timber.e(it)
+                })
+        )
     }
 
     override fun onStart() {
@@ -134,7 +151,7 @@ class SelectExamFragment : BaseFragment<SelectExamMvpView, SelectExamPresenter>(
 
     override fun onGettingSubcategories(subcategoryList: List<ExamType>) {
         if (subcategoryList.isEmpty()) {
-            if(mSelectedExamType != null) {
+            if (mSelectedExamType != null) {
                 HomeActivity.startActivity(mContext, mSelectedExamType!!, null)
             }
         } else {

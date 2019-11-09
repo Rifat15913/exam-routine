@@ -16,4 +16,20 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:listitem="@layout/item_exam" />
 
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/text_view_empty_placeholder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_16"
+        android:layout_marginEnd="@dimen/margin_16"
+        android:text="@string/no_item_found"
+        android:textColor="@color/textRegular"
+        android:textSize="@dimen/textParagraphTitle"
+        android:visibility="gone"
+        app:fontFamily="@font/semi_bold"
+        app:layout_constraintBottom_toBottomOf="@+id/recycler_view_exam"
+        app:layout_constraintEnd_toEndOf="@+id/recycler_view_exam"
+        app:layout_constraintStart_toStartOf="@+id/recycler_view_exam"
+        app:layout_constraintTop_toTopOf="@+id/recycler_view_exam" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,15 +1,20 @@
 package io.diaryofrifat.code.examroutine.ui.home.exam
 
+import android.text.format.DateUtils
 import androidx.recyclerview.widget.LinearLayoutManager
 import io.diaryofrifat.code.examroutine.R
 import io.diaryofrifat.code.examroutine.data.local.ExamType
 import io.diaryofrifat.code.examroutine.data.remote.model.Exam
 import io.diaryofrifat.code.examroutine.ui.base.component.BaseFragment
 import io.diaryofrifat.code.examroutine.ui.base.helper.LinearMarginItemDecoration
+import io.diaryofrifat.code.examroutine.ui.base.makeItGone
+import io.diaryofrifat.code.examroutine.ui.base.makeItVisible
 import io.diaryofrifat.code.examroutine.ui.home.container.HomeActivity
 import io.diaryofrifat.code.utils.helper.Constants
+import io.diaryofrifat.code.utils.helper.TimeUtils
 import io.diaryofrifat.code.utils.helper.ViewUtils
 import io.diaryofrifat.code.utils.libs.ToastUtils
+import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.fragment_exam.*
 import timber.log.Timber
 
@@ -44,6 +49,20 @@ class ExamFragment : BaseFragment<ExamMvpView, ExamPresenter>(), ExamMvpView {
                 null,
                 null,
                 null
+        )
+
+        presenter.compositeDisposable.add(getAdapter().dataChanges()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    if (it == 0) {
+                        text_view_empty_placeholder?.makeItVisible()
+                    } else {
+                        text_view_empty_placeholder?.makeItGone()
+                    }
+                }, {
+                    Timber.e(it)
+                })
         )
     }
 
@@ -86,6 +105,34 @@ class ExamFragment : BaseFragment<ExamMvpView, ExamPresenter>(), ExamMvpView {
     override fun onGettingExams(list: List<Exam>) {
         getAdapter().clear()
         getAdapter().addItems(list)
+
+        if (list.isEmpty()) {
+            return
+        }
+
+        var hasScrolled = false
+        for (i in list.indices) {
+            val item = list[i]
+            if (DateUtils.isToday(item.startingTime)) {
+                recycler_view_exam?.smoothScrollToPosition(i)
+                hasScrolled = true
+            }
+        }
+
+        if (!hasScrolled) {
+            for (i in list.indices) {
+                val item = list[i]
+                if (item.startingTime > TimeUtils.currentTime()) {
+                    recycler_view_exam?.smoothScrollToPosition(i)
+                    hasScrolled = true
+                    break
+                }
+            }
+        }
+
+        if (!hasScrolled) {
+            recycler_view_exam?.smoothScrollToPosition(list.size - 1)
+        }
     }
 
     override fun onError(error: Throwable) {

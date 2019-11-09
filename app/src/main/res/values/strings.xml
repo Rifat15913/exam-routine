@@ -10,6 +10,7 @@
     <string name="please_wait">Please Wait</string>
     <string name="interstitial_ad_decision_maker_page">Interstitial ad on decision maker page</string>
     <string name="interstitial_ad_routine_page">Interstitial ad on routine page</string>
+    <string name="no_item_found">No item found</string>
 
     <!--Error-->
     <string name="error_could_not_create_bitmap">Could not create bitmap from the view</string>
