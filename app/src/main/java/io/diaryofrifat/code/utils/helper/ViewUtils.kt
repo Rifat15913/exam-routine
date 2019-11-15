@@ -1,5 +1,6 @@
 package io.diaryofrifat.code.utils.helper
 
+import android.app.Activity
 import android.content.Context
 import android.content.res.Resources
 import android.graphics.Bitmap
@@ -202,7 +203,7 @@ class ViewUtils {
          * @param activity current activity
          * @param colorResourceId color resource id
          * */
-        fun setStatusBarColor(activity: AppCompatActivity, colorResourceId: Int) {
+        fun setStatusBarColor(activity: Activity, colorResourceId: Int) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && colorResourceId > -1) {
                 val window = activity.window
                 window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
@@ -264,6 +265,100 @@ class ViewUtils {
                 result = getResources().getDimensionPixelSize(resourceId)
             }
             return result
+        }
+
+        /**
+         * This method sets system navigation bar color
+         *
+         * @param activity current activity
+         * @param colorResourceId color resource id
+         * */
+        fun setSystemNavigationBarColor(activity: Activity, colorResourceId: Int) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && colorResourceId > -1) {
+                val window = activity.window
+                window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+                window.navigationBarColor = getColor(colorResourceId)
+            }
+        }
+
+        /**
+         * This method clears the light state of system navigation bar
+         *
+         * @param activity current activity
+         * */
+        fun disableLightSystemNavigationBar(activity: Activity) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
+                val window = activity.window
+                val flags = window.decorView.systemUiVisibility
+                val modifiedFlags = flags and (View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR.inv())
+                window.decorView.systemUiVisibility = modifiedFlags
+            }
+        }
+
+        /**
+         * This method sets the light state of system navigation bar
+         *
+         * @param activity current activity
+         * */
+        fun enableLightSystemNavigationBar(activity: Activity) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
+                val window = activity.window
+                val flags = window.decorView.systemUiVisibility
+                val modifiedFlags = flags or View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
+                window.decorView.systemUiVisibility = modifiedFlags
+            }
+        }
+
+        /**
+         * This method enables light flag of system navigation bar and sets color to white
+         *
+         * @param activity current activity
+         * */
+        fun setLightSystemNavigationBar(activity: Activity) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
+                enableLightSystemNavigationBar(activity)
+                setSystemNavigationBarColor(activity, R.color.colorWhite)
+            }
+        }
+
+        /**
+         * This method clears the light state of status bar
+         *
+         * @param activity current activity
+         * */
+        fun clearLightStatusBar(activity: Activity) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                val window = activity.window
+                val flags = window.decorView.systemUiVisibility
+                val modifiedFlags = flags and (View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR.inv())
+                window.decorView.systemUiVisibility = modifiedFlags
+            }
+        }
+
+        /**
+         * This method sets the light state of status bar
+         *
+         * @param activity current activity
+         * */
+        fun enableLightStatusBar(activity: Activity) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                val window = activity.window
+                val flags = window.decorView.systemUiVisibility
+                val modifiedFlags = flags or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+                window.decorView.systemUiVisibility = modifiedFlags
+            }
+        }
+
+        /**
+         * This method sets the light state of status bar and set color white to it
+         *
+         * @param activity current activity
+         * */
+        fun setLightStatusBar(activity: Activity) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                enableLightStatusBar(activity)
+                setStatusBarColor(activity, R.color.colorWhite)
+            }
         }
     }
 }

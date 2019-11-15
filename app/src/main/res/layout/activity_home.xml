@@ -11,23 +11,42 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <io.diaryofrifat.code.examroutine.ui.base.widget.CustomStatusBarView
-            android:id="@+id/status_bar"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@+id/constraint_layout_fragment_container"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraint_layout_fragment_container"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/bottom_bar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/view_separator_2"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="@color/colorSeparator"
+            app:layout_constraintBottom_toTopOf="@+id/bottom_bar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/bottom_bar"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottom_bar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@color/colorWhite"
+            app:itemHorizontalTranslationEnabled="true"
+            app:itemIconTint="@color/bottom_bar_item_color"
+            app:itemTextAppearanceActive="@style/TextAppearanceBottomBarItem"
+            app:itemTextAppearanceInactive="@style/TextAppearanceBottomBarItem"
+            app:itemTextColor="@color/bottom_bar_item_color"
+            app:labelVisibilityMode="labeled"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/status_bar" />
+            app:layout_constraintTop_toBottomOf="@+id/constraint_layout_fragment_container"
+            app:menu="@menu/bottom_navigation_menu" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

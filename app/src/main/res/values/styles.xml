@@ -7,6 +7,8 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:textViewStyle">@style/TextViewStyle</item>
         <item name="buttonStyle">@style/ButtonStyle</item>
+        <item name="android:navigationBarColor" tools:targetApi="o_mr1">@color/colorWhite</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">true</item>
     </style>
 
     <style name="TextViewStyle" parent="android:Widget.TextView">
@@ -66,5 +68,10 @@
         <item name="android:textColor">@color/colorWhite</item>
         <item name="android:textSize">@dimen/textTitle</item>
         <item name="android:gravity">center</item>
+    </style>
+
+    <style name="TextAppearanceBottomBarItem">
+        <item name="android:fontFamily">@font/semi_bold</item>
+        <item name="android:textSize">@dimen/text_body</item>
     </style>
 </resources>

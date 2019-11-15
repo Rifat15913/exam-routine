@@ -18,6 +18,7 @@ import io.diaryofrifat.code.examroutine.ui.examdates.ExamDatesFragment
 import io.diaryofrifat.code.examroutine.ui.home.exam.ExamFragment
 import io.diaryofrifat.code.utils.helper.AndroidUtils
 import io.diaryofrifat.code.utils.helper.Constants
+import io.diaryofrifat.code.utils.helper.ViewUtils
 import io.diaryofrifat.code.utils.libs.ToastUtils
 import kotlinx.android.synthetic.main.activity_home.*
 import timber.log.Timber
@@ -73,10 +74,10 @@ class HomeActivity : BaseActivity<HomeMvpView, HomePresenter>() {
     private fun initialize() {
         // Handle status bar color
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-            status_bar?.setBackgroundResource(R.color.colorWhite)
-        } else if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            status_bar?.setBackgroundResource(R.color.darkBackground)
+            ViewUtils.setLightStatusBar(this)
+        } else if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M
+                && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            ViewUtils.setStatusBarColor(this, R.color.darkBackground)
         }
 
         window.setBackgroundDrawable(null)

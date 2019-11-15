@@ -11,23 +11,23 @@
         android:id="@+id/constraint_layout_head_container"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        ads:layout_constraintTop_toTopOf="parent"
         ads:layout_constraintVertical_chainStyle="packed"
         app:layout_constraintBottom_toTopOf="@+id/recycler_view_exam"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        ads:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintStart_toStartOf="parent">
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/card_view_search_container"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_16"
-            ads:layout_constraintEnd_toEndOf="parent"
-            ads:layout_constraintTop_toTopOf="parent"
             ads:cardCornerRadius="@dimen/radius_4"
             ads:cardElevation="@dimen/elevation_4"
             ads:layout_constraintBottom_toTopOf="@+id/text_view_title"
+            ads:layout_constraintEnd_toEndOf="parent"
             ads:layout_constraintStart_toStartOf="parent"
+            ads:layout_constraintTop_toTopOf="parent"
             app:cardPreventCornerOverlap="false">
 
             <androidx.appcompat.widget.SearchView
@@ -45,6 +45,7 @@
             android:layout_marginEnd="@dimen/margin_16"
             android:layout_marginBottom="@dimen/margin_16"
             android:ellipsize="end"
+            ads:layout_constraintEnd_toStartOf="@+id/chip_change_exam"
             android:gravity="start|center_vertical"
             android:maxLines="1"
             android:singleLine="true"
@@ -52,12 +53,27 @@
             android:textColor="@color/textRegular"
             android:textSize="@dimen/textTitle"
             android:visibility="visible"
-            ads:layout_constraintTop_toBottomOf="@+id/card_view_search_container"
             ads:layout_constraintBottom_toBottomOf="parent"
-            ads:layout_constraintEnd_toEndOf="parent"
+            ads:layout_constraintHorizontal_weight="1"
             ads:layout_constraintStart_toStartOf="parent"
+            ads:layout_constraintTop_toBottomOf="@+id/card_view_search_container"
             app:fontFamily="@font/bold"
             tools:text="SSC Exam 2019" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_change_exam"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_16"
+            android:fontFamily="@font/semi_bold"
+            android:text="@string/exam_change_exam"
+            android:textColor="@color/colorWhite"
+            ads:chipBackgroundColor="@color/colorPrimary"
+            ads:layout_constraintBottom_toBottomOf="@+id/text_view_title"
+            ads:layout_constraintEnd_toEndOf="parent"
+            ads:layout_constraintStart_toEndOf="@+id/text_view_title"
+            ads:layout_constraintTop_toTopOf="@+id/text_view_title"
+            app:chipIconEnabled="false" />
 
         <View
             android:id="@+id/view_shadow"
@@ -88,6 +104,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@color/colorWhite"
+        android:visibility="gone"
         ads:adSize="BANNER"
         ads:adUnitId="@string/exam_ad_unit_id"
         ads:layout_constraintBottom_toBottomOf="parent"

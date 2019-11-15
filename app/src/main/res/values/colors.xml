@@ -10,6 +10,9 @@
     <color name="text_bold">#404040</color>
     <color name="textLight">#7E7777</color>
 
+    <color name="colorSeparator">#DADCE0</color>
+    <color name="colorBottomBarItemEnabled">#B00020</color>
+    <color name="colorBottomBarItemDisabled">#5F6368</color>
     <color name="disabledGray">#D3D2D2</color>
     <color name="fortyPercentColorPrimary">#66B00020</color>
     <color name="darkBackground">#494A53</color>
