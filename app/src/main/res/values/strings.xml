@@ -52,6 +52,7 @@
     <string name="select_subcategory_subtitle">Select an option</string>
 
     <!--Exam page-->
+    <string name="exam_search_your_exam">Search your exam</string>
     <string name="exam_placeholder_subject_code">#%s</string>
     <string name="exam_na_subcategory">N/A</string>
     <string name="exam_change_exam">Exams</string>

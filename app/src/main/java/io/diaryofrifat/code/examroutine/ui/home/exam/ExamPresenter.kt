@@ -1,6 +1,7 @@
 package io.diaryofrifat.code.examroutine.ui.home.exam
 
 import android.content.Context
+import android.text.TextUtils
 import com.github.pwittchen.reactivenetwork.library.rx2.ReactiveNetwork
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -93,5 +94,21 @@ class ExamPresenter : BasePresenter<ExamMvpView>() {
         if (mExamListener != null) {
             mExamReference?.removeEventListener(mExamListener!!)
         }
+    }
+
+    fun getMatchedExamList(query: String): List<Exam> {
+        if (TextUtils.isEmpty(query)) {
+            return mExamList
+        }
+
+        val matchedExamList: MutableList<Exam> = ArrayList()
+
+        mExamList.forEach {
+            if (it.subjectName != null && it.subjectName!!.contains(query)) {
+                matchedExamList.add(it)
+            }
+        }
+
+        return matchedExamList
     }
 }

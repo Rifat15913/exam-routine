@@ -39,7 +39,6 @@ class SelectExamFragment : BaseFragment<SelectExamMvpView, SelectExamPresenter>(
 
     override fun startUI() {
         initialize()
-        loadAd()
         setListeners()
         loadData()
     }
@@ -56,7 +55,7 @@ class SelectExamFragment : BaseFragment<SelectExamMvpView, SelectExamPresenter>(
                 },
                 null,
                 GridLayoutManager(mContext, 2),
-                null,
+                mItemDecoration,
                 null,
                 null)
 
@@ -77,30 +76,32 @@ class SelectExamFragment : BaseFragment<SelectExamMvpView, SelectExamPresenter>(
 
     override fun onStart() {
         super.onStart()
-        recycler_view_exams?.addItemDecoration(mItemDecoration)
+        loadAd()
         presenter.attachExamTypeListener()
     }
 
     override fun onStop() {
         super.onStop()
-        recycler_view_exams?.removeItemDecoration(mItemDecoration)
         presenter.detachExamTypeListener()
     }
 
     private fun setListeners() {
+
+    }
+
+    private fun loadAd() {
+        MobileAds.initialize(mContext, DataUtils.getString(R.string.admob_app_id))
+
+        mInterstitialAd = InterstitialAd(mContext)
+        mInterstitialAd?.adUnitId = getString(R.string.select_exam_type_ad_unit_id)
+        mInterstitialAd?.loadAd(AdRequest.Builder().build())
+
         mInterstitialAd?.adListener = object : AdListener() {
             override fun onAdClosed() {
                 super.onAdClosed()
                 goToNextPage()
             }
         }
-    }
-
-    private fun loadAd() {
-        MobileAds.initialize(mContext, DataUtils.getString(R.string.admob_app_id))
-        mInterstitialAd = InterstitialAd(mContext)
-        mInterstitialAd?.adUnitId = getString(R.string.select_exam_type_ad_unit_id)
-        mInterstitialAd?.loadAd(AdRequest.Builder().build())
     }
 
     private fun loadData() {

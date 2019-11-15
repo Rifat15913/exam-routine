@@ -1,5 +1,7 @@
 package io.diaryofrifat.code.examroutine.ui.selection.container
 
+import android.content.Context
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.view.View
@@ -17,6 +19,22 @@ import kotlinx.android.synthetic.main.activity_selection_container.*
 import java.util.*
 
 class SelectionContainerActivity : BaseActivity<SelectionContainerMvpView, SelectionContainerPresenter>() {
+
+    companion object {
+        /**
+         * This method starts current activity
+         *
+         * @param context UI context
+         * */
+        fun startActivity(context: Context) {
+            runCurrentActivity(context,
+                    Intent(context, SelectionContainerActivity::class.java).apply {
+                        this.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
+                        this.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    })
+        }
+    }
+
     override val layoutResourceId: Int
         get() = R.layout.activity_selection_container
 

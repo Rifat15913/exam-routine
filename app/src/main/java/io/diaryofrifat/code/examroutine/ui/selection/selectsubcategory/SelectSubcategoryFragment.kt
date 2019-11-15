@@ -38,16 +38,6 @@ class SelectSubcategoryFragment
         return SelectSubcategoryPresenter()
     }
 
-    override fun onStart() {
-        super.onStart()
-        recycler_view_subcategory?.addItemDecoration(mItemDecoration)
-    }
-
-    override fun onStop() {
-        super.onStop()
-        recycler_view_subcategory?.removeItemDecoration(mItemDecoration)
-    }
-
     override fun startUI() {
         extractDataFromArguments()
         initialize()
@@ -83,7 +73,7 @@ class SelectSubcategoryFragment
                 },
                 null,
                 GridLayoutManager(mContext, 2),
-                null,
+                mItemDecoration,
                 null,
                 null)
 

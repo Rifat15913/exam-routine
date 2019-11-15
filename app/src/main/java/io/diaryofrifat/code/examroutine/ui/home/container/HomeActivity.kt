@@ -6,16 +6,15 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.view.View
 import androidx.core.app.ShareCompat
 import com.google.firebase.analytics.FirebaseAnalytics
 import io.diaryofrifat.code.examroutine.R
 import io.diaryofrifat.code.examroutine.data.local.ExamType
 import io.diaryofrifat.code.examroutine.ui.about.AboutFragment
 import io.diaryofrifat.code.examroutine.ui.base.component.BaseActivity
-import io.diaryofrifat.code.examroutine.ui.base.toTitleCase
 import io.diaryofrifat.code.examroutine.ui.examdates.ExamDatesFragment
 import io.diaryofrifat.code.examroutine.ui.home.exam.ExamFragment
+import io.diaryofrifat.code.examroutine.ui.selection.container.SelectionContainerActivity
 import io.diaryofrifat.code.utils.helper.AndroidUtils
 import io.diaryofrifat.code.utils.helper.Constants
 import io.diaryofrifat.code.utils.helper.ViewUtils
@@ -38,6 +37,9 @@ class HomeActivity : BaseActivity<HomeMvpView, HomePresenter>() {
                 if (subcategory != null) {
                     putExtra(Constants.IntentKey.SUBCATEGORY, subcategory)
                 }
+
+                this.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
+                this.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             })
         }
     }
@@ -85,14 +87,8 @@ class HomeActivity : BaseActivity<HomeMvpView, HomePresenter>() {
         visitExam()
     }
 
-    private fun setPageTitle(title: String) {
-        // text_view_title?.text = title
-    }
-
     private fun visitExam() {
         if (mCategory != null) {
-            setPageTitle(mCategory?.examTypeTitle!!.toTitleCase(false))
-
             val fragment = ExamFragment().apply {
                 val args = Bundle()
                 args.putParcelable(Constants.IntentKey.CATEGORY, mCategory)
@@ -112,6 +108,24 @@ class HomeActivity : BaseActivity<HomeMvpView, HomePresenter>() {
 
     private fun setListeners() {
         //setClickListener(image_view_menu)
+
+        bottom_bar?.setOnNavigationItemSelectedListener {
+            when (it.itemId) {
+                R.id.action_home -> {
+                    visitExam()
+                }
+
+                R.id.action_favorites -> {
+
+                }
+
+                R.id.action_settings -> {
+
+                }
+            }
+
+            true
+        }
 
         navigation_view_drawer_menu?.setNavigationItemSelectedListener {
             drawer_layout_whole_container?.closeDrawers()
@@ -179,13 +193,10 @@ class HomeActivity : BaseActivity<HomeMvpView, HomePresenter>() {
 
     }
 
-    override fun onClick(view: View) {
-        super.onClick(view)
+    override fun onBackPressed() {
+        super.onBackPressed()
 
-        when (view.id) {
-            /*R.id.image_view_menu -> {
-                drawer_layout_whole_container?.openDrawer(GravityCompat.START)
-            }*/
-        }
+        // Handle bottom bar use-cases
+        SelectionContainerActivity.startActivity(this)
     }
 }

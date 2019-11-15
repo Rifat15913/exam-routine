@@ -1,9 +1,11 @@
 package io.diaryofrifat.code.examroutine.ui.home.exam
 
 import android.text.format.DateUtils
+import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.MobileAds
+import com.jakewharton.rxbinding2.support.v7.widget.RxSearchView
 import io.diaryofrifat.code.examroutine.R
 import io.diaryofrifat.code.examroutine.data.local.ExamType
 import io.diaryofrifat.code.examroutine.data.remote.model.Exam
@@ -21,6 +23,7 @@ import io.diaryofrifat.code.utils.libs.ToastUtils
 import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.fragment_exam.*
 import timber.log.Timber
+import java.util.concurrent.TimeUnit
 
 class ExamFragment : BaseFragment<ExamMvpView, ExamPresenter>(), ExamMvpView {
 
@@ -43,8 +46,31 @@ class ExamFragment : BaseFragment<ExamMvpView, ExamPresenter>(), ExamMvpView {
     override fun startUI() {
         extractDataFromArguments()
         initialize()
+        setListeners()
         loadAd()
         loadData()
+    }
+
+    private fun setListeners() {
+        setClickListener(chip_change_exam)
+
+        presenter.compositeDisposable.add(
+                RxSearchView.queryTextChanges(search_view_exam)
+                        .skip(1)
+                        .debounce(300, TimeUnit.MILLISECONDS)
+                        .distinctUntilChanged()
+                        .map {
+                            presenter.getMatchedExamList(it.toString())
+                        }
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribeOn(AndroidSchedulers.mainThread())
+                        .subscribe({
+                            onGettingExams(it)
+                        }, {
+                            Timber.e(it)
+                            onError(it)
+                        })
+        )
     }
 
     private fun initialize() {
@@ -56,7 +82,7 @@ class ExamFragment : BaseFragment<ExamMvpView, ExamPresenter>(), ExamMvpView {
                 null,
                 null,
                 LinearLayoutManager(mContext),
-                null,
+                mItemDecoration,
                 null,
                 null
         )
@@ -157,13 +183,21 @@ class ExamFragment : BaseFragment<ExamMvpView, ExamPresenter>(), ExamMvpView {
 
     override fun onStart() {
         super.onStart()
-        recycler_view_exam?.addItemDecoration(mItemDecoration)
         presenter.attachExamListener()
     }
 
     override fun onStop() {
         super.onStop()
-        recycler_view_exam?.removeItemDecoration(mItemDecoration)
         presenter.detachExamListener()
+    }
+
+    override fun onClick(view: View) {
+        super.onClick(view)
+
+        when (view.id) {
+            R.id.chip_change_exam -> {
+                (activity as HomeActivity).onBackPressed()
+            }
+        }
     }
 }

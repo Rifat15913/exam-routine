@@ -1,6 +1,5 @@
 package io.diaryofrifat.code.examroutine.ui.splash
 
-import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
@@ -28,12 +27,7 @@ class SplashActivity : AppCompatActivity() {
         }
 
         Handler().postDelayed({
-            startActivity(
-                    Intent(this, SelectionContainerActivity::class.java).apply {
-                        this.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
-                        this.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                    }
-            )
+            SelectionContainerActivity.startActivity(this)
         }, 0)
     }
 }
