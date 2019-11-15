@@ -8,13 +8,11 @@ import android.os.Build
 import android.os.Bundle
 import android.view.View
 import androidx.core.app.ShareCompat
-import androidx.core.view.GravityCompat
 import com.google.firebase.analytics.FirebaseAnalytics
 import io.diaryofrifat.code.examroutine.R
 import io.diaryofrifat.code.examroutine.data.local.ExamType
 import io.diaryofrifat.code.examroutine.ui.about.AboutFragment
 import io.diaryofrifat.code.examroutine.ui.base.component.BaseActivity
-import io.diaryofrifat.code.examroutine.ui.base.setRipple
 import io.diaryofrifat.code.examroutine.ui.base.toTitleCase
 import io.diaryofrifat.code.examroutine.ui.examdates.ExamDatesFragment
 import io.diaryofrifat.code.examroutine.ui.home.exam.ExamFragment
@@ -82,13 +80,12 @@ class HomeActivity : BaseActivity<HomeMvpView, HomePresenter>() {
         }
 
         window.setBackgroundDrawable(null)
-        image_view_menu?.setRipple(R.color.colorPrimary26)
 
         visitExam()
     }
 
     private fun setPageTitle(title: String) {
-        text_view_title?.text = title
+        // text_view_title?.text = title
     }
 
     private fun visitExam() {
@@ -113,7 +110,7 @@ class HomeActivity : BaseActivity<HomeMvpView, HomePresenter>() {
     }
 
     private fun setListeners() {
-        setClickListener(image_view_menu)
+        //setClickListener(image_view_menu)
 
         navigation_view_drawer_menu?.setNavigationItemSelectedListener {
             drawer_layout_whole_container?.closeDrawers()
@@ -185,9 +182,9 @@ class HomeActivity : BaseActivity<HomeMvpView, HomePresenter>() {
         super.onClick(view)
 
         when (view.id) {
-            R.id.image_view_menu -> {
+            /*R.id.image_view_menu -> {
                 drawer_layout_whole_container?.openDrawer(GravityCompat.START)
-            }
+            }*/
         }
     }
 }

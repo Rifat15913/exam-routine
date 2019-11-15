@@ -5,7 +5,6 @@ import android.text.TextUtils
 import android.text.format.DateUtils
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
 import io.diaryofrifat.code.examroutine.R
 import io.diaryofrifat.code.examroutine.data.remote.model.Exam
 import io.diaryofrifat.code.examroutine.ui.base.component.BaseAdapter
@@ -21,15 +20,8 @@ import java.util.*
 
 class ExamAdapter : BaseAdapter<Exam>() {
 
-    private lateinit var mRecyclerView: RecyclerView
-
     override fun isEqual(left: Exam, right: Exam): Boolean {
         return left.id == right.id
-    }
-
-    override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
-        super.onAttachedToRecyclerView(recyclerView)
-        mRecyclerView = recyclerView
     }
 
     override fun newViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<Exam> {

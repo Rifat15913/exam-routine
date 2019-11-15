@@ -11,6 +11,7 @@ import io.diaryofrifat.code.examroutine.ui.base.component.BaseFragment
 import io.diaryofrifat.code.examroutine.ui.base.helper.LinearMarginItemDecoration
 import io.diaryofrifat.code.examroutine.ui.base.makeItGone
 import io.diaryofrifat.code.examroutine.ui.base.makeItVisible
+import io.diaryofrifat.code.examroutine.ui.base.toTitleCase
 import io.diaryofrifat.code.examroutine.ui.home.container.HomeActivity
 import io.diaryofrifat.code.utils.helper.Constants
 import io.diaryofrifat.code.utils.helper.DataUtils
@@ -47,6 +48,8 @@ class ExamFragment : BaseFragment<ExamMvpView, ExamPresenter>(), ExamMvpView {
     }
 
     private fun initialize() {
+        text_view_title?.text = mCategory?.examTypeTitle?.toTitleCase(false)
+
         ViewUtils.initializeRecyclerView(
                 recycler_view_exam,
                 ExamAdapter(),

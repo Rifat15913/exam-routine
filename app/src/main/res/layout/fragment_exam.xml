@@ -7,114 +7,93 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!--<androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraint_layout_legend_container"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:layout_marginTop="@dimen/margin_16"
-        android:layout_marginBottom="@dimen/margin_16"
-        ads:layout_constraintBottom_toTopOf="@+id/view_shadow_list_top"
-        ads:layout_constraintEnd_toEndOf="parent"
-        ads:layout_constraintStart_toEndOf="@+id/search_view_exam"
-        ads:layout_constraintTop_toTopOf="parent">
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/text_view_legend_past"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_16"
-            android:layout_marginEnd="@dimen/margin_16"
-            android:layout_marginBottom="@dimen/margin_0"
-            android:drawablePadding="@dimen/padding_8"
-            android:gravity="start|center_vertical"
-            android:text="@string/exam_legend_past"
-            android:textColor="@color/textLight"
-            android:textSize="@dimen/text_small_body"
-            ads:layout_constraintBottom_toTopOf="@+id/text_view_legend_today"
-            ads:layout_constraintEnd_toEndOf="parent"
-            ads:layout_constraintHorizontal_bias="0.0"
-            ads:layout_constraintStart_toStartOf="parent"
-            ads:layout_constraintTop_toTopOf="parent"
-            app:drawableStartCompat="@drawable/ic_legend"
-            app:drawableTint="@color/textLight"
-            app:fontFamily="@font/semi_bold" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/text_view_legend_today"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_16"
-            android:layout_marginTop="@dimen/margin_4"
-            android:layout_marginEnd="@dimen/margin_16"
-            android:layout_marginBottom="@dimen/margin_4"
-            android:drawablePadding="@dimen/padding_8"
-            android:gravity="start|center_vertical"
-            android:text="@string/exam_legend_today"
-            android:textColor="@color/colorAlternativeGreen"
-            android:textSize="@dimen/text_small_body"
-            ads:layout_constraintBottom_toTopOf="@+id/text_view_legend_future"
-            ads:layout_constraintEnd_toEndOf="parent"
-            ads:layout_constraintHorizontal_bias="0.0"
-            ads:layout_constraintStart_toStartOf="parent"
-            ads:layout_constraintTop_toBottomOf="@+id/text_view_legend_past"
-            app:drawableStartCompat="@drawable/ic_legend"
-            app:drawableTint="@color/colorAlternativeGreen"
-            app:fontFamily="@font/semi_bold" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/text_view_legend_future"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_16"
-            android:layout_marginEnd="@dimen/margin_16"
-            android:drawablePadding="@dimen/padding_8"
-            android:gravity="start|center_vertical"
-            android:text="@string/exam_legend_future"
-            android:textColor="@color/colorPrimary"
-            android:textSize="@dimen/text_small_body"
-            ads:layout_constraintBottom_toBottomOf="parent"
-            ads:layout_constraintEnd_toEndOf="parent"
-            ads:layout_constraintHorizontal_bias="0.0"
-            ads:layout_constraintStart_toStartOf="parent"
-            ads:layout_constraintTop_toBottomOf="@+id/text_view_legend_today"
-            app:drawableStartCompat="@drawable/ic_legend"
-            app:drawableTint="@color/colorPrimary"
-            app:fontFamily="@font/semi_bold" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>-->
-
-    <androidx.appcompat.widget.SearchView
-        android:id="@+id/search_view_exam"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraint_layout_head_container"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_16"
-        android:background="@drawable/rectangle_with_corner_color_light"
-        ads:layout_constraintBottom_toTopOf="@+id/view_shadow_list_top"
-        ads:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <View
-        android:id="@+id/view_shadow_list_top"
-        android:layout_width="0dp"
-        android:layout_height="2dp"
-        android:background="@drawable/drop_shadow"
+        ads:layout_constraintVertical_chainStyle="packed"
         app:layout_constraintBottom_toTopOf="@+id/recycler_view_exam"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/search_view_exam"
-        app:layout_constraintVertical_bias="1.0" />
+        ads:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_view_search_container"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_16"
+            ads:layout_constraintEnd_toEndOf="parent"
+            ads:layout_constraintTop_toTopOf="parent"
+            ads:cardCornerRadius="@dimen/radius_4"
+            ads:cardElevation="@dimen/elevation_4"
+            ads:layout_constraintBottom_toTopOf="@+id/text_view_title"
+            ads:layout_constraintStart_toStartOf="parent"
+            app:cardPreventCornerOverlap="false">
+
+            <androidx.appcompat.widget.SearchView
+                android:id="@+id/search_view_exam"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/text_view_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_16"
+            android:layout_marginEnd="@dimen/margin_16"
+            android:layout_marginBottom="@dimen/margin_16"
+            android:ellipsize="end"
+            android:gravity="start|center_vertical"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:textAllCaps="false"
+            android:textColor="@color/textRegular"
+            android:textSize="@dimen/textTitle"
+            android:visibility="visible"
+            ads:layout_constraintTop_toBottomOf="@+id/card_view_search_container"
+            ads:layout_constraintBottom_toBottomOf="parent"
+            ads:layout_constraintEnd_toEndOf="parent"
+            ads:layout_constraintStart_toStartOf="parent"
+            app:fontFamily="@font/bold"
+            tools:text="SSC Exam 2019" />
+
+        <View
+            android:id="@+id/view_shadow"
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:background="@drawable/drop_shadow"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_exam"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        ads:layout_constraintTop_toBottomOf="@+id/view_shadow_list_top"
-        app:layout_constraintBottom_toTopOf="@+id/banner_ad_view"
+        ads:layout_constraintBottom_toTopOf="@+id/banner_ad_view"
+        ads:layout_constraintTop_toBottomOf="@+id/constraint_layout_head_container"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:listitem="@layout/item_exam" />
+
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/banner_ad_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/colorWhite"
+        ads:adSize="BANNER"
+        ads:adUnitId="@string/exam_ad_unit_id"
+        ads:layout_constraintBottom_toBottomOf="parent"
+        ads:layout_constraintEnd_toEndOf="parent"
+        ads:layout_constraintStart_toStartOf="parent"
+        ads:layout_constraintTop_toBottomOf="@+id/recycler_view_exam" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/text_view_empty_placeholder"
@@ -131,17 +110,5 @@
         app:layout_constraintEnd_toEndOf="@+id/recycler_view_exam"
         app:layout_constraintStart_toStartOf="@+id/recycler_view_exam"
         app:layout_constraintTop_toTopOf="@+id/recycler_view_exam" />
-
-    <com.google.android.gms.ads.AdView
-        android:id="@+id/banner_ad_view"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@color/colorWhite"
-        ads:adSize="BANNER"
-        ads:adUnitId="@string/exam_ad_unit_id"
-        ads:layout_constraintBottom_toBottomOf="parent"
-        ads:layout_constraintEnd_toEndOf="parent"
-        ads:layout_constraintStart_toStartOf="parent"
-        ads:layout_constraintTop_toBottomOf="@+id/recycler_view_exam" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
