@@ -3,8 +3,6 @@ package io.diaryofrifat.code.examroutine.ui.home.exam
 import android.text.format.DateUtils
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.MobileAds
 import com.jakewharton.rxbinding2.support.v7.widget.RxSearchView
 import io.diaryofrifat.code.examroutine.R
 import io.diaryofrifat.code.examroutine.data.local.ExamType
@@ -16,7 +14,6 @@ import io.diaryofrifat.code.examroutine.ui.base.makeItVisible
 import io.diaryofrifat.code.examroutine.ui.base.toTitleCase
 import io.diaryofrifat.code.examroutine.ui.home.container.HomeActivity
 import io.diaryofrifat.code.utils.helper.Constants
-import io.diaryofrifat.code.utils.helper.DataUtils
 import io.diaryofrifat.code.utils.helper.TimeUtils
 import io.diaryofrifat.code.utils.helper.ViewUtils
 import io.diaryofrifat.code.utils.libs.ToastUtils
@@ -47,7 +44,6 @@ class ExamFragment : BaseFragment<ExamMvpView, ExamPresenter>(), ExamMvpView {
         extractDataFromArguments()
         initialize()
         setListeners()
-        loadAd()
         loadData()
     }
 
@@ -102,11 +98,6 @@ class ExamFragment : BaseFragment<ExamMvpView, ExamPresenter>(), ExamMvpView {
         )
     }
 
-    private fun loadAd() {
-        MobileAds.initialize(mContext, DataUtils.getString(R.string.admob_app_id))
-        banner_ad_view?.loadAd(AdRequest.Builder().build())
-    }
-
     private fun getAdapter(): ExamAdapter {
         return recycler_view_exam?.adapter as ExamAdapter
     }
@@ -129,7 +120,7 @@ class ExamFragment : BaseFragment<ExamMvpView, ExamPresenter>(), ExamMvpView {
     private fun loadData() {
         if (mCategory != null) {
             presenter.checkInternetConnectivity()
-            presenter.getExams(mContext, mCategory!!, mSubcategory)
+            presenter.getExams(mCategory!!, mSubcategory)
         }
     }
 

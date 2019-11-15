@@ -1,6 +1,5 @@
 package io.diaryofrifat.code.examroutine.ui.home.exam
 
-import android.content.Context
 import android.text.TextUtils
 import com.github.pwittchen.reactivenetwork.library.rx2.ReactiveNetwork
 import com.google.firebase.database.DataSnapshot
@@ -11,7 +10,6 @@ import io.diaryofrifat.code.examroutine.data.local.ExamType
 import io.diaryofrifat.code.examroutine.data.remote.model.Exam
 import io.diaryofrifat.code.examroutine.data.remote.service.DatabaseService
 import io.diaryofrifat.code.examroutine.ui.base.component.BasePresenter
-import io.diaryofrifat.code.examroutine.ui.base.helper.ProgressDialogUtils
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -41,14 +39,11 @@ class ExamPresenter : BasePresenter<ExamMvpView>() {
                 }))
     }
 
-    fun getExams(context: Context, category: ExamType, subcategory: ExamType?) {
-        val dialog = ProgressDialogUtils.on().showProgressDialog(context)
-
+    fun getExams(category: ExamType, subcategory: ExamType?) {
         if (mExamListener == null) {
             mExamListener = object : ValueEventListener {
                 override fun onCancelled(error: DatabaseError) {
                     mvpView?.onError(error.toException())
-                    dialog?.dismiss()
                 }
 
 
@@ -74,7 +69,6 @@ class ExamPresenter : BasePresenter<ExamMvpView>() {
                     mExamList.clear()
                     mExamList.addAll(list)
                     mvpView?.onGettingExams(list)
-                    dialog?.dismiss()
                 }
             }
         }

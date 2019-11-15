@@ -7,6 +7,8 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import androidx.core.app.ShareCompat
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.MobileAds
 import com.google.firebase.analytics.FirebaseAnalytics
 import io.diaryofrifat.code.examroutine.R
 import io.diaryofrifat.code.examroutine.data.local.ExamType
@@ -17,6 +19,7 @@ import io.diaryofrifat.code.examroutine.ui.home.exam.ExamFragment
 import io.diaryofrifat.code.examroutine.ui.selection.container.SelectionContainerActivity
 import io.diaryofrifat.code.utils.helper.AndroidUtils
 import io.diaryofrifat.code.utils.helper.Constants
+import io.diaryofrifat.code.utils.helper.DataUtils
 import io.diaryofrifat.code.utils.helper.ViewUtils
 import io.diaryofrifat.code.utils.libs.ToastUtils
 import kotlinx.android.synthetic.main.activity_home.*
@@ -58,6 +61,7 @@ class HomeActivity : BaseActivity<HomeMvpView, HomePresenter>() {
         extractDataFromIntent()
         initialize()
         setListeners()
+        loadAd()
     }
 
     private fun extractDataFromIntent() {
@@ -87,6 +91,11 @@ class HomeActivity : BaseActivity<HomeMvpView, HomePresenter>() {
         visitExam()
     }
 
+    private fun loadAd() {
+        MobileAds.initialize(this, DataUtils.getString(R.string.admob_app_id))
+        banner_ad_view?.loadAd(AdRequest.Builder().build())
+    }
+
     private fun visitExam() {
         if (mCategory != null) {
             val fragment = ExamFragment().apply {
@@ -107,11 +116,9 @@ class HomeActivity : BaseActivity<HomeMvpView, HomePresenter>() {
     }
 
     private fun setListeners() {
-        //setClickListener(image_view_menu)
-
         bottom_bar?.setOnNavigationItemSelectedListener {
             when (it.itemId) {
-                R.id.action_home -> {
+                R.id.action_routines -> {
                     visitExam()
                 }
 

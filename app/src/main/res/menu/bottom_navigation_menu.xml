@@ -2,9 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/action_home"
+        android:id="@+id/action_routines"
         android:icon="@drawable/ic_home"
-        android:title="@string/select_exam_home" />
+        android:title="@string/select_exam_routines" />
 
     <item
         android:id="@+id/action_favorites"
