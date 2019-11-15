@@ -43,7 +43,6 @@
             app:itemTextAppearanceInactive="@style/TextAppearanceBottomBarItem"
             app:itemTextColor="@color/bottom_bar_item_color"
             app:labelVisibilityMode="labeled"
-            app:elevation="0dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toTopOf="@+id/banner_ad_view"
             app:layout_constraintStart_toStartOf="parent"
