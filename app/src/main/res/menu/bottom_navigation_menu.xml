@@ -7,11 +7,6 @@
         android:title="@string/select_exam_routines" />
 
     <item
-        android:id="@+id/action_favorites"
-        android:icon="@drawable/ic_favorite"
-        android:title="@string/select_exam_favorites" />
-
-    <item
         android:id="@+id/action_settings"
         android:icon="@drawable/ic_settings"
         android:title="@string/select_exam_settings" />

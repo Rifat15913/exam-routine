@@ -36,7 +36,6 @@
     <!--Selection container page-->
     <string name="select_exam_toolbar_title">Exam Routine</string>
     <string name="select_exam_routines">Routines</string>
-    <string name="select_exam_favorites">Favorites</string>
     <string name="select_exam_settings">Settings</string>
 
     <!--Select exam page-->

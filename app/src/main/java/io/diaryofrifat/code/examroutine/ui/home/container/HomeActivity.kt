@@ -122,10 +122,6 @@ class HomeActivity : BaseActivity<HomeMvpView, HomePresenter>() {
                     visitExam()
                 }
 
-                R.id.action_favorites -> {
-
-                }
-
                 R.id.action_settings -> {
 
                 }
