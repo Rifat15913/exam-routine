@@ -150,8 +150,36 @@ class ExamFragment : BaseFragment<ExamMvpView, ExamPresenter>(), ExamMvpView {
         multiplier++
 
         while (index < examItemCount) {
-            getAdapter().addItem(adList[adCount++], index)
+            getAdapter().addItem(adList[adCount], index)
             index += (offset * multiplier++)
+            if (adCount < adList.size - 1) {
+                adCount++
+            }
+        }
+
+        val list = getAdapter().getItems()
+        var hasScrolled = false
+        for (i in list.indices) {
+            val item = list[i]
+            if (DateUtils.isToday(item.startingTime)) {
+                recycler_view_exam?.smoothScrollToPosition(i)
+                hasScrolled = true
+            }
+        }
+
+        if (!hasScrolled) {
+            for (i in list.indices) {
+                val item = list[i]
+                if (item.startingTime > TimeUtils.currentTime()) {
+                    recycler_view_exam?.smoothScrollToPosition(i)
+                    hasScrolled = true
+                    break
+                }
+            }
+        }
+
+        if (!hasScrolled) {
+            recycler_view_exam?.smoothScrollToPosition(list.size - 1)
         }
     }
 

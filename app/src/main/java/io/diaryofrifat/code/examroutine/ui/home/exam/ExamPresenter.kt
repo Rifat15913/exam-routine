@@ -29,7 +29,7 @@ class ExamPresenter : BasePresenter<ExamMvpView>() {
     }
 
     // Exam list
-    val examList: MutableList<Exam> = ArrayList()
+    private val mExamList: MutableList<Exam> = ArrayList()
 
     // Database reference
     private var mExamReference: Query? = null
@@ -41,20 +41,20 @@ class ExamPresenter : BasePresenter<ExamMvpView>() {
     private var mAdLoader: AdLoader? = null
 
     // List of native ads that have been successfully loaded.
-    val nativeAdList: MutableList<UnifiedNativeAd> = ArrayList()
+    private val mNativeAdList: MutableList<UnifiedNativeAd> = ArrayList()
 
     private fun loadNativeAds() {
         if (activity != null && mAdLoader == null) {
             mAdLoader = AdLoader.Builder(activity, getString(R.string.native_exam_ad_unit_id))
                     .forUnifiedNativeAd {
-                        nativeAdList.add(it)
+                        mNativeAdList.add(it)
                         if (mAdLoader != null && !mAdLoader!!.isLoading) {
                             val list: MutableList<Exam> = ArrayList()
-                            nativeAdList.forEach { ad ->
+                            mNativeAdList.forEach { ad ->
                                 list.add(Exam(nativeAd = ad))
                             }
 
-                            mvpView?.onGettingAds(list, examList)
+                            mvpView?.onGettingAds(list, mExamList)
                         }
                     }
                     .withAdListener(object : AdListener() {
@@ -62,26 +62,26 @@ class ExamPresenter : BasePresenter<ExamMvpView>() {
                             // Do nothing for now. If needed, we will handle error here
                             if (mAdLoader != null && !mAdLoader!!.isLoading) {
                                 val list: MutableList<Exam> = ArrayList()
-                                nativeAdList.forEach { ad ->
+                                mNativeAdList.forEach { ad ->
                                     list.add(Exam(nativeAd = ad))
                                 }
 
-                                mvpView?.onGettingAds(list, examList)
+                                mvpView?.onGettingAds(list, mExamList)
                             }
                         }
                     })
                     .build()
         }
 
-        if (nativeAdList.isEmpty()) {
+        if (mNativeAdList.isEmpty()) {
             mAdLoader?.loadAds(AdRequest.Builder().build(), MAX_NUMBER_OF_NATIVE_ADS)
         } else {
             val list: MutableList<Exam> = ArrayList()
-            nativeAdList.forEach { ad ->
+            mNativeAdList.forEach { ad ->
                 list.add(Exam(nativeAd = ad))
             }
 
-            mvpView?.onGettingAds(list, examList)
+            mvpView?.onGettingAds(list, mExamList)
         }
     }
 
@@ -125,8 +125,8 @@ class ExamPresenter : BasePresenter<ExamMvpView>() {
                         }
                     }
 
-                    examList.clear()
-                    examList.addAll(list)
+                    mExamList.clear()
+                    mExamList.addAll(list)
                     mvpView?.onGettingExams(list)
                     loadNativeAds()
                 }
@@ -151,15 +151,35 @@ class ExamPresenter : BasePresenter<ExamMvpView>() {
     }
 
     fun getMatchedExamList(query: String): List<Exam> {
-        if (TextUtils.isEmpty(query)) {
-            return examList
-        }
-
         val matchedExamList: MutableList<Exam> = ArrayList()
 
-        examList.forEach {
-            if (it.subjectName != null && it.subjectName!!.contains(query)) {
-                matchedExamList.add(it)
+        if (TextUtils.isEmpty(query)) {
+            matchedExamList.addAll(mExamList)
+        } else {
+            mExamList.forEach {
+                if (it.subjectName != null && it.subjectName!!.contains(query)) {
+                    matchedExamList.add(it)
+                }
+            }
+        }
+
+        if (mNativeAdList.isNotEmpty()) {
+            val offset = 3
+            var index = 0
+            var adCount = 0
+            var multiplier = 1
+            val examItemCount = matchedExamList.size
+
+            index += (offset * multiplier)
+            multiplier++
+
+            while (index < examItemCount) {
+                matchedExamList.add(index, Exam(nativeAd = mNativeAdList[adCount]))
+                index += (offset * multiplier++)
+
+                if (adCount < mNativeAdList.size - 1) {
+                    adCount++
+                }
             }
         }
 
