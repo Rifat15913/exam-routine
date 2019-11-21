@@ -49,24 +49,6 @@ class ExamFragment : BaseFragment<ExamMvpView, ExamPresenter>(), ExamMvpView {
 
     private fun setListeners() {
         setClickListener(chip_change_exam)
-
-        presenter.compositeDisposable.add(
-                RxSearchView.queryTextChanges(search_view_exam)
-                        .skip(1)
-                        .debounce(300, TimeUnit.MILLISECONDS)
-                        .distinctUntilChanged()
-                        .map {
-                            presenter.getMatchedExamList(it.toString())
-                        }
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribeOn(AndroidSchedulers.mainThread())
-                        .subscribe({
-                            onGettingExams(it)
-                        }, {
-                            Timber.e(it)
-                            onError(it)
-                        })
-        )
     }
 
     private fun initialize() {
@@ -174,7 +156,28 @@ class ExamFragment : BaseFragment<ExamMvpView, ExamPresenter>(), ExamMvpView {
 
     override fun onStart() {
         super.onStart()
+        addListeners()
+    }
+
+    private fun addListeners() {
         presenter.attachExamListener()
+        presenter.compositeDisposable.add(
+                RxSearchView.queryTextChanges(search_view_exam)
+                        .skip(1)
+                        .debounce(300, TimeUnit.MILLISECONDS)
+                        .distinctUntilChanged()
+                        .map {
+                            presenter.getMatchedExamList(it.toString())
+                        }
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribeOn(AndroidSchedulers.mainThread())
+                        .subscribe({
+                            onGettingExams(it)
+                        }, {
+                            Timber.e(it)
+                            onError(it)
+                        })
+        )
     }
 
     override fun onStop() {
