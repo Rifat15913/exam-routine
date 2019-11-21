@@ -16,6 +16,7 @@ import io.diaryofrifat.code.examroutine.ui.about.AboutFragment
 import io.diaryofrifat.code.examroutine.ui.base.component.BaseActivity
 import io.diaryofrifat.code.examroutine.ui.examdates.ExamDatesFragment
 import io.diaryofrifat.code.examroutine.ui.home.exam.ExamFragment
+import io.diaryofrifat.code.examroutine.ui.home.settings.SettingsContainerFragment
 import io.diaryofrifat.code.examroutine.ui.selection.container.SelectionContainerActivity
 import io.diaryofrifat.code.utils.helper.AndroidUtils
 import io.diaryofrifat.code.utils.helper.Constants
@@ -110,6 +111,11 @@ class HomeActivity : BaseActivity<HomeMvpView, HomePresenter>() {
         }
     }
 
+    private fun visitSettings() {
+        val fragment = SettingsContainerFragment()
+        commitFragment(R.id.constraint_layout_fragment_container, fragment)
+    }
+
     private fun launchAboutPage() {
         setTitle(getString(R.string.nav_about))
         commitFragment(R.id.constraint_layout_fragment_container, AboutFragment())
@@ -123,7 +129,7 @@ class HomeActivity : BaseActivity<HomeMvpView, HomePresenter>() {
                 }
 
                 R.id.action_settings -> {
-
+                    visitSettings()
                 }
             }
 
