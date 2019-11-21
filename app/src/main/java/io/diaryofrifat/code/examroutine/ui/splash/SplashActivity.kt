@@ -22,9 +22,14 @@ class SplashActivity : AppCompatActivity() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
             ViewUtils.setStatusBarColor(this, R.color.colorWhite)
-        } else if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        } else if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M
+                && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             ViewUtils.setStatusBarColor(this, R.color.darkBackground)
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
 
         Handler().postDelayed({
             SelectionContainerActivity.startActivity(this)

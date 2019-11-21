@@ -1,5 +1,6 @@
 package io.diaryofrifat.code.examroutine.data.remote.model
 
+import com.google.android.gms.ads.formats.UnifiedNativeAd
 import com.google.firebase.database.Exclude
 import com.google.firebase.database.PropertyName
 import io.diaryofrifat.code.examroutine.data.local.ExamType
@@ -12,6 +13,8 @@ data class Exam(
         var category: ExamType? = null,
         @Exclude
         var subcategory: ExamType? = null,
+        @Exclude
+        var nativeAd: UnifiedNativeAd? = null,
         @set:PropertyName(Constants.Firebase.SUBJECT_CODE)
         @get:PropertyName(Constants.Firebase.SUBJECT_CODE)
         var subjectCode: String? = null,
@@ -27,15 +30,4 @@ data class Exam(
         @set:PropertyName(Constants.Firebase.VISITING_URL)
         @get:PropertyName(Constants.Firebase.VISITING_URL)
         var visitingUrl: String? = null
-) {
-    /*constructor() : this(
-            Constants.Default.DEFAULT_INTEGER,
-            null,
-            null,
-            null,
-            null,
-            Constants.Default.DEFAULT_LONG,
-            Constants.Default.DEFAULT_LONG,
-            null
-    )*/
-}
+)

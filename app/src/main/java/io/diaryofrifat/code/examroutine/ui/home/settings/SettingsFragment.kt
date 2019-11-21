@@ -34,8 +34,8 @@ class SettingsFragment : PreferenceFragmentCompat() {
             getString(R.string.settings_key_share_the_app) -> {
                 ShareCompat.IntentBuilder.from(activity)
                         .setType("text/plain")
-                        .setChooserTitle(getString(R.string.content_share_the_app))
-                        .setText((getString(R.string.play_store_link)
+                        .setChooserTitle(getString(R.string.settings_sharing_the_app))
+                        .setText((getString(R.string.settings_play_store_url)
                                 + AndroidUtils.getApplicationId()))
                         .startChooser()
             }
@@ -43,13 +43,13 @@ class SettingsFragment : PreferenceFragmentCompat() {
             getString(R.string.settings_key_rate_it) -> {
                 try {
                     startActivity(Intent(Intent.ACTION_VIEW,
-                            Uri.parse(getString(R.string.market_link)
+                            Uri.parse(getString(R.string.settings_market_url)
                                     + AndroidUtils.getApplicationId())))
                 } catch (e: ActivityNotFoundException) {
                     Timber.e(e)
                     try {
                         startActivity(Intent(Intent.ACTION_VIEW,
-                                Uri.parse(getString(R.string.play_store_link)
+                                Uri.parse(getString(R.string.settings_play_store_url)
                                         + AndroidUtils.getApplicationId())))
                     } catch (e: Exception) {
                         Timber.e(e)
@@ -60,7 +60,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
             getString(R.string.settings_key_give_feedback) -> {
                 var body: String? = null
-                val packageManager = context?.packageManager
+                val packageManager = context!!.packageManager
 
                 try {
                     body = String.format(

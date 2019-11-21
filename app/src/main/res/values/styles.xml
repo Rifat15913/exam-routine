@@ -78,4 +78,8 @@
     <style name="ThemeSearchView" parent="Widget.AppCompat.SearchView">
         <item name="android:textSize">@dimen/text_body</item>
     </style>
+
+    <style name="TextAppearance.MaterialComponents.Chip.ExamSubcategory">
+        <item name="android:textSize">@dimen/text_small_body</item>
+    </style>
 </resources>

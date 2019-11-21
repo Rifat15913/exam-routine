@@ -4,19 +4,13 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.MobileAds
-import com.google.firebase.analytics.FirebaseAnalytics
 import io.diaryofrifat.code.examroutine.R
 import io.diaryofrifat.code.examroutine.data.local.ExamType
-import io.diaryofrifat.code.examroutine.ui.about.AboutFragment
 import io.diaryofrifat.code.examroutine.ui.base.component.BaseActivity
-import io.diaryofrifat.code.examroutine.ui.examdates.ExamDatesFragment
 import io.diaryofrifat.code.examroutine.ui.home.exam.ExamFragment
 import io.diaryofrifat.code.examroutine.ui.home.settings.SettingsContainerFragment
 import io.diaryofrifat.code.examroutine.ui.selection.container.SelectionContainerActivity
 import io.diaryofrifat.code.utils.helper.Constants
-import io.diaryofrifat.code.utils.helper.DataUtils
 import io.diaryofrifat.code.utils.helper.ViewUtils
 import kotlinx.android.synthetic.main.activity_home.*
 
@@ -56,7 +50,6 @@ class HomeActivity : BaseActivity<HomeMvpView, HomePresenter>() {
         extractDataFromIntent()
         initialize()
         setListeners()
-        loadAd()
     }
 
     private fun extractDataFromIntent() {
@@ -86,11 +79,6 @@ class HomeActivity : BaseActivity<HomeMvpView, HomePresenter>() {
         visitExam()
     }
 
-    private fun loadAd() {
-        MobileAds.initialize(this, DataUtils.getString(R.string.admob_app_id))
-        banner_ad_view?.loadAd(AdRequest.Builder().build())
-    }
-
     private fun visitExam() {
         if (mCategory != null) {
             val fragment = ExamFragment().apply {
@@ -110,11 +98,6 @@ class HomeActivity : BaseActivity<HomeMvpView, HomePresenter>() {
         commitFragment(R.id.constraint_layout_fragment_container, fragment)
     }
 
-    private fun launchAboutPage() {
-        setTitle(getString(R.string.nav_about))
-        commitFragment(R.id.constraint_layout_fragment_container, AboutFragment())
-    }
-
     private fun setListeners() {
         bottom_bar?.setOnNavigationItemSelectedListener {
             when (it.itemId) {
@@ -129,28 +112,6 @@ class HomeActivity : BaseActivity<HomeMvpView, HomePresenter>() {
 
             true
         }
-
-        navigation_view_drawer_menu?.setNavigationItemSelectedListener {
-            drawer_layout_whole_container?.closeDrawers()
-
-            when (it.itemId) {
-                R.id.nav_home -> {
-                    if (currentFragment !is ExamDatesFragment) {
-                        val bundle = Bundle()
-                        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, getString(R.string.nav_routine))
-                        // FirebaseUtils.getFirebaseAnalytics()?.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle)
-
-                        visitExam()
-                    }
-                }
-
-                R.id.nav_about -> {
-                    launchAboutPage()
-                }
-            }
-
-            false
-        }
     }
 
     override fun stopUI() {
@@ -161,6 +122,10 @@ class HomeActivity : BaseActivity<HomeMvpView, HomePresenter>() {
         super.onBackPressed()
 
         // Handle bottom bar use-cases
-        SelectionContainerActivity.startActivity(this)
+        if (currentFragment is ExamFragment) {
+            SelectionContainerActivity.startActivity(this)
+        } else {
+            visitExam()
+        }
     }
 }

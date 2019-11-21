@@ -68,12 +68,8 @@
     <string name="nav_rate_it">Rate it</string>
     <string name="nav_routine">Home</string>
     <string name="nav_privacy_policy">Privacy Policy</string>
-    <string name="market_link">market://details?id=</string>
-    <string name="play_store_link">http://play.google.com/store/apps/details?id=</string>
-    <string name="privacy_policy_link">https://exam-routine.flycricket.io/privacy.html</string>
-    <string name="content_share_the_app">Sharing the app</string>
     <string name="exam_item">Exam item</string>
-    <string name="no_application_found">No application can handle this request. Please install a web browser.</string>
+    <string name="exam_item_ad">Ad</string>
 
     <!--Exam details page-->
     <string name="exam_details">Exam Details</string>
@@ -119,5 +115,10 @@
     <string name="settings_developer_email">mohd.asfaqeazam@gmail.com</string>
     <string name="settings_feedback_email_subject">Feedback: Exam Routine</string>
     <string name="settings_feedback_email_body">Device OS: Android (%s)\nApp Version: %s\nDevice Brand: %s\nDevice Model: %s\nDevice Manufacturer: %s\n\nYour Feedback: </string>
+    <string name="settings_market_url">market://details?id=</string>
+    <string name="settings_play_store_url">http://play.google.com/store/apps/details?id=</string>
+    <string name="settings_privacy_policy_url">https://exam-routine.flycricket.io/privacy.html</string>
+    <string name="settings_sharing_the_app">Sharing the app</string>
+    <string name="settings_error_no_application_found">No application can handle this request. Please install a web browser.</string>
 
 </resources>
