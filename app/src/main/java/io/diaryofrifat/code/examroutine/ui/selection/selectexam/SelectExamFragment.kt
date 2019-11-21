@@ -58,7 +58,16 @@ class SelectExamFragment : BaseFragment<SelectExamMvpView, SelectExamPresenter>(
                 mItemDecoration,
                 null,
                 null)
+    }
 
+    override fun onStart() {
+        super.onStart()
+        loadAd()
+        addContinuousListeners()
+    }
+
+    private fun addContinuousListeners() {
+        presenter.attachExamTypeListener()
         presenter.compositeDisposable.add(getAdapter().dataChanges()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(AndroidSchedulers.mainThread())
@@ -72,12 +81,6 @@ class SelectExamFragment : BaseFragment<SelectExamMvpView, SelectExamPresenter>(
                     Timber.e(it)
                 })
         )
-    }
-
-    override fun onStart() {
-        super.onStart()
-        loadAd()
-        presenter.attachExamTypeListener()
     }
 
     override fun onStop() {

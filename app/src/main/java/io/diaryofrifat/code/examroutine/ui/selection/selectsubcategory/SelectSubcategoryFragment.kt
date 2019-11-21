@@ -76,20 +76,6 @@ class SelectSubcategoryFragment
                 mItemDecoration,
                 null,
                 null)
-
-        presenter.compositeDisposable.add(getAdapter().dataChanges()
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(AndroidSchedulers.mainThread())
-                .subscribe({
-                    if (it == 0) {
-                        text_view_empty_placeholder?.makeItVisible()
-                    } else {
-                        text_view_empty_placeholder?.makeItGone()
-                    }
-                }, {
-                    Timber.e(it)
-                })
-        )
     }
 
     private fun loadAd() {
@@ -122,5 +108,26 @@ class SelectSubcategoryFragment
         if (!isConnected) {
             ToastUtils.nativeLong(getString(R.string.error_you_are_not_connected_to_the_internet))
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        addContinuousListeners()
+    }
+
+    private fun addContinuousListeners() {
+        presenter.compositeDisposable.add(getAdapter().dataChanges()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    if (it == 0) {
+                        text_view_empty_placeholder?.makeItVisible()
+                    } else {
+                        text_view_empty_placeholder?.makeItGone()
+                    }
+                }, {
+                    Timber.e(it)
+                })
+        )
     }
 }

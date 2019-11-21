@@ -64,20 +64,6 @@ class ExamFragment : BaseFragment<ExamMvpView, ExamPresenter>(), ExamMvpView {
                 null,
                 null
         )
-
-        presenter.compositeDisposable.add(getAdapter().dataChanges()
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(AndroidSchedulers.mainThread())
-                .subscribe({
-                    if (it == 0) {
-                        text_view_empty_placeholder?.makeItVisible()
-                    } else {
-                        text_view_empty_placeholder?.makeItGone()
-                    }
-                }, {
-                    Timber.e(it)
-                })
-        )
     }
 
     private fun getAdapter(): ExamAdapter {
@@ -156,11 +142,12 @@ class ExamFragment : BaseFragment<ExamMvpView, ExamPresenter>(), ExamMvpView {
 
     override fun onStart() {
         super.onStart()
-        addListeners()
+        addContinuousSubscriptions()
     }
 
-    private fun addListeners() {
+    private fun addContinuousSubscriptions() {
         presenter.attachExamListener()
+
         presenter.compositeDisposable.add(
                 RxSearchView.queryTextChanges(search_view_exam)
                         .skip(1)
@@ -177,6 +164,20 @@ class ExamFragment : BaseFragment<ExamMvpView, ExamPresenter>(), ExamMvpView {
                             Timber.e(it)
                             onError(it)
                         })
+        )
+
+        presenter.compositeDisposable.add(getAdapter().dataChanges()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    if (it == 0) {
+                        text_view_empty_placeholder?.makeItVisible()
+                    } else {
+                        text_view_empty_placeholder?.makeItGone()
+                    }
+                }, {
+                    Timber.e(it)
+                })
         )
     }
 
