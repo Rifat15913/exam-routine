@@ -6,5 +6,6 @@ import io.diaryofrifat.code.examroutine.ui.base.callback.MvpView
 interface ExamMvpView : MvpView {
     fun onInternetConnectivity(isConnected: Boolean)
     fun onGettingExams(list: List<Exam>)
+    fun onGettingAds(adList: List<Exam>, examList: List<Exam>)
     fun onError(error: Throwable)
 }

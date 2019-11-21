@@ -135,6 +135,26 @@ class ExamFragment : BaseFragment<ExamMvpView, ExamPresenter>(), ExamMvpView {
         }
     }
 
+    override fun onGettingAds(adList: List<Exam>, examList: List<Exam>) {
+        if (adList.isEmpty()) {
+            return
+        }
+
+        val offset = 3
+        var index = 0
+        var adCount = 0
+        var multiplier = 1
+        val examItemCount = examList.size
+
+        index += (offset * multiplier)
+        multiplier++
+
+        while (index < examItemCount) {
+            getAdapter().addItem(adList[adCount++], index)
+            index += (offset * multiplier++)
+        }
+    }
+
     override fun onError(error: Throwable) {
         Timber.e(error)
         ToastUtils.nativeLong(getString(R.string.something_went_wrong))

@@ -11,7 +11,7 @@ import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatRatingBar
 import androidx.appcompat.widget.AppCompatTextView
 import com.google.android.gms.ads.formats.UnifiedNativeAd
-import com.google.android.material.button.MaterialButton
+import com.google.android.material.chip.Chip
 import io.diaryofrifat.code.examroutine.R
 import io.diaryofrifat.code.examroutine.data.remote.model.Exam
 import io.diaryofrifat.code.examroutine.ui.base.component.BaseAdapter
@@ -214,13 +214,14 @@ class ExamAdapter : BaseAdapter<Exam>() {
                 itemView.text_view_store?.setTextColor(desiredColor)
                 itemView.text_view_ad_advertiser?.setTextColor(desiredColor)
 
-                itemView.button_ad_call_to_action?.setBackgroundColor(desiredColor)
+                itemView.chip_ad_call_to_action?.chipBackgroundColor =
+                        ColorStateList.valueOf(desiredColor)
                 itemView.view_separator?.setBackgroundColor(desiredColor)
             }
 
             adView?.headlineView = itemView.text_view_headline
             adView?.bodyView = itemView.text_view_body
-            adView?.callToActionView = itemView.button_ad_call_to_action
+            adView?.callToActionView = itemView.chip_ad_call_to_action
             adView?.iconView = itemView.image_view_ad_app_icon
             adView?.priceView = itemView.text_view_price
             adView?.starRatingView = itemView.rating_bar_stars
@@ -240,7 +241,7 @@ class ExamAdapter : BaseAdapter<Exam>() {
                 adView.callToActionView.visibility = View.INVISIBLE
             } else {
                 adView.callToActionView.visibility = View.VISIBLE
-                (adView.callToActionView as MaterialButton).text = nativeAd.callToAction
+                (adView.callToActionView as Chip).text = nativeAd.callToAction
             }
 
             if (nativeAd.icon == null) {

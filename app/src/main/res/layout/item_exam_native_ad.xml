@@ -5,7 +5,7 @@
     android:id="@+id/card_view_exam_details"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardCornerRadius="4dp"
+    app:cardCornerRadius="0dp"
     app:cardElevation="0dp"
     app:cardMaxElevation="0dp"
     app:cardPreventCornerOverlap="false">
@@ -36,17 +36,16 @@
                 android:id="@+id/text_view_ad_attribution"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/margin_8"
                 android:background="@color/colorAdAttribution"
                 android:text="@string/exam_item_ad"
                 android:textColor="@color/colorWhite"
                 android:textSize="@dimen/text_small_body"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toEndOf="@+id/view_initial_separator"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0" />
+                app:layout_constraintVertical_bias="1.0" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/text_view_day"
@@ -117,7 +116,7 @@
                 android:layout_marginBottom="@dimen/margin_16"
                 android:background="@color/colorShadow"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/text_view_body"
+                app:layout_constraintEnd_toStartOf="@+id/text_view_headline"
                 app:layout_constraintStart_toEndOf="@+id/view_initial_separator"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -208,13 +207,13 @@
                 android:textColor="@color/textRegular"
                 android:textSize="@dimen/text_body"
                 app:fontFamily="@font/regular"
-                app:layout_constraintBottom_toTopOf="@+id/button_ad_call_to_action"
+                app:layout_constraintBottom_toTopOf="@+id/chip_ad_call_to_action"
                 app:layout_constraintEnd_toEndOf="@+id/text_view_headline"
                 app:layout_constraintStart_toStartOf="@+id/text_view_headline"
                 app:layout_constraintTop_toBottomOf="@+id/text_view_ad_advertiser"
                 tools:text="10:00 AM - 01:00 PM" />
 
-            <com.google.android.material.button.MaterialButton
+            <!--<com.google.android.material.button.MaterialButton
                 android:id="@+id/button_ad_call_to_action"
                 style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
                 android:layout_width="wrap_content"
@@ -227,6 +226,25 @@
                 android:textColor="@color/colorWhite"
                 android:textSize="@dimen/text_small_body"
                 app:cornerRadius="25dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toEndOf="@+id/view_separator"
+                app:layout_constraintTop_toBottomOf="@+id/text_view_body"
+                tools:text="Science" />-->
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_ad_call_to_action"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_16"
+                android:layout_marginEnd="@dimen/margin_16"
+                android:layout_marginBottom="@dimen/margin_16"
+                android:fontFamily="@font/semi_bold"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Chip.ExamSubcategory"
+                android:textColor="@color/colorWhite"
+                app:chipBackgroundColor="@color/colorBlack"
+                app:chipIconEnabled="false"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
