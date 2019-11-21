@@ -32,7 +32,7 @@ class AboutFragment : BaseFragment<AboutMvpView, AboutPresenter>() {
                 .addItem(Element().setTitle(String.format(Locale.ENGLISH,
                         getString(R.string.placeholder_version), AndroidUtils.getVersionName()))
                 )
-                .addEmail(getString(R.string.my_email))
+                .addEmail(getString(R.string.settings_developer_email))
                 .addFacebook(getString(R.string.my_facebook))
                 .addGitHub(getString(R.string.my_github))
                 .create()

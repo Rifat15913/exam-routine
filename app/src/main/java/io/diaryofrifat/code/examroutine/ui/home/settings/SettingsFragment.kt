@@ -2,7 +2,6 @@ package io.diaryofrifat.code.examroutine.ui.home.settings
 
 import android.content.ActivityNotFoundException
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -68,12 +67,12 @@ class SettingsFragment : PreferenceFragmentCompat() {
                             Locale.getDefault(),
                             getString(R.string.settings_feedback_email_body),
                             Build.VERSION.RELEASE,
-                            packageManager?.getPackageInfo(context?.packageName, 0)?.versionName,
+                            AndroidUtils.getVersionName(),
                             Build.BRAND,
                             Build.MODEL,
                             Build.MANUFACTURER
                     )
-                } catch (e: PackageManager.NameNotFoundException) {
+                } catch (e: Exception) {
                     Timber.e(e)
                 }
 
