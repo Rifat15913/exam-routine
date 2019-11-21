@@ -71,7 +71,7 @@
     <string name="market_link">market://details?id=</string>
     <string name="play_store_link">http://play.google.com/store/apps/details?id=</string>
     <string name="privacy_policy_link">https://exam-routine.flycricket.io/privacy.html</string>
-    <string name="content_share_the_app">Share the app link</string>
+    <string name="content_share_the_app">Sharing the app</string>
     <string name="exam_item">Exam item</string>
     <string name="no_application_found">No application can handle this request. Please install a web browser.</string>
 

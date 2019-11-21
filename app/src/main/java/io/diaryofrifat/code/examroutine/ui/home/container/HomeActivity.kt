@@ -1,12 +1,9 @@
 package io.diaryofrifat.code.examroutine.ui.home.container
 
-import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import androidx.core.app.ShareCompat
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.MobileAds
 import com.google.firebase.analytics.FirebaseAnalytics
@@ -18,13 +15,10 @@ import io.diaryofrifat.code.examroutine.ui.examdates.ExamDatesFragment
 import io.diaryofrifat.code.examroutine.ui.home.exam.ExamFragment
 import io.diaryofrifat.code.examroutine.ui.home.settings.SettingsContainerFragment
 import io.diaryofrifat.code.examroutine.ui.selection.container.SelectionContainerActivity
-import io.diaryofrifat.code.utils.helper.AndroidUtils
 import io.diaryofrifat.code.utils.helper.Constants
 import io.diaryofrifat.code.utils.helper.DataUtils
 import io.diaryofrifat.code.utils.helper.ViewUtils
-import io.diaryofrifat.code.utils.libs.ToastUtils
 import kotlinx.android.synthetic.main.activity_home.*
-import timber.log.Timber
 
 
 class HomeActivity : BaseActivity<HomeMvpView, HomePresenter>() {
@@ -150,47 +144,8 @@ class HomeActivity : BaseActivity<HomeMvpView, HomePresenter>() {
                     }
                 }
 
-                R.id.nav_change_exam_type -> {
-                    finish()
-                }
-
-                R.id.nav_rate_it -> {
-
-                    try {
-                        startActivity(Intent(Intent.ACTION_VIEW,
-                                Uri.parse(getString(R.string.market_link)
-                                        + AndroidUtils.getApplicationId())))
-                    } catch (e: ActivityNotFoundException) {
-                        Timber.e(e)
-                        try {
-                            startActivity(Intent(Intent.ACTION_VIEW,
-                                    Uri.parse(getString(R.string.play_store_link)
-                                            + AndroidUtils.getApplicationId())))
-                        } catch (e: Exception) {
-                            Timber.e(e)
-                            ToastUtils.error(getString(R.string.error_could_not_find_the_application))
-                        }
-                    }
-                }
-
-                R.id.nav_share_the_app -> {
-                    ShareCompat.IntentBuilder.from(this)
-                            .setType("text/plain")
-                            .setChooserTitle(getString(R.string.content_share_the_app))
-                            .setText((getString(R.string.play_store_link)
-                                    + AndroidUtils.getApplicationId()))
-                            .startChooser()
-                }
-
                 R.id.nav_about -> {
                     launchAboutPage()
-                }
-
-                R.id.nav_privacy_policy -> {
-                    startActivity(Intent(
-                            Intent.ACTION_VIEW,
-                            Uri.parse(getString(R.string.privacy_policy_link)))
-                    )
                 }
             }
 
