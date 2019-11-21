@@ -72,6 +72,15 @@
             app:summary="@string/settings_summary_about"
             app:title="@string/settings_title_about" />
 
+        <Preference
+            app:allowDividerAbove="false"
+            app:allowDividerBelow="false"
+            app:iconSpaceReserved="true"
+            app:key="@string/settings_key_version"
+            app:selectable="false"
+            app:summary="@string/app_version_name"
+            app:title="@string/settings_title_version" />
+
     </PreferenceCategory>
 
 </PreferenceScreen>

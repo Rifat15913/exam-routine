@@ -96,6 +96,7 @@
     <string name="settings_key_give_feedback" translatable="false">give_feedback</string>
     <string name="settings_key_privacy_policy" translatable="false">privacy_policy</string>
     <string name="settings_key_about" translatable="false">about</string>
+    <string name="settings_key_version" translatable="false">version</string>
 
     <string name="settings_routine_category">Routine</string>
     <string name="settings_app_category">Application</string>
@@ -103,9 +104,10 @@
     <string name="settings_title_change_exam">Change exam</string>
     <string name="settings_title_rate_it">Rate it</string>
     <string name="settings_title_share_the_app">Share the app</string>
-    <string name="settings_title_give_feedback">Give feedback</string>
+    <string name="settings_title_give_feedback">Send feedback</string>
     <string name="settings_title_privacy_policy">Privacy policy</string>
     <string name="settings_title_about">About</string>
+    <string name="settings_title_version">Version</string>
 
     <string name="settings_summary_change_exam">Select a different exam routine</string>
     <string name="settings_summary_rate_it">Give us a rating at play store</string>
@@ -113,5 +115,9 @@
     <string name="settings_summary_give_feedback">Provide your valuable feedback to us</string>
     <string name="settings_summary_privacy_policy">Know our privacy policy</string>
     <string name="settings_summary_about">Know more about us</string>
+
+    <string name="settings_developer_email">mohd.asfaqeazam@gmail.com</string>
+    <string name="settings_feedback_email_subject">Feedback: Exam Routine</string>
+    <string name="settings_feedback_email_body">Device OS: Android (%s)\nApp Version: %s\nDevice Brand: %s\nDevice Model: %s\nDevice Manufacturer: %s\n\n</string>
 
 </resources>
