@@ -51,6 +51,21 @@
         <Preference
             app:allowDividerAbove="false"
             app:allowDividerBelow="false"
+            app:icon="@drawable/ic_about"
+            app:iconSpaceReserved="false"
+            app:key="@string/settings_key_about"
+            app:summary="@string/settings_summary_about"
+            app:title="@string/settings_title_about">
+
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="@string/settings_landing_page_url" />
+
+        </Preference>
+
+        <Preference
+            app:allowDividerAbove="false"
+            app:allowDividerBelow="false"
             app:icon="@drawable/ic_privacy_policy"
             app:iconSpaceReserved="false"
             app:key="@string/settings_key_privacy_policy"
@@ -62,16 +77,6 @@
                 android:data="@string/settings_privacy_policy_url" />
 
         </Preference>
-
-        <Preference
-            app:allowDividerAbove="false"
-            app:allowDividerBelow="false"
-            app:icon="@drawable/ic_about"
-            app:iconSpaceReserved="false"
-            app:key="@string/settings_key_about"
-            app:selectable="false"
-            app:summary="@string/settings_summary_about"
-            app:title="@string/settings_title_about" />
 
         <Preference
             app:allowDividerAbove="false"

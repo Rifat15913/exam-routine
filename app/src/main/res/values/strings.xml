@@ -115,9 +115,18 @@
     <string name="settings_developer_email">mohd.asfaqeazam@gmail.com</string>
     <string name="settings_feedback_email_subject">Feedback: Exam Routine</string>
     <string name="settings_feedback_email_body">Device OS: Android (%s)\nApp Version: %s\nDevice Brand: %s\nDevice Model: %s\nDevice Manufacturer: %s\n\nYour Feedback: </string>
-    <string name="settings_market_url">market://details?id=</string>
-    <string name="settings_play_store_url">http://play.google.com/store/apps/details?id=</string>
-    <string name="settings_privacy_policy_url">https://exam-routine.flycricket.io/privacy.html</string>
+    <string name="settings_market_url" translatable="false">
+        market://details?id=
+    </string>
+    <string name="settings_play_store_url" translatable="false">
+        http://play.google.com/store/apps/details?id=
+    </string>
+    <string name="settings_privacy_policy_url" translatable="false">
+        https://exam-routine.flycricket.io/privacy.html
+    </string>
+    <string name="settings_landing_page_url" translatable="false">
+        https://exam-routine.flycricket.io/
+    </string>
     <string name="settings_sharing_the_app">Sharing the app</string>
     <string name="settings_error_no_application_found">No application can handle this request. Please install a web browser.</string>
 
