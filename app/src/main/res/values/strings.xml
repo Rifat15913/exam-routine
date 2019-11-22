@@ -1,37 +1,16 @@
 <resources>
     <!--App Essentials-->
     <string name="app_name">Exam Routine</string>
-    <string name="app_name_short">Exam Routine</string>
-    <string name="app_description">Exam Routine is a native application which provides the Board examination; i.e PSC, JSC, SSC and HSC routines. The application is very simple and user-friendly. You can provide your feedback further to improve the application experience. Thanks for being with us.</string>
-    <string name="file_provider_authority" translatable="false">io.diaryofrifat.code.examroutine.fileprovider</string>
-    <string name="intent_type_image">image/*</string>
-    <string name="intent_extra_return_data">return-data</string>
     <string name="loading">Loading…</string>
     <string name="please_wait">Please Wait</string>
-    <string name="interstitial_ad_decision_maker_page">Interstitial ad on decision maker page</string>
-    <string name="interstitial_ad_routine_page">Interstitial ad on routine page</string>
     <string name="no_item_found">No item found</string>
 
     <!--Error-->
     <string name="error_could_not_create_bitmap">Could not create bitmap from the view</string>
-    <string name="error_dao_is_null">Dao is null</string>
     <string name="error_adapter_size_is_null">Adapter size is null</string>
-    <string name="error_image_picking_intent_is_null">Image picking intent is null</string>
-    <string name="error_fragment_context_is_null">Fragment context is null</string>
-    <string name="error_selected_image_uri_is_null">Selected image uri is null</string>
-    <string name="error_could_not_crop_image">Could not crop image</string>
-    <string name="error_context_is_null">Context is null</string>
-    <string name="error_image_uri_is_null">Image Uri is null</string>
     <string name="something_went_wrong">Something went wrong</string>
     <string name="error_you_are_not_connected_to_the_internet">Please connect to the Internet</string>
     <string name="error_could_not_find_the_application">Sorry. Could not find the application.</string>
-
-    <!--Warning-->
-    <string name="warning_permissions_are_required">Permissions are required</string>
-
-    <!--Demo page-->
-    <string name="do_something">Do something</string>
-    <string name="pick_photo">Pick photo</string>
 
     <!--Selection container page-->
     <string name="select_exam_toolbar_title">Exam Routine</string>
@@ -40,12 +19,6 @@
 
     <!--Select exam page-->
     <string name="select_exam_subtitle">Select an exam</string>
-    <string name="select_exam_next">Next</string>
-    <string name="choose_one">Choose one please…</string>
-    <string name="psc">PSC</string>
-    <string name="jsc">JSC</string>
-    <string name="ssc">SSC</string>
-    <string name="hsc">HSC</string>
 
     <!--Select subcategory page-->
     <string name="select_subcategory_subtitle">Select an option</string>
@@ -55,34 +28,8 @@
     <string name="exam_placeholder_subject_code">#%s</string>
     <string name="exam_na_subcategory">N/A</string>
     <string name="exam_change_exam">Exams</string>
-    <string name="exam_legend_past">Past</string>
-    <string name="exam_legend_today">Today</string>
-    <string name="exam_legend_future">Future</string>
-    <string name="placeholder_subject_code">Subject Code: %s</string>
     <string name="placeholder_exam_time">%s - %s</string>
-    <string name="placeholder_routine">%s Routine</string>
-    <string name="placeholder_routine_year">%s Routine %s</string>
-    <string name="nav_change_exam_type">Change exam type</string>
-    <string name="nav_about">About</string>
-    <string name="nav_share_the_app">Share the app</string>
-    <string name="nav_rate_it">Rate it</string>
-    <string name="nav_routine">Home</string>
-    <string name="nav_privacy_policy">Privacy Policy</string>
-    <string name="exam_item">Exam item</string>
     <string name="exam_item_ad">Ad</string>
-
-    <!--Exam details page-->
-    <string name="exam_details">Exam Details</string>
-
-    <!--Date details page-->
-    <string name="on_this_day">On This Day</string>
-    <string name="next_exam_date">Next Date</string>
-
-    <!--About page-->
-    <string name="placeholder_version">Version %s</string>
-    <string name="my_email">mohd.asfaqeazam@gmail.com</string>
-    <string name="my_facebook">rif.rockzzz</string>
-    <string name="my_github">rifat15913</string>
 
     <!--Settings page-->
     <string name="settings_toolbar_title">Settings</string>
@@ -128,6 +75,5 @@
         https://exam-routine.flycricket.io/
     </string>
     <string name="settings_sharing_the_app">Sharing the app</string>
-    <string name="settings_error_no_application_found">No application can handle this request. Please install a web browser.</string>
 
 </resources>

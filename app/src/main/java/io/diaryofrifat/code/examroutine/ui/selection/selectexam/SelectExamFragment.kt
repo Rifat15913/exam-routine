@@ -2,9 +2,7 @@ package io.diaryofrifat.code.examroutine.ui.selection.selectexam
 
 import android.view.View
 import androidx.recyclerview.widget.GridLayoutManager
-import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.InterstitialAd
 import com.google.android.gms.ads.MobileAds
 import io.diaryofrifat.code.examroutine.R
 import io.diaryofrifat.code.examroutine.data.local.ExamType
@@ -25,7 +23,6 @@ import timber.log.Timber
 
 class SelectExamFragment : BaseFragment<SelectExamMvpView, SelectExamPresenter>(), SelectExamMvpView {
 
-    private var mInterstitialAd: InterstitialAd? = null
     private var mSelectedExamType: ExamType? = null
     private var mItemDecoration =
             GridSpacingItemDecoration(2, ViewUtils.getPixel(R.dimen.margin_8))
@@ -94,17 +91,7 @@ class SelectExamFragment : BaseFragment<SelectExamMvpView, SelectExamPresenter>(
 
     private fun loadAd() {
         MobileAds.initialize(mContext, DataUtils.getString(R.string.admob_app_id))
-
-        mInterstitialAd = InterstitialAd(mContext)
-        mInterstitialAd?.adUnitId = getString(R.string.select_exam_type_ad_unit_id)
-        mInterstitialAd?.loadAd(AdRequest.Builder().build())
-
-        mInterstitialAd?.adListener = object : AdListener() {
-            override fun onAdClosed() {
-                super.onAdClosed()
-                goToNextPage()
-            }
-        }
+        banner_ad_view?.loadAd(AdRequest.Builder().build())
     }
 
     private fun loadData() {
@@ -113,18 +100,12 @@ class SelectExamFragment : BaseFragment<SelectExamMvpView, SelectExamPresenter>(
     }
 
     override fun stopUI() {
-        mInterstitialAd?.adListener = null
-        mInterstitialAd = null
+
     }
 
     private fun clickOnItem(item: ExamType) {
         mSelectedExamType = item
-
-        if (mInterstitialAd?.isLoaded!!) {
-            mInterstitialAd?.show()
-        } else {
-            goToNextPage()
-        }
+        goToNextPage()
     }
 
     private fun goToNextPage() {

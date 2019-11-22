@@ -3,11 +3,9 @@
     <color name="colorPrimary">#B00020</color>
     <color name="colorPrimaryDark">#B00020</color>
     <color name="colorAccent">#B00020</color>
-    <color name="background">#FFFFFF</color>
 
     <!--Extra colors-->
     <color name="textRegular">#313131</color>
-    <color name="text_bold">#404040</color>
     <color name="textLight">#7E7777</color>
     <color name="textLight10">#1A7E7777</color>
 
@@ -15,7 +13,6 @@
     <color name="colorBottomBarItemEnabled">#B00020</color>
     <color name="colorBottomBarItemDisabled">#5F6368</color>
     <color name="disabledGray">#D3D2D2</color>
-    <color name="fortyPercentColorPrimary">#66B00020</color>
     <color name="darkBackground">#494A53</color>
     <color name="colorWhite">#ffffff</color>
     <color name="colorBlack">#000000</color>
@@ -23,11 +20,9 @@
     <color name="colorAlternativeGreen10">#1A006400</color>
     <color name="colorShadow">#d0d8dc</color>
     <color name="transparent">#00000000</color>
-    <color name="negative_red">#F5393E</color>
     <color name="colorAdAttribution">#FFCC66</color>
 
     <color name="colorPrimary10">#1AB00020</color>
     <color name="colorPrimary26">#43B00020</color>
-    <color name="colorPrimary50">#80B00020</color>
 
 </resources>

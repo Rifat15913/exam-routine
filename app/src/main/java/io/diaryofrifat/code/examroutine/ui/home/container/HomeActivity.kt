@@ -4,6 +4,10 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import com.google.android.gms.ads.AdListener
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.InterstitialAd
+import com.google.android.gms.ads.MobileAds
 import io.diaryofrifat.code.examroutine.R
 import io.diaryofrifat.code.examroutine.data.local.ExamType
 import io.diaryofrifat.code.examroutine.ui.base.component.BaseActivity
@@ -11,6 +15,7 @@ import io.diaryofrifat.code.examroutine.ui.home.exam.ExamFragment
 import io.diaryofrifat.code.examroutine.ui.home.settings.SettingsContainerFragment
 import io.diaryofrifat.code.examroutine.ui.selection.container.SelectionContainerActivity
 import io.diaryofrifat.code.utils.helper.Constants
+import io.diaryofrifat.code.utils.helper.DataUtils
 import io.diaryofrifat.code.utils.helper.ViewUtils
 import kotlinx.android.synthetic.main.activity_home.*
 
@@ -36,6 +41,7 @@ class HomeActivity : BaseActivity<HomeMvpView, HomePresenter>() {
         }
     }
 
+    private var mInterstitialAd: InterstitialAd? = null
     private var mCategory: ExamType? = null
     private var mSubcategory: ExamType? = null
 
@@ -106,7 +112,11 @@ class HomeActivity : BaseActivity<HomeMvpView, HomePresenter>() {
                 }
 
                 R.id.action_settings -> {
-                    visitSettings()
+                    if (mInterstitialAd?.isLoaded!!) {
+                        mInterstitialAd?.show()
+                    } else {
+                        visitSettings()
+                    }
                 }
             }
 
@@ -115,7 +125,8 @@ class HomeActivity : BaseActivity<HomeMvpView, HomePresenter>() {
     }
 
     override fun stopUI() {
-
+        mInterstitialAd?.adListener = null
+        mInterstitialAd = null
     }
 
     override fun onBackPressed() {
@@ -126,6 +137,26 @@ class HomeActivity : BaseActivity<HomeMvpView, HomePresenter>() {
             SelectionContainerActivity.startActivity(this)
         } else {
             visitExam()
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        loadAd()
+    }
+
+    private fun loadAd() {
+        MobileAds.initialize(this, DataUtils.getString(R.string.admob_app_id))
+
+        mInterstitialAd = InterstitialAd(this)
+        mInterstitialAd?.adUnitId = getString(R.string.settings_ad_unit_id)
+        mInterstitialAd?.loadAd(AdRequest.Builder().build())
+
+        mInterstitialAd?.adListener = object : AdListener() {
+            override fun onAdClosed() {
+                super.onAdClosed()
+                visitSettings()
+            }
         }
     }
 }

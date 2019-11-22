@@ -88,7 +88,6 @@
             app:chipIconEnabled="true" />
 
         <View
-            android:id="@+id/view_shadow"
             android:layout_width="0dp"
             android:layout_height="2dp"
             android:background="@drawable/drop_shadow"
