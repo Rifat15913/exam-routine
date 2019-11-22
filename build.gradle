@@ -1,8 +1,6 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
-    ext.kotlin_version = '1.3.50'
-    ext.gradle_version = '3.5.1'
 
     repositories {
         google()
@@ -16,8 +14,8 @@ buildscript {
 
     dependencies {
         classpath 'com.android.tools.build:gradle:3.5.2'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.3.50"
-        classpath 'com.google.gms:google-services:4.3.2'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.3.60"
+        classpath 'com.google.gms:google-services:4.3.3'
         classpath 'io.fabric.tools:gradle:1.31.0'
     }
 }
@@ -33,20 +31,6 @@ allprojects {
             url 'https://maven.google.com/'
         }
     }
-}
-
-ext {
-    build_tools_version = '28.0.3'
-    target_sdk_version = 28
-    // Does not support RTL (Right to left; i.e. Arabic), if (min SDK < 17)
-    minimum_sdk_version = 17
-    androidx_version = '1.0.0'
-    lifecycle_version = '2.1.0'
-    rxbinding_version = '2.2.0'
-    room_version = '2.1.0-alpha03'
-    retrofit_version = '2.4.0'
-    butterknife_version = '8.8.1'
-    leak_canary_version = '1.6.3'
 }
 
 task clean(type: Delete) {

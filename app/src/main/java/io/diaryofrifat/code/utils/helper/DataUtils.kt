@@ -13,7 +13,7 @@ class DataUtils private constructor() {
          * @return [String] unique string
          * */
         fun getUniqueId(): String {
-            return java.util.UUID.randomUUID().toString()
+            return UUID.randomUUID().toString()
         }
 
         /**

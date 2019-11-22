@@ -25,6 +25,7 @@ import io.diaryofrifat.code.examroutine.ui.base.callback.ItemLongClickListener
 import io.diaryofrifat.code.examroutine.ui.base.component.BaseAdapter
 import io.diaryofrifat.code.examroutine.ui.base.helper.SwipeItemHandler
 import io.reactivex.Observable
+import kotlin.math.roundToInt
 
 
 class ViewUtils {
@@ -110,7 +111,7 @@ class ViewUtils {
          * */
         fun dpToPx(dp: Int): Float {
             val density = Resources.getSystem().displayMetrics.density
-            return Math.round(dp * density).toFloat()
+            return (dp * density).roundToInt().toFloat()
         }
 
         /**

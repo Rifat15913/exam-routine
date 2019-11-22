@@ -45,7 +45,7 @@ abstract class BaseAdapter<T> : RecyclerView.Adapter<BaseViewHolder<T>>() {
     /**
      * Getter method for stream of getting adapter size
      *
-     * @return [Flowable] rx stream of adapter size
+     * @return rx stream of adapter size
      * */
     fun dataChanges(): Flowable<Int> {
         return mRxAdapterSize
@@ -264,7 +264,7 @@ abstract class BaseAdapter<T> : RecyclerView.Adapter<BaseViewHolder<T>>() {
      *
      * @param parent parent ViewGroup
      * @param itemLayout layout id of the item
-     * @return [ViewDataBinding] data binding object
+     * @return inflated view
      * */
     fun inflate(parent: ViewGroup, itemLayout: Int): View {
         return LayoutInflater.from(parent.context).inflate(itemLayout, parent, false)

@@ -1,7 +1,5 @@
 package io.diaryofrifat.code.utils.helper
 
-import io.diaryofrifat.code.examroutine.R
-
 class Constants {
     class Default {
         companion object {
@@ -21,51 +19,13 @@ class Constants {
             const val APP_COMMON_ONLY_DATE_FORMAT: String = "dd"
             const val APP_COMMON_ONLY_DAY_FORMAT: String = "E"
             const val APP_COMMON_ONLY_MONTH_FORMAT: String = "MMM"
-            const val DATE_FORMAT = "dd MMM"
-            const val YEAR_FORMAT = "yyyy"
-        }
-    }
-
-    class TableNames {
-        companion object {
-            const val USER = "USER"
-        }
-    }
-
-    class ColumnNames {
-        companion object {
-            const val ID = "ID"
-            const val USER_ID = "USER_ID"
-            const val USER_NAME = "USER_NAME"
-        }
-    }
-
-    class PreferenceKey {
-        companion object {
-            const val EXAM_TYPE = "EXAM_TYPE"
         }
     }
 
     class IntentKey {
         companion object {
-            const val MODEL = "MODEL"
             const val CATEGORY = "category"
             const val SUBCATEGORY = "subcategory"
-        }
-    }
-
-    class File {
-        companion object {
-            val DIRECTORY_ROOT = DataUtils.getString(R.string.app_name)
-            val PREFIX_IMAGE = "IMG_"
-            val PREFIX_CROPPED_IMAGE = "IMG_CROPPED_"
-            val SUFFIX_IMAGE = ".jpg"
-        }
-    }
-
-    class SelectionIds {
-        companion object {
-            const val EXAM_TYPE = "exam_type"
         }
     }
 

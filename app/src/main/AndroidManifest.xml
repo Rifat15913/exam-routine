@@ -43,15 +43,6 @@
             android:launchMode="singleTop"
             android:theme="@style/AppTheme.GradientStatusBar" />
 
-        <activity
-            android:name=".ui.datedetails.DateDetailsActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme" />
-
-        <activity
-            android:name=".ui.examdetails.ExamDetailsActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme" />
     </application>
 
 </manifest>

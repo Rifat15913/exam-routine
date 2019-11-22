@@ -163,8 +163,10 @@ class TimeUtils private constructor() {
         fun getCalendarFromDate(date: String): Calendar {
             val calendar = Calendar.getInstance()
             try {
-                calendar.time = SimpleDateFormat(Constants.Common.APP_COMMON_DATE_FORMAT,
-                        Locale.ENGLISH).parse(date)
+                SimpleDateFormat(Constants.Common.APP_COMMON_DATE_FORMAT,
+                        Locale.ENGLISH).parse(date)?.let {
+                    calendar.time = it
+                }
             } catch (e: ParseException) {
                 Timber.e(e)
             }
@@ -185,8 +187,8 @@ class TimeUtils private constructor() {
          * exact 0 means date1 and date2 is equal
          */
         fun compareTwoDates(date1: String, date2: String): Int {
-            return TimeUtils.getCalendarFromDate(date1).time
-                    .compareTo(TimeUtils.getCalendarFromDate(date2).time)
+            return getCalendarFromDate(date1).time
+                    .compareTo(getCalendarFromDate(date2).time)
         }
 
         /**

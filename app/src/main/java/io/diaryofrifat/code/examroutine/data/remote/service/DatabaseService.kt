@@ -13,10 +13,10 @@ object DatabaseService {
     /**
      * Fields
      * */
-    private val mFirebaseDatabase = FirebaseDatabase.getInstance()
+    private val mDatabase = FirebaseDatabase.getInstance()
 
     init {
-        mFirebaseDatabase.setPersistenceEnabled(true)
+        mDatabase.setPersistenceEnabled(true)
     }
 
     /**
@@ -26,7 +26,7 @@ object DatabaseService {
      * @return [DatabaseReference] reference of the database
      * */
     fun getDatabaseReference(path: String): DatabaseReference? {
-        return mFirebaseDatabase.reference.child(path)
+        return mDatabase.reference.child(path)
     }
 
     /**
@@ -35,7 +35,7 @@ object DatabaseService {
      * @return [DatabaseReference] reference of the exam types
      * */
     fun getExamTypes(): DatabaseReference? {
-        return mFirebaseDatabase.reference
+        return mDatabase.reference
                 .child(DataUtils.getString(R.string.path_exam_types))
     }
 
@@ -45,7 +45,7 @@ object DatabaseService {
      * @return [DatabaseReference] reference of the subcategory keys
      * */
     fun getSubcategories(categoryKey: String): DatabaseReference? {
-        return mFirebaseDatabase.reference
+        return mDatabase.reference
                 .child(DataUtils.getString(R.string.path_subcategories) + categoryKey)
     }
 
@@ -56,7 +56,7 @@ object DatabaseService {
      * @return [DatabaseReference] reference of the exams
      * */
     fun getExams(category: ExamType, subcategory: ExamType?): Query? {
-        return mFirebaseDatabase.reference
+        return mDatabase.reference
                 .child(DataUtils.getString(R.string.path_exams)
                         + category.examTypeKey
                         +

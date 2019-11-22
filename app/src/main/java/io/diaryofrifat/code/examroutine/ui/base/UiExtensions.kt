@@ -15,7 +15,7 @@ import io.diaryofrifat.code.utils.helper.ViewUtils
  * @author Mohd. Asfaq-E-Azam Rifat
  * */
 
-fun View.isVisibile(): Boolean = visibility == View.VISIBLE
+fun View.isVisible(): Boolean = visibility == View.VISIBLE
 
 fun View.isGone(): Boolean = visibility == View.GONE
 

@@ -211,26 +211,6 @@
                 app:layout_constraintTop_toBottomOf="@+id/text_view_ad_advertiser"
                 tools:text="10:00 AM - 01:00 PM" />
 
-            <!--<com.google.android.material.button.MaterialButton
-                android:id="@+id/button_ad_call_to_action"
-                style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_16"
-                android:layout_marginEnd="@dimen/margin_16"
-                android:layout_marginBottom="@dimen/margin_16"
-                android:fontFamily="@font/semi_bold"
-                android:textAllCaps="false"
-                android:textColor="@color/colorWhite"
-                android:textSize="@dimen/text_small_body"
-                app:cornerRadius="25dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toEndOf="@+id/view_separator"
-                app:layout_constraintTop_toBottomOf="@+id/text_view_body"
-                tools:text="Science" />-->
-
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip_ad_call_to_action"
                 android:layout_width="wrap_content"
