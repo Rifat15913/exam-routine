@@ -1,11 +1,15 @@
 package io.diaryofrifat.code.examroutine.data.remote.model
 
+import androidx.annotation.Keep
 import com.google.android.gms.ads.formats.UnifiedNativeAd
 import com.google.firebase.database.Exclude
+import com.google.firebase.database.IgnoreExtraProperties
 import com.google.firebase.database.PropertyName
 import io.diaryofrifat.code.examroutine.data.local.ExamType
 import io.diaryofrifat.code.utils.helper.Constants
 
+@IgnoreExtraProperties
+@Keep
 data class Exam(
         @Exclude
         var id: Int = Constants.Default.DEFAULT_INTEGER,
