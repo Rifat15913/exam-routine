@@ -18,7 +18,8 @@ abstract class BaseFragment<V : MvpView, P : BasePresenter<V>> : Fragment(),
      * It is used by Fragments and Support Library Activities.
      * You can also directly use it if you have a custom LifecycleOwner.
      */
-    private lateinit var mLifecycleRegistry: LifecycleRegistry
+    @Suppress("LeakingThis")
+    private var mLifecycleRegistry: LifecycleRegistry = LifecycleRegistry(this)
 
     /**
      * Fields
@@ -79,8 +80,6 @@ abstract class BaseFragment<V : MvpView, P : BasePresenter<V>> : Fragment(),
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        mLifecycleRegistry = LifecycleRegistry(this)
-
         return if (layoutId > INVALID_ID) {
             initializeLayout(inflater, layoutId, container)
         } else {

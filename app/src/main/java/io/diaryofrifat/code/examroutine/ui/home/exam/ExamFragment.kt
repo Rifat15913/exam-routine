@@ -158,6 +158,10 @@ class ExamFragment : BaseFragment<ExamMvpView, ExamPresenter>(), ExamMvpView {
         }
 
         val list = getAdapter().getItems()
+        if (list.isEmpty()) {
+            return
+        }
+
         var hasScrolled = false
         for (i in list.indices) {
             val item = list[i]
