@@ -81,6 +81,7 @@ class HomeActivity : BaseActivity<HomeMvpView, HomePresenter>() {
         }
 
         window.setBackgroundDrawable(null)
+        MobileAds.initialize(this, DataUtils.getString(R.string.admob_app_id))
 
         visitExam()
     }
@@ -146,8 +147,6 @@ class HomeActivity : BaseActivity<HomeMvpView, HomePresenter>() {
     }
 
     private fun loadAd() {
-        MobileAds.initialize(this, DataUtils.getString(R.string.admob_app_id))
-
         mInterstitialAd = InterstitialAd(this)
         mInterstitialAd?.adUnitId = getString(R.string.settings_ad_unit_id)
         mInterstitialAd?.loadAd(AdRequest.Builder().build())
@@ -156,6 +155,7 @@ class HomeActivity : BaseActivity<HomeMvpView, HomePresenter>() {
             override fun onAdClosed() {
                 super.onAdClosed()
                 visitSettings()
+                loadAd()
             }
         }
     }
