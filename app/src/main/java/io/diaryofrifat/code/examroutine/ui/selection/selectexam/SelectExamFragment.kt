@@ -96,7 +96,7 @@ class SelectExamFragment : BaseFragment<SelectExamMvpView, SelectExamPresenter>(
 
     private fun loadData() {
         presenter.checkInternetConnectivity()
-        presenter.getExamTypes(mContext)
+        presenter.getExamTypes()
     }
 
     override fun stopUI() {
