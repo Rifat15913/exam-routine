@@ -118,38 +118,47 @@
                 app:layout_constraintStart_toEndOf="@+id/view_initial_separator"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/text_view_price"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraint_layout_head_container"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_16"
-                android:textColor="@color/textLight"
-                android:textSize="@dimen/text_small_body"
-                app:fontFamily="@font/regular"
                 app:layout_constraintBottom_toTopOf="@+id/text_view_headline"
-                app:layout_constraintEnd_toStartOf="@+id/text_view_store"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintHorizontal_chainStyle="packed"
-                app:layout_constraintStart_toEndOf="@+id/view_separator"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_chainStyle="packed"
-                tools:text="#101" />
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/text_view_store"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/margin_16"
-                android:paddingStart="@dimen/padding_8"
-                android:paddingEnd="0dp"
-                android:textColor="@color/textLight"
-                android:textSize="@dimen/text_small_body"
-                app:fontFamily="@font/regular"
-                app:layout_constraintBottom_toBottomOf="@+id/text_view_price"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/text_view_price"
-                app:layout_constraintTop_toTopOf="@+id/text_view_price"
-                tools:text="#101" />
+                app:layout_constraintStart_toEndOf="@+id/view_separator"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/text_view_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/textLight"
+                    android:textSize="@dimen/text_small_body"
+                    app:fontFamily="@font/regular"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/text_view_store"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="#101" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/text_view_store"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/margin_16"
+                    android:paddingStart="@dimen/padding_8"
+                    android:paddingEnd="0dp"
+                    android:textColor="@color/textLight"
+                    android:textSize="@dimen/text_small_body"
+                    app:fontFamily="@font/regular"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/text_view_price"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="#101" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/text_view_headline"
@@ -161,41 +170,53 @@
                 android:textColor="@color/textRegular"
                 android:textSize="@dimen/textTitle"
                 app:fontFamily="@font/bold"
-                app:layout_constraintBottom_toTopOf="@+id/text_view_ad_advertiser"
+                app:layout_constraintBottom_toTopOf="@+id/constraint_layout_center_body_container"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/view_separator"
-                app:layout_constraintTop_toBottomOf="@+id/text_view_price"
+                app:layout_constraintTop_toBottomOf="@+id/constraint_layout_head_container"
                 tools:text="Physics 1st paper" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/text_view_ad_advertiser"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraint_layout_center_body_container"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_4"
                 android:layout_marginBottom="@dimen/margin_4"
-                android:textColor="@color/textRegular"
-                android:textSize="@dimen/text_body"
-                app:fontFamily="@font/regular"
                 app:layout_constraintBottom_toTopOf="@+id/text_view_body"
-                app:layout_constraintEnd_toStartOf="@+id/rating_bar_stars"
+                app:layout_constraintEnd_toEndOf="@+id/text_view_headline"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintHorizontal_chainStyle="packed"
                 app:layout_constraintStart_toStartOf="@+id/text_view_headline"
-                app:layout_constraintTop_toBottomOf="@+id/text_view_headline" />
+                app:layout_constraintTop_toBottomOf="@+id/text_view_headline">
 
-            <androidx.appcompat.widget.AppCompatRatingBar
-                android:id="@+id/rating_bar_stars"
-                style="?android:attr/ratingBarStyleSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_8"
-                android:isIndicator="true"
-                android:numStars="5"
-                android:stepSize="0.5"
-                app:layout_constraintBottom_toBottomOf="@+id/text_view_ad_advertiser"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/text_view_ad_advertiser"
-                app:layout_constraintTop_toTopOf="@+id/text_view_ad_advertiser" />
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/text_view_ad_advertiser"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginEnd="@dimen/margin_8"
+                    android:textColor="@color/textRegular"
+                    android:textSize="@dimen/text_body"
+                    app:fontFamily="@font/regular"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/rating_bar_stars"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatRatingBar
+                    android:id="@+id/rating_bar_stars"
+                    style="?android:attr/ratingBarStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:isIndicator="true"
+                    android:numStars="5"
+                    android:stepSize="0.5"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/text_view_ad_advertiser"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:rating="3.5" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/text_view_body"
@@ -208,7 +229,7 @@
                 app:layout_constraintBottom_toTopOf="@+id/chip_ad_call_to_action"
                 app:layout_constraintEnd_toEndOf="@+id/text_view_headline"
                 app:layout_constraintStart_toStartOf="@+id/text_view_headline"
-                app:layout_constraintTop_toBottomOf="@+id/text_view_ad_advertiser"
+                app:layout_constraintTop_toBottomOf="@+id/constraint_layout_center_body_container"
                 tools:text="10:00 AM - 01:00 PM" />
 
             <com.google.android.material.chip.Chip
