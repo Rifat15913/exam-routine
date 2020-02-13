@@ -1,6 +1,6 @@
 <resources>
     <!--App Essentials-->
-    <string name="app_name">Exam Routine</string>
+    <string name="app_name">Exammer</string>
     <string name="loading">Loading…</string>
     <string name="please_wait">Please Wait</string>
     <string name="no_item_found">No item found</string>
